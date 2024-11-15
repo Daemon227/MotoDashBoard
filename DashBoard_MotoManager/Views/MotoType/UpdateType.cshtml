@@ -1,0 +1,27 @@
+﻿@model DashBoard_MotoManager.Models.MotoTypeVM
+@{
+    ViewData["Title"] = "UpdateType";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="bg-light rounded shadow p-4" style="max-width: 800px; width: 100%;">
+        <h4 class="mb-4 text-center">Thông Tin Loại Xe</h4>
+        <form method="post" asp-controller="MotoType" asp-action="UpdateType" asp-route-typeId="@Model.MaLoai">
+            <div class="mb-3">
+                <label  class="form-label">Tên Loại Xe</label>
+                <input type="text" class="form-control" asp-for="@Model.TenLoai" placeholder="Nhập tên loại xe" required>
+            </div>
+            <div class="text-center mt-4">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <button type="submit" class="btn btn-primary px-4">Sửa</button>
+                <a asp-controller="MotoType" asp-action="ListType"
+                   class="btn btn-primary px-4">
+                    Quay Lại
+                </a>
+                                    
+            </div>
+        </form>
+    </div>
+</div>
+

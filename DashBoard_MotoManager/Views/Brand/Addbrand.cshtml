@@ -1,0 +1,33 @@
+﻿@model DashBoard_MotoManager.Models.BrandVM
+@{
+    ViewData["Title"] = "Addbrand";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="bg-light rounded shadow p-4" style="max-width: 800px; width: 100%;">
+        <h4 class="mb-4 text-center">Thông Tin Hãng Sản Xuất</h4>
+        <form method="post" asp-controller="Brand" asp-action="AddBrand" asp-route-brandId="@Model.MaHangSanXuat">
+            <div class="mb-3">
+                <label for="brandName" class="form-label">Tên Hãng</label>
+                <input type="text" class="form-control" asp-for="@Model.TenHangSanXuat" placeholder="Nhập tên hãng sản xuất" required>
+            </div>
+            <div class="mb-3">
+                <label for="country" class="form-label">Quốc Gia</label>
+                <input type="text" class="form-control" asp-for="@Model.QuocGia" placeholder="Nhập quốc gia của hãng" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Mô Tả Ngắn</label>
+                <textarea class="form-control" asp-for="@Model.MoTaNgan" placeholder="Mô tả ngắn về hãng" rows="4"></textarea>
+            </div>
+            <div class="text-center mt-4">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <button type="submit" class="btn btn-primary px-4">Thêm Hãng Sản Xuất</button>
+                <a asp-controller="Brand" asp-action="ListBrand"
+                   class="btn btn-primary px-4">
+                    Quay Lại
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

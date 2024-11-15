@@ -1,0 +1,50 @@
+﻿@model DashBoard_MotoManager.Models.MotoDetailVM
+@{
+    ViewData["Title"] = "RemoveMoto";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+
+  <style>
+      td{
+          color:black;
+      }
+  </style>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="bg-light rounded shadow p-4" style="max-width: 800px; width: 100%;">
+        <h4 class="mb-4 text-center">Bạn có chắc chắn muốn xóa xe này không?</h4>
+        <div class="bg-light rounded h-100 p-4">
+            <table class="table table-bordered"> 
+                <tbody>
+                    <tr>
+                        <td><h4>Tên Xe</h4></td>
+                        <td><h3>@Model.TenXe</h3></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="text-center">
+                                <img width="200px" height="auto" src=~/img/Mota/@Model.AnhMoTaUrl class="rounded" alt="anh">
+                                <p>@Model.AnhMoTaUrl</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Giá Bán Từ</td>
+                        <td>@Model.GiaBanMoTa</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="bg-light rounded h-100 p-4">
+                <div class="text-center mt-4 d-flex justify-content-center gap-3">
+                    <form asp-controller="Moto" asp-action="ConfirmRemoveMoto" asp-route-maXe="@Model.MaXe" method="post">
+                        <button type="submit" class="btn btn-danger">Xóa</button>
+                    </form>
+                    <a asp-controller="Moto" asp-action="ListMoto"
+                       class="btn btn-primary">
+                        Quay Lại
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

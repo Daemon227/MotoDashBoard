@@ -1,0 +1,103 @@
+﻿@model X.PagedList.IPagedList<DashBoard_MotoManager.Models.MotoListVM>
+@{
+    ViewData["Title"] = "ListMoto";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+<style>
+    tr{
+        text-align:center;
+        color:black;
+    }
+</style>
+<!-- Recent Sales Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Danh Sách Xe</h6>
+            <a asp-controller="Moto" asp-action="AddMoto"
+               class="btn btn-outline-primary">
+                Thêm Xe Mới
+                <i class="bi bi-plus-circle-fill" style="color: blue;"></i>
+            </a>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">#</th>
+                        <th scope="col">Hình Ảnh</th>
+                        <th scope="col">Tên Xe</th>
+                        <th scope="col">Giá Bán Chỉ Từ</th>
+                        <th scope="col">Lựa Chọn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int index = 1;
+                    }
+                    @foreach (var moto in Model)
+                    {
+                        <tr>
+                            <td>@index</td>
+                            <td>
+                                <div class="text-center">
+                                    <img width="100px" height="auto" src=~/img/Mota/@moto.AnhMoTaUrl class="rounded" alt="anh">
+                                </div>
+                            </td>
+                            <td>@moto.TenXe</td>
+                            <td>@moto.GiaBanMoTa VND</td>
+                            <td>
+                                <div class="text-center">
+                                    <a asp-controller="Moto" asp-action="SeeDetail" asp-route-maXe="@moto.MaXe"
+                                       class="btn btn-outline-success m-2">
+                                        Xem
+                                        <i class="bi bi-eye-fill" style="color: green;"></i>
+                                    </a>
+                                    <a asp-controller="Moto" asp-action="EditMoto" asp-route-maXe="@moto.MaXe"
+                                       class="btn btn-outline-warning m-2">
+                                        Sửa
+                                        <i class="bi bi-wrench" style="color: #FFD43B;"></i>
+                                    </a>
+
+                                    <a asp-controller="Moto" asp-action="RemoveMoto" asp-route-maXe="@moto.MaXe"
+                                       class="btn btn-outline-danger m-2">
+                                        Xoá
+                                        <i class="bi bi-trash-fill" style="color: red;"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        index++;
+                    }  
+                </tbody>
+            </table>
+        </div>
+        <!-- Phân trang -->
+        <div class="align-items-center" style="margin-top:30px">
+            <div class="btn-group me-2" role="group" aria-label="First group">
+                @if (Model.HasPreviousPage)
+                {
+                    <a href="@Url.Action("ListMoto", new { page = Model.PageNumber - 1 })" class="btn btn-primary">Trước</a>
+                }
+
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    <a href="@Url.Action("ListMoto", new { page = i})" class="@(i == Model.PageNumber ? "btn btn-primary active" : "btn btn-primary")">
+                        @i
+                    </a>
+                }
+
+                @if (Model.HasNextPage)
+                {
+                    <a href="@Url.Action("ListMoto", new { page = Model.PageNumber + 1})" class="btn btn-primary">Sau</a>
+                }
+            </div>
+        </div>   
+    </div>
+    
+</div>
+<!-- Recent Sales End -->
+
+
+
+

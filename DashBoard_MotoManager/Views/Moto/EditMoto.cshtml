@@ -1,0 +1,575 @@
+﻿@model DashBoard_MotoManager.Models.EditMotoVM
+@{
+    ViewData["Title"] = "EditMoto";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+
+<style>
+    div{
+        color:black;
+    }
+</style>
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Thêm Xe Mới</h6>
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                                aria-selected="true">
+                            Thông Tin Chung
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-profile" type="button" role="tab"
+                                aria-controls="pills-profile" aria-selected="false">
+                            Phiên Bản Xe
+                        </button>
+                    </li>
+                </ul>
+                <form asp-action="EditMoto" asp-route-maXe="@Model.MotoBike.MaXe" method="post" enctype="multipart/form-data">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                            <div class="container-fluid pt-4 px-4">
+                                <div class="row g-4">
+                                    <!--Phan Nay là set thông tin chung + Thư Viện-->
+                                    <div class="col-sm-12 col-xl-6">
+                                        <div class="bg-light rounded h-100 p-4">
+                                            <h6 class="mb-4">Thông Tin Chung</h6>
+                                            <div class="mb-3">
+                                                <label asp-for="@Model.MotoBike.TenXe" class="form-label">Tên Xe</label>
+                                                <input type="text" class="form-control" asp-for="@Model.MotoBike.TenXe"
+                                                       aria-describedby="emailHelp">
+                                                <span asp-validation-for="@Model.MotoBike.TenXe" class="text-danger"></span>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for="@Model.MotoBike.GiaBanMoTa" class="form-label">Giá Bán Từ</label>
+                                                <input type="text" class="form-control" asp-for="@Model.MotoBike.GiaBanMoTa">
+                                                <span asp-validation-for="@Model.MotoBike.GiaBanMoTa" class="text-danger"></span>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Ảnh Mô Tả</label>
+                                                <input class="form-control" type="file" id="singleImageInput" asp-for="@Model.AnhMoTaIF">
+                                            </div>
+                                            <div class="mb-3" style="text-align: center;">
+                                                <img id="singleImagePreview" src="~/img/MoTa/@Model.MotoBike.AnhMoTaUrl" alt="Image Preview" style="width: 200px; height: auto; margin: auto;" />
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                @{
+                                                    bool isFirstBrand = true;
+                                                }
+                                                <select class="form-select" asp-for="@Model.MotoBike.MaHangSanXuat" aria-label="Floating label select example">
+                                                    @foreach (var brand in Model.Brands)
+                                                    {
+                                                        if (isFirstBrand)
+                                                        {
+                                                            <option selected value="@brand.MaHangSanXuat">@brand.TenHangSanXuat</option>
+                                                            isFirstBrand = false;
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@brand.MaHangSanXuat">@brand.TenHangSanXuat</option>
+                                                        }
+                                                    }
+                                                </select>
+                                                <label for="floatingSelect">Hãng Sản Xuất</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                @{
+                                                    bool isFirstType = true;
+                                                }
+                                                <select class="form-select" asp-for="@Model.MotoBike.MaLoai" aria-label="Floating label select example">
+                                                    @foreach (var type in Model.MotoTypes)
+                                                    {
+                                                        if (isFirstType)
+                                                        {
+                                                            <option selected value="@type.MaLoai">@type.TenLoai</option>
+                                                            isFirstType = false;
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@type.MaLoai">@type.TenLoai</option>
+                                                        }
+                                                    }
+                                                </select>
+                                                <label for="floatingSelect">Loại Xe</label>
+                                            </div>
+                                            <div class="form-floating" style="padding-top:5px">
+                                                <textarea class="form-control" placeholder="Leave a comment here" asp-for="@Model.MotoBike.ThietKe" style="height: 150px;"></textarea>
+                                                <label asp-for="@Model.MotoBike.ThietKe">Thiết Kế</label>
+                                            </div>
+                                            <div class="form-floating" style="padding-top:5px">
+                                                <textarea class="form-control" placeholder="Leave a comment here" asp-for="@Model.MotoBike.TinhNangNoiBat" style="height: 150px;"></textarea>
+                                                <label asp-for="@Model.MotoBike.TinhNangNoiBat">Tính Năng Nổi Bật</label>
+                                            </div>
+                                            <div class="form-floating" style="padding-top:5px">
+                                                <textarea class="form-control" placeholder="Leave a comment here" asp-for="@Model.MotoBike.TienIch" style="height: 150px;"></textarea>
+                                                <label asp-for="@Model.MotoBike.TienIch">Tiện Ích</label>
+                                            </div>
+                                            <!--Thu vien-->
+                                            <div class="mb-3">
+                                                <div class="mb-3">
+                                                    <label asp-for="LibraryImageIF" class="form-label">Thư Viện Ảnh Của Xe</label>
+                                                    <input class="form-control" type="file" id="multiImageInput" asp-for="LibraryImageIF" multiple>
+                                                </div>
+                                                <div class="mb-3" id="multiImagePreviewContainer" style="text-align: center;">
+                                                    @if (Model.MotoBike.MaLibraryNavigation != null && Model.MotoBike.MaLibraryNavigation.LibraryImages.Any())
+                                                    {
+                                                        @foreach (var libraryImg in Model.MotoBike.MaLibraryNavigation.LibraryImages)
+                                                        {
+                                                            <img src="~/img/LibraryImgs/@libraryImg.ImageUrl" style="width:200px;height:auto;margin:10px">
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Phan Nay là set thông số kỹ thuật-->
+                                    <div class="col-sm-12 col-xl-6">
+                                        <div class="bg-light rounded h-100 p-4">
+                                            <h6 class="mb-4">Thông Số Kỹ Thuật</h6>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.TrongLuong class="form-label">Trọng Lượng</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.TrongLuong
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.KichThuoc class="form-label">Kích Thước</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.KichThuoc
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.KhoangCachTrucBanhXe class="form-label">Khoảng Cách Trục Bánh Xe</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.KhoangCachTrucBanhXe
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.DoCaoYen class="form-label">Độ Cao Yên Xe</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.DoCaoYen
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.DoCaoGamXe class="form-label">Độ Cao Gầm Xe</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.DoCaoGamXe
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.DungTichBinhXang class="form-label">Dung Tích Bình Xăng</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.DungTichBinhXang
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.KichCoLop class="form-label">Kích Cỡ Lốp</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.KichCoLop
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.PhuocTruoc class="form-label">Phuộc Trước</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.PhuocTruoc
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.PhuocSau class="form-label">Phuộc Sau</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.PhuocSau
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.LoaiDongCo class="form-label">Loại Động Cơ</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.LoaiDongCo
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.CongSuatToiDa class="form-label">Công Suất Tối Đa</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.CongSuatToiDa
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.MucTieuThuNhienLieu class="form-label">Mức Tiêu Thụ Nhiên Liệu</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.MucTieuThuNhienLieu
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.HeThongKhoiDong class="form-label">Hệ Thống Khởi Động</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.HeThongKhoiDong
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.MomentCucDai class="form-label">Moment Cực Đại</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.MomentCucDai
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.DungTichXyLanh class="form-label">Dung Tích XyLanh</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.DungTichXyLanh
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.DuongKinhHanhTrinhPittong class="form-label">Đường Kính Và Hành Trình Pittong</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.DuongKinhHanhTrinhPittong
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label asp-for=@Model.MotoBike.TySoNen class="form-label">Tỷ Số Nén</label>
+                                                <input type="text" class="form-control" asp-for=@Model.MotoBike.TySoNen
+                                                       aria-describedby="emailHelp">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Phan Nay là set Version d-->
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                            <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+                                <div class="bg-light rounded shadow p-4" style="max-width: 150%; width: 100%;">
+                                    <div class="d-flex align-items-start">
+                                        <div class="col-3 d-flex flex-column justify-content-start align-items-center mb-4" style="position: sticky; top: 150px;">
+                                            <h6 class="mb-4">Danh Sách Phiên Bản</h6>
+                                            <button type="button" class="btn btn-success" id="add-version-button" onclick="addVersion()">Thêm Phiên Bản</button>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="container-fluid pt-4 px-4">
+                                                <div class="bg-light-product rounded p-4">
+                                                    <div class="version-container mb-4">
+                                                        @for (int i = 0; i < Model.MotoBike.MotoVersions.Count; i++)
+                                                        {
+                                                            <div class="containerVersion d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+                                                                <div class="bg-light rounded shadow p-4" style="max-width: 150%; width: 100%;">
+                                                                    <div class="version-section mb-4">
+                                                                        <h6>Phiên Bản @(i + 1)</h6>
+                                                                        <div class="version-div">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label">Tên Phiên Bản</label>
+                                                                                <input type="text" class="form-control" asp-for="@Model.MotoVersionsVM[i].TenVersion" aria-describedby="emailHelp">
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label">Giá Bán Phiên Bản</label>
+                                                                                <input type="text" class="form-control" asp-for="@Model.MotoVersionsVM[i].GiaBanVersion">     
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <h6>Danh Sách Màu</h6>
+                                                                                <button type="button" id="add-color-button-@i" class="btn btn-secondary" onclick="addColor(@i)">Thêm Màu</button>
+                                                                                <div id="color-container-@i" class="color-container mb-3">
+                                                                                    @for (int j = 0; j < Model.MotoVersionsVM[i].VersionColorsVM.Count; j++)
+                                                                                    {
+                                                                                        <div class="color-section mb-3">
+                                                                                            <div class="mb-3">
+                                                                                                <label class="form-label">Tên Màu</label>
+                                                                                                <input type="text" asp-for="@Model.MotoVersionsVM[i].VersionColorsVM[j].TenMau" class="form-control">
+                                                                                                
+                                                                                            </div>
+                                                                                            <div class="mb-3">
+                                                                                                <label class="form-label">Ảnh Theo Phiên Bản + Màu</label>
+                                                                                                <input class="form-control" type="file" asp-for="@Model.MotoVersionsVM[i].VersionColorsVM[j].versionImageIF" id="colorImageInput-@i-@j" multiple>
+                                                                                            </div>
+                                                                                            <div id="colorImagePreviewContainer-@i-@j" class="text-center">
+                                                                                                @for (int k = 0; k < Model.MotoVersionsVM[i].VersionColorsVM[j].versionImageVM.Count; k++)
+                                                                                                {
+                                                                                                    <input type="hidden" asp-for="@Model.MotoVersionsVM[i].VersionColorsVM[j].versionImageVM[k].ImageId"
+                                                                                                           value="@Model.MotoVersionsVM[i].VersionColorsVM[j].versionImageVM[k].ImageId" />                                                                                                  
+                                                                                                }
+                                                                                                @foreach (var img in Model.MotoVersionsVM[i].VersionColorsVM[j].versionImageVM)
+                                                                                                {  
+                                                                                                    <img src="~/img/AnhVersion/@img.ImageUrl" style="width:200px; height:auto; margin:10px;" />
+                                                                                                }
+                                                                                            </div>
+                                                                                            <div class="clearfix mb-3">
+                                                                                                <button type="button" class="btn btn-danger" style="float: right;" onclick="removeColor(this)">Xóa Màu</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <button type="button" class="btn btn-danger" style="float: right;" onclick="removeVersion(this)">Xóa Phiên Bản</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <button type="submit" class="btn btn-primary">Sửa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!--Mã hiện ảnh khi chọn vào IFormFile-->
+<script>
+    document.getElementById('singleImageInput').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imgElement = document.getElementById('singleImagePreview');
+                imgElement.src = e.target.result;
+                imgElement.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('multiImageInput').addEventListener('change', function (event) {
+        const files = event.target.files;
+        const container = document.getElementById('multiImagePreviewContainer');
+        container.innerHTML = ''; // Clear previous images
+        Array.from(files).forEach(file => {
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = e.target.result;
+                    imgElement.style.width = '200px';
+                    imgElement.style.height = 'auto';
+                    imgElement.style.margin = '10px';
+                    container.appendChild(imgElement);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+
+
+
+<!--Mã set thêm, xóa version-->
+<script>
+    let versionIndex = @Model.MotoVersionsVM.Count; // Bắt đầu từ số phiên bản hiện tại
+    let colorIndexes = []; // Mảng để theo dõi số màu đã thêm cho mỗi phiên bản
+
+    function addVersion() {
+        const versionDiv = document.createElement('div');
+        versionDiv.className = "containerVersion d-flex justify-content-center align-items-center";
+        versionDiv.style = "min-height: 70vh;";
+        versionDiv.innerHTML = `
+                <div class="bg-light rounded shadow p-4" style="max-width: 150%; width: 100%;">
+                    <div class="version-section mb-4">
+                        <h6>Phiên Bản ${versionIndex + 1}</h6>
+                        <div class="version-div">
+                            <div class="mb-3">
+                                <label class="form-label">Tên Phiên Bản</label>
+                                <input type="text" name="MotoVersionsVM[${versionIndex}].TenVersion" class="form-control" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Giá Bán Phiên Bản</label>
+                                <input type="text" name="MotoVersionsVM[${versionIndex}].GiaBanVersion" class="form-control">                              
+                            </div>
+                            <div class="mb-3">
+                                <h6>Danh Sách Màu</h6>
+                                <button type="button" id="add-color-button-${versionIndex}" class="btn btn-secondary" onclick="addColor(${versionIndex})">Thêm Màu</button>
+                                <div id="color-container-${versionIndex}" class="color-container mb-3"></div>
+                            </div>
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-danger" style="float: right;" onclick="removeVersion(this)">Xóa Phiên Bản</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+        document.querySelector('.version-container').appendChild(versionDiv);
+        versionIndex++; // Tăng chỉ số phiên bản
+    }
+
+    function addColor(versionIndex) {
+        // Khởi tạo chỉ số màu cho phiên bản nếu chưa có 
+        if (typeof colorIndexes[versionIndex] === 'undefined') 
+        { 
+            colorIndexes[versionIndex] = document.querySelectorAll(`[name^="MotoVersionsVM[${versionIndex}].VersionColorsVM"][name$="TenMau"]`).length; 
+        }
+
+        const colorIndex = colorIndexes[versionIndex]; // Lấy chỉ số màu hiện tại
+
+        const colorDiv = document.createElement('div');
+        colorDiv.className = "color-section mb-3";
+        colorDiv.innerHTML = `
+                <div class="mb-3">
+                    <label class="form-label">Tên Màu</label>
+                    <input type="text" name="MotoVersionsVM[${versionIndex}].VersionColorsVM[${colorIndex}].TenMau" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ảnh Theo Phiên Bản + Màu</label>
+                    <input class="form-control" type="file" name="MotoVersionsVM[${versionIndex}].VersionColorsVM[${colorIndex}].versionImageIF" multiple id="colorImageInput-${versionIndex}-${colorIndex}">
+                </div>
+                <div id="colorImagePreviewContainer-${versionIndex}-${colorIndex}" class="text-center"></div>
+                <div class="clearfix mb-3">
+                    <button type="button" class="btn btn-danger" style="float: right;" onclick="removeColor(this)">Xóa Màu</button>
+                </div>
+            `;
+        document.getElementById(`color-container-${versionIndex}`).appendChild(colorDiv);
+        
+        // Thêm sự kiện change cho input file mới
+        document.getElementById(`colorImageInput-${versionIndex}-${colorIndex}`).addEventListener('change', function (event) {
+            const files = event.target.files;
+            const container = document.getElementById(`colorImagePreviewContainer-${versionIndex}-${colorIndex}`);
+            container.innerHTML = ''; // Clear previous images
+            Array.from(files).forEach(file => {
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = e.target.result;
+                        imgElement.style.width = '200px';
+                        imgElement.style.height = 'auto';
+                        imgElement.style.margin = '10px';
+                        container.appendChild(imgElement);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+
+        // Tăng chỉ số màu cho phiên bản 
+        colorIndexes[versionIndex]++;
+    }
+
+    function removeColor(button) {
+        const colorDiv = button.closest('.color-section'); // Lấy phần tử div của màu 
+        const colorContainer = colorDiv.closest('.color-container'); // Lấy container chứa các màu của phiên bản 
+        const versionIndex = colorContainer.id.split('-')[2]; // Lấy chỉ số phiên bản từ ID của container 
+        const colorIndex = Array.from(colorContainer.children).indexOf(colorDiv); // Lấy chỉ số của màu trong container 
+        
+        // Xóa phần tử này khỏi DOM 
+        colorDiv.remove(); 
+        
+        // Cập nhật lại chỉ số của các màu còn lại phía sau         
+        const colorInputs = colorContainer.querySelectorAll('.color-section'); 
+        colorInputs.forEach((colorInput, index) => { 
+            if (index >= colorIndex) 
+            { 
+                // Cập nhật lại name của các input màu phía sau 
+                const input = colorInput.querySelector('input[type="text"]'); 
+                input.name = `MotoVersionsVM[${versionIndex}].VersionColorsVM[${index}].TenMau`; 
+                const fileInput = colorInput.querySelector('input[type="file"]'); 
+                fileInput.name = `MotoVersionsVM[${versionIndex}].VersionColorsVM[${index}].versionImageIF`; 
+            } 
+        });
+            // Cập nhật lại colorIndexes sau khi xóa 
+            colorIndexes[versionIndex]--; // Giảm chỉ số màu cho phiên bản 
+            // Đảm bảo cập nhật đúng số màu trong colorIndexes 
+            if (colorIndexes[versionIndex] < 0) 
+            { 
+                colorIndexes[versionIndex] = 0; 
+            } 
+    }
+    
+    function removeVersion(button) {
+        const versionDiv = button.closest('.containerVersion');
+        const versionContainer = versionDiv.closest('.version-container');
+        const indexToRemove = Array.from(versionContainer.children).indexOf(versionDiv);
+
+        versionDiv.remove(); // Xóa phần tử phiên bản
+
+        // Cập nhật chỉ số toàn cục
+        versionIndex--;
+
+        // Cập nhật chỉ số và tên của các phiên bản còn lại
+        const versionSections = versionContainer.querySelectorAll('.containerVersion');
+        versionSections.forEach((section, index) => {
+            const versionLabel = section.querySelector('.version-section h6');
+            if (versionLabel) {
+                versionLabel.innerText = `Phiên Bản ${index + 1}`;
+            }
+
+            // Cập nhật name và id của các input
+            const inputs = section.querySelectorAll('input[name^="MotoVersionsVM"]');
+            inputs.forEach(input => {
+                if (input.name.includes('.TenVersion')) {
+                    input.name = `MotoVersionsVM[${index}].TenVersion`;
+                    input.id = `MotoVersionsVM_${index}__TenVersion`;
+                }
+                if (input.name.includes('.GiaBanVersion')) {
+                    input.name = `MotoVersionsVM[${index}].GiaBanVersion`;
+                    input.id = `MotoVersionsVM_${index}__GiaBanVersion`;
+                }
+            });
+
+            // Cập nhật danh sách màu
+            const colorContainer = section.querySelector('.color-container');
+            if (colorContainer) {
+                const colorSections = colorContainer.querySelectorAll('.color-section');
+                colorSections.forEach((colorSection, colorIndex) => {
+                    const colorName = colorSection.querySelector('input[name^="MotoVersionsVM"][name$="TenMau"]');
+                    if (colorName) {
+                        colorName.name = `MotoVersionsVM[${index}].VersionColorsVM[${colorIndex}].TenMau`;
+                    }
+
+                    const colorFile = colorSection.querySelector('input[name^="MotoVersionsVM"][name$="versionImageIF"]');
+                    if (colorFile) {
+                        colorFile.name = `MotoVersionsVM[${index}].VersionColorsVM[${colorIndex}].versionImageIF`;
+                        colorFile.id = `colorImageInput-${index}-${colorIndex}`;
+                    }
+                    const colorImagePreview = colorSection.querySelector(`div[id^="colorImagePreviewContainer"]`); 
+                    if (colorImagePreview) 
+                    {
+                        colorImagePreview.id = `colorImagePreviewContainer-${index}-${colorIndex}`; // <-- Dòng này được thêm vào 
+                    }
+                    const hiddenInputs = colorSection.querySelectorAll('input[type="hidden"]');
+                    hiddenInputs.forEach((hiddenInput, hiddenIndex) => {
+                        hiddenInput.name = `MotoVersionsVM[${index}].VersionColorsVM[${colorIndex}].versionImageVM[${hiddenIndex}].ImageId`;  
+                    });
+                });
+
+                // Cập nhật nút thêm màu
+                const addColorButton = section.querySelector('button[id^="add-color-button"]');
+                if (addColorButton) {
+                    addColorButton.id = `add-color-button-${index}`;
+                    addColorButton.setAttribute('onclick', `addColor(${index})`);
+                }
+
+                // Cập nhật id của container màu
+                colorContainer.id = `color-container-${index}`;
+            }
+        });
+
+        // Cập nhật lại colorIndexes sau khi xóa phiên bản
+        colorIndexes.splice(indexToRemove, 1);
+    }
+
+
+    
+
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+        input.addEventListener('change', function (event) {
+            const files = event.target.files;
+            const inputId = event.target.id;
+            const container = document.getElementById('colorImagePreviewContainer-' + inputId.split('-')[1] + '-' + inputId.split('-')[2]);
+            container.innerHTML = ''; // Clear previous images
+            Array.from(files).forEach(file => {
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = e.target.result;
+                        imgElement.style.width = '200px';
+                        imgElement.style.height = 'auto';
+                        imgElement.style.margin = '10px';
+                        container.appendChild(imgElement);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    });
+
+
+</script>
+
+

@@ -1,0 +1,102 @@
+﻿@model X.PagedList.IPagedList<DashBoard_MotoManager.Datas.Brand>
+@{
+    ViewData["Title"] = "ListBrand";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+
+<style>
+    tr{
+        text-align:center;
+        color:black;
+    }
+</style>
+<!-- Recent Sales Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Danh Hãng Sản Xuất</h6>
+            <a asp-controller="Brand" asp-action="AddBrand"
+               class="btn btn-outline-primary">
+                Thêm Hãng
+                <i class="bi bi-plus-circle-fill" style="color: blue;"></i>
+            </a>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">#</th>
+                        <th scope="col">Tên Hãng</th>
+                        <th scope="col">Quốc Gia</th>
+                        <th scope="col">Lựa Chọn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int index = 1;
+                    }
+                    @foreach (var brand in Model)
+                    {
+                        <tr>
+                            <td>@index</td>                        
+                            <td>@brand.TenHangSanXuat</td>
+                            <td>@brand.QuocGia</td>
+                            <td>
+                                <div class="text-center">
+                                    <a asp-controller="Brand" asp-action="SeeDetail" asp-route-brandId="@brand.MaHangSanXuat"
+                                       class="btn btn-outline-success m-2">
+                                        Xem
+                                        <i class="bi bi-eye-fill" style="color: green;"></i>
+                                    </a>
+                                    <a asp-controller="Brand" asp-action="UpdateBrand" asp-route-brandId="@brand.MaHangSanXuat"
+                                       class="btn btn-outline-warning m-2">
+                                        Sửa
+                                        <i class="bi bi-wrench" style="color: #FFD43B;"></i>
+                                    </a>
+
+                                    <a href="javascript:void(0);" onclick="confirmDelete('@brand.MaHangSanXuat', '@brand.TenHangSanXuat')"
+                                       class="btn btn-outline-danger m-2">
+                                        Xoá
+                                        <i class="bi bi-trash-fill" style="color: red;"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- Phân trang -->
+        <div class="align-items-center" style="margin-top:30px">
+            <div class="btn-group me-2" role="group" aria-label="First group">
+                @if (Model.HasPreviousPage)
+                {
+                    <a href="@Url.Action("ListBrand", new { page = Model.PageNumber - 1 })" class="btn btn-primary">Trước</a>
+                }
+
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    <a href="@Url.Action("ListBrand", new { page = i})" class="@(i == Model.PageNumber ? "btn btn-primary active" : "btn btn-primary")">
+                        @i
+                    </a>
+                }
+
+                @if (Model.HasNextPage)
+                {
+                    <a href="@Url.Action("ListBrand", new { page = Model.PageNumber + 1})" class="btn btn-primary">Sau</a>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Recent Sales End -->
+
+<script>
+    function confirmDelete(brandId, brandName) {
+        if (confirm("Bạn có chắc muốn xóa hãng " + brandName + " này không?")) {
+            window.location.href = '@Url.Action("RemoveBrand", "Brand")' + '?brandId=' + brandId;
+        }
+    }
+</script>

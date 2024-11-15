@@ -1,0 +1,345 @@
+﻿@model DashBoard_MotoManager.Models.MotoDetailVM
+@{
+    ViewData["Title"] = "SeeDetail";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+
+<style>
+    td{
+        color:black;
+    }
+</style>
+
+<div class="col-sm-12">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Chi Tiết Xe</h6>
+    
+        <!-- navtab start -->
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                        aria-selected="true">
+                    Thông tin chung
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-profile" type="button" role="tab"
+                        aria-controls="pills-profile" aria-selected="false">
+                    Các Phiên Bản Xe
+                </button>
+            </li>
+        </ul>
+        <!-- navtab end -->
+        <!-- content start-->
+        <div class="tab-content" id="pills-tabContent">
+            <!-- Thông Tin Chung start-->
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div> 
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light rounded h-100 p-4">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="text-center">
+                                                    <h3>Thông Tin Chung</h3>
+                                                </div>  
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><h4>Tên Xe</h4></td>
+                                            <td><h3>@Model.TenXe</h3></td>
+                                        </tr>
+                                        <tr> 
+                                            <td colspan="2">
+                                                <div class="text-center">
+                                                    <img width="200px" height="auto" src=~/img/Mota/@Model.AnhMoTaUrl class="rounded" alt="anh">
+                                                    <p>@Model.AnhMoTaUrl</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Giá Bán Từ</td>
+                                            <td>@Model.GiaBanMoTa</td>                         
+                                        </tr>
+                                        <tr>
+                                            <td>Hãng Sản Xuất</td>
+                                            <td>@Model.MaHangSanXuatNavigation.TenHangSanXuat</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Loại Xe</td>
+                                            <td>@Model.MaLoaiNavigation.TenLoai</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thiết kế</td>
+                                            <td>@Model.ThietKe</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tính năng nổi bật</td>
+                                            <td>@Model.TinhNangNoiBat</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tiện Ích</td>
+                                            <td>@Model.TienIch</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>  
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-light rounded h-100 p-4">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="text-center">
+                                                    <h3>Thông Số Kỹ Thuật</h3>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Trọng Lượng</td>
+                                            <td><h3>@Model.TrongLuong</h3></td>
+                                        </tr> 
+                                        <tr>
+                                            <td>Kích Thước</td>
+                                            <td>@Model.KichThuoc</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Khoảng Cách Trục Bánh Xe</td>
+                                            <td>@Model.KhoangCachTrucBanhXe</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Độ cao yên</td>
+                                            <td>@Model.DoCaoYen</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Độ cao gầm xe</td>
+                                            <td>@Model.DoCaoGamXe</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dung tích bình xăng</td>
+                                            <td>@Model.DungTichBinhXang</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kích cỡ lốp trước/ sau</td>
+                                            <td>@Model.KichCoLop</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Phuộc trước</td>
+                                            <td>@Model.PhuocTruoc</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Phuộc sau</td>
+                                            <td>@Model.PhuocSau</td>
+                                        <tr>
+                                            <td>Loại động cơ</td>
+                                            <td>@Model.LoaiDongCo</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Công suất tối đa</td>
+                                            <td>@Model.CongSuatToiDa</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Công suất tối đa</td>
+                                            <td>@Model.CongSuatToiDa</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mức tiêu thụ nhiên liệu</td>
+                                            <td>@Model.MucTieuThuNhienLieu</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hệ thống khởi động</td>
+                                            <td>@Model.HeThongKhoiDong</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Moment cực đại</td>
+                                            <td>@Model.MomentCucDai</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dung tích xy-lanh</td>
+                                            <td>@Model.DungTichXyLanh</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Đường kính x Hành trình pít tông</td>
+                                            <td>@Model.DuongKinhHanhTrinhPittong</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tỷ số nén</td>
+                                            <td>@Model.TySoNen</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <h3>Thư Viện Ảnh</h3>
+                            <div class="row g-4">
+                                @if (Model.MaLibraryNavigation != null && Model.MaLibraryNavigation.LibraryImages.Any())
+                                {
+                                    @foreach (var libraryImg in Model.MaLibraryNavigation.LibraryImages)
+                                    {
+                                        <div class="col-sm-12 col-xl-6">
+                                            <img width="700px" height="auto" src="~/img/LibraryImgs/@libraryImg.ImageUrl" class="rounded" alt="anh">
+                                            <p class="text-center">@libraryImg.ImageUrl</p>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            <!-- Thông Tin Chung End-->
+            <!-- Version Start-->
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="col-sm-12">
+                    <div class="bg-light rounded h-100 p-4">
+                        <h6 class="mb-4">Phiên Bản Xe</h6>
+                        <div class="d-flex align-items-start">
+                            <!-- Các Version Start -->
+                            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                @{
+                                    var isFirstVersion = true;
+                                    int i = 0;
+                                }
+                                @foreach (var version in Model.MotoVersions)
+                                {
+                                    <button class="nav-link @(isFirstVersion ? "active" : "")" id="v-pills-@i-tab" data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-@i" type="button" role="tab"
+                                            aria-controls="v-pills-@i" aria-selected="@(isFirstVersion ? "true" : "false")">
+                                        Phiên Bản @(i+1)
+                                    </button>
+                                    i++;
+                                    isFirstVersion = false;
+                                }
+                            </div>
+                            <!-- Version End -->
+                            <!-- Chi Tiết Về Version Start -->
+                            <div class="col-sm-12">
+                                <div class="tab-content" id="v-pills-tabContent">
+                                    @{
+                                        int versionIndex = 0;
+                                        bool isFirstContent = true;
+                                    }
+                                    @foreach (var version in Model.MotoVersions)
+                                    {
+                                        <div class="tab-pane fade show @(isFirstContent ? "active" : "")" id="v-pills-@versionIndex" role="tabpanel" aria-labelledby="v-pills-@versionIndex-tab">
+                                            <div class="bg-light rounded h-100 p-4">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <td colspan="2" scope="col"><b>Thông Tin Phiên Bản</b></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Tên Phiên Bản</td>
+                                                            <td>@version.TenVersion</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Giá Bán Phiên Bản</td>
+                                                            <td>@version.GiaBanVersion</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <h3>Màu Sắc</h3>
+                                                                <!-- Set Màu Chi Tiết Start -->
+                                                                <div class="col-sm-12">
+                                                                    <div class="bg-light rounded h-100 p-4">
+                                                                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                                                                            <nav>
+                                                                                @{
+                                                                                    int colorIndex = 0;
+                                                                                    bool isFirstColor = true;
+                                                                                }
+                                                                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                                                    @foreach (var color in version.VersionColors)
+                                                                                    {
+                                                                                        string fId = "version"+versionIndex+"_"+ colorIndex; 
+                                                                                        <button class="nav-link @(isFirstColor?"active":"")" id="nav-home-@fId-tab" data-bs-toggle="tab"
+                                                                                                data-bs-target="#nav-home-@fId" type="button" role="tab" aria-controls="nav-home-@fId"
+                                                                                                aria-selected="@(isFirstColor?"true":"false")">
+                                                                                            @color.TenMau
+                                                                                        </button>
+                                                                                        isFirstColor = false;
+                                                                                        colorIndex++;
+                                                                                    }
+                                                                                </div>
+                                                                            </nav>
+                                                                            <div class="tab-content pt-3" id="nav-tabContent">
+                                                                                @{
+                                                                                    int colorIndex2 = 0;
+                                                                                    bool isFirstColor2 = true;
+                                                                                }
+                                                                                @foreach (var color in version.VersionColors)
+                                                                                {
+                                                                                    string fId2 = "version" + versionIndex + "_" + colorIndex2;
+                                                                                    <div class="tab-pane fade @(isFirstColor2?"show active":"")" id="nav-home-@fId2" role="tabpanel" aria-labelledby="nav-home-@fId2-tab">
+                                                                                       <h4 class="text-center">Hình ảnh</h4>
+                                                                                        <div class="row g-4">
+                                                                                        @foreach(var img in color.VersionImages)
+                                                                                        {
+                                                                                                <div class="col-sm-12 col-xl-6">
+                                                                                                <img width="400px" height="auto" src="~/img/AnhVersion/@img.ImageUrl" class="rounded" alt="anh">
+                                                                                                <p class="text-center">@img.ImageUrl</p>
+                                                                                            </div>
+                                                                                           
+                                                                                        }
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    isFirstColor2 = false;
+                                                                                    colorIndex2++;
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- Set Màu Chi Tiết End -->
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        isFirstContent = false;
+                                        versionIndex++;
+                                    }
+                                </div>
+                            </div>
+                            <!-- Chi Tiết Về Version End -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Version End-->
+
+        </div>
+        <!-- Content end-->
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</div>
+
