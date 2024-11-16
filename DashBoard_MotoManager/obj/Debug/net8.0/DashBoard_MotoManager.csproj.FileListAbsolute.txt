@@ -259,3 +259,10 @@ D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\
 D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\X.PagedList.dll
 D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\X.PagedList.Mvc.Core.dll
 D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\obj\Debug\net8.0\DashBoard_MotoManager.MvcApplicationPartsAssemblyInfo.cs
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\obj\Debug\net8.0\DashBoard_MotoManager.sourcelink.json
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\AutoMapper.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

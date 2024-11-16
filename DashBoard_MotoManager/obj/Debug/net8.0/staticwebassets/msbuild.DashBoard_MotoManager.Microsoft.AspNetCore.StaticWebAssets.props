@@ -13280,22 +13280,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\AnhVersion\Screenshot 2023-11-13 003447_20241115165907925.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\AnhVersion\Screenshot 2023-11-13 003447_20241115215841897.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>DashBoard_MotoManager</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/DashBoard_MotoManager</BasePath>
-      <RelativePath>img/AnhVersion/Screenshot 2023-11-13 003447_20241115215841897.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\AnhVersion\Screenshot 2023-11-13 003447_20241115215841897.png))</OriginalItemSpec>
-    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\AnhVersion\Screenshot 2023-11-13 003447_20241115220447058.png))">
       <SourceType>Package</SourceType>
       <SourceId>DashBoard_MotoManager</SourceId>
@@ -13423,6 +13407,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\AnhVersion\Screenshot 2023-11-13 212905_20241115224709596.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\AnhVersion\Screenshot 2023-11-13 212905_20241116075752415.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>DashBoard_MotoManager</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/DashBoard_MotoManager</BasePath>
+      <RelativePath>img/AnhVersion/Screenshot 2023-11-13 212905_20241116075752415.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\AnhVersion\Screenshot 2023-11-13 212905_20241116075752415.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\AnhVersion\Screenshot 2023-11-14 000215_20241115224131943.png))">
       <SourceType>Package</SourceType>
@@ -16144,12 +16144,12 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\LibraryImgs\Screenshot 2023-10-06 220345_20241111215545458.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\LibraryImgs\Screenshot 2023-10-15 130605_20241115135243520.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\LibraryImgs\Screenshot 2023-11-13 212905_20241116044049649.png))">
       <SourceType>Package</SourceType>
       <SourceId>DashBoard_MotoManager</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/DashBoard_MotoManager</BasePath>
-      <RelativePath>img/LibraryImgs/Screenshot 2023-10-15 130605_20241115135243520.png</RelativePath>
+      <RelativePath>img/LibraryImgs/Screenshot 2023-11-13 212905_20241116044049649.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -16158,55 +16158,7 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\LibraryImgs\Screenshot 2023-10-15 130605_20241115135243520.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\LibraryImgs\Screenshot 2023-10-16 010738_20241115135243538.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>DashBoard_MotoManager</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/DashBoard_MotoManager</BasePath>
-      <RelativePath>img/LibraryImgs/Screenshot 2023-10-16 010738_20241115135243538.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\LibraryImgs\Screenshot 2023-10-16 010738_20241115135243538.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\LibraryImgs\Screenshot 2023-10-26 182135_20241115135243542.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>DashBoard_MotoManager</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/DashBoard_MotoManager</BasePath>
-      <RelativePath>img/LibraryImgs/Screenshot 2023-10-26 182135_20241115135243542.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\LibraryImgs\Screenshot 2023-10-26 182135_20241115135243542.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\LibraryImgs\Screenshot 2023-10-26 220050_20241115135243548.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>DashBoard_MotoManager</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/DashBoard_MotoManager</BasePath>
-      <RelativePath>img/LibraryImgs/Screenshot 2023-10-26 220050_20241115135243548.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\LibraryImgs\Screenshot 2023-10-26 220050_20241115135243548.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\LibraryImgs\Screenshot 2023-11-13 212905_20241116044049649.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\LibraryImgs\Screenshot 2023-12-08 144926_20241111222413443.png))">
       <SourceType>Package</SourceType>
@@ -17840,22 +17792,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-10-15 130605_20241115141236011.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-10-15 130605_20241115141956987.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>DashBoard_MotoManager</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/DashBoard_MotoManager</BasePath>
-      <RelativePath>img/MoTa/Screenshot 2023-10-15 130605_20241115141956987.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-10-15 130605_20241115141956987.png))</OriginalItemSpec>
-    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-10-16 163202 - Copy_20241112233023137.png))">
       <SourceType>Package</SourceType>
       <SourceId>DashBoard_MotoManager</SourceId>
@@ -18112,6 +18048,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-11-13 003447_20241115141928690.png))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-11-13 003447_20241116044049639.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>DashBoard_MotoManager</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/DashBoard_MotoManager</BasePath>
+      <RelativePath>img/MoTa/Screenshot 2023-11-13 003447_20241116044049639.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-11-13 003447_20241116044049639.png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-11-13 212905_20241114030624943.png))">
       <SourceType>Package</SourceType>
       <SourceId>DashBoard_MotoManager</SourceId>
@@ -18160,12 +18112,12 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-11-13 212905_20241115135243489.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-11-19 191750_20241115215718859.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-11-13 212905_20241116054045810.png))">
       <SourceType>Package</SourceType>
       <SourceId>DashBoard_MotoManager</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/DashBoard_MotoManager</BasePath>
-      <RelativePath>img/MoTa/Screenshot 2023-11-19 191750_20241115215718859.png</RelativePath>
+      <RelativePath>img/MoTa/Screenshot 2023-11-13 212905_20241116054045810.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -18174,7 +18126,39 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-11-19 191750_20241115215718859.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-11-13 212905_20241116054045810.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-11-27 213551_20241116054122335.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>DashBoard_MotoManager</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/DashBoard_MotoManager</BasePath>
+      <RelativePath>img/MoTa/Screenshot 2023-11-27 213551_20241116054122335.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2023-11-27 213551_20241116054122335.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2024-01-25 202510_20241116074046061.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>DashBoard_MotoManager</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/DashBoard_MotoManager</BasePath>
+      <RelativePath>img/MoTa/Screenshot 2024-01-25 202510_20241116074046061.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\MoTa\Screenshot 2024-01-25 202510_20241116074046061.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\testimonial-1.jpg))">
       <SourceType>Package</SourceType>

@@ -3321,10 +3321,6 @@
       "PackagePath": "staticwebassets\\img\\AnhVersion\\Screenshot 2023-11-13 003447_20241115165907925.png"
     },
     {
-      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\AnhVersion\\Screenshot 2023-11-13 003447_20241115215841897.png",
-      "PackagePath": "staticwebassets\\img\\AnhVersion\\Screenshot 2023-11-13 003447_20241115215841897.png"
-    },
-    {
       "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\AnhVersion\\Screenshot 2023-11-13 003447_20241115220447058.png",
       "PackagePath": "staticwebassets\\img\\AnhVersion\\Screenshot 2023-11-13 003447_20241115220447058.png"
     },
@@ -3355,6 +3351,10 @@
     {
       "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\AnhVersion\\Screenshot 2023-11-13 212905_20241115224709596.png",
       "PackagePath": "staticwebassets\\img\\AnhVersion\\Screenshot 2023-11-13 212905_20241115224709596.png"
+    },
+    {
+      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\AnhVersion\\Screenshot 2023-11-13 212905_20241116075752415.png",
+      "PackagePath": "staticwebassets\\img\\AnhVersion\\Screenshot 2023-11-13 212905_20241116075752415.png"
     },
     {
       "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\AnhVersion\\Screenshot 2023-11-14 000215_20241115224131943.png",
@@ -4037,20 +4037,8 @@
       "PackagePath": "staticwebassets\\img\\LibraryImgs\\Screenshot 2023-10-06 220345_20241111215545458.png"
     },
     {
-      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\LibraryImgs\\Screenshot 2023-10-15 130605_20241115135243520.png",
-      "PackagePath": "staticwebassets\\img\\LibraryImgs\\Screenshot 2023-10-15 130605_20241115135243520.png"
-    },
-    {
-      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\LibraryImgs\\Screenshot 2023-10-16 010738_20241115135243538.png",
-      "PackagePath": "staticwebassets\\img\\LibraryImgs\\Screenshot 2023-10-16 010738_20241115135243538.png"
-    },
-    {
-      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\LibraryImgs\\Screenshot 2023-10-26 182135_20241115135243542.png",
-      "PackagePath": "staticwebassets\\img\\LibraryImgs\\Screenshot 2023-10-26 182135_20241115135243542.png"
-    },
-    {
-      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\LibraryImgs\\Screenshot 2023-10-26 220050_20241115135243548.png",
-      "PackagePath": "staticwebassets\\img\\LibraryImgs\\Screenshot 2023-10-26 220050_20241115135243548.png"
+      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\LibraryImgs\\Screenshot 2023-11-13 212905_20241116044049649.png",
+      "PackagePath": "staticwebassets\\img\\LibraryImgs\\Screenshot 2023-11-13 212905_20241116044049649.png"
     },
     {
       "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\LibraryImgs\\Screenshot 2023-12-08 144926_20241111222413443.png",
@@ -4461,10 +4449,6 @@
       "PackagePath": "staticwebassets\\img\\MoTa\\Screenshot 2023-10-15 130605_20241115141236011.png"
     },
     {
-      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\MoTa\\Screenshot 2023-10-15 130605_20241115141956987.png",
-      "PackagePath": "staticwebassets\\img\\MoTa\\Screenshot 2023-10-15 130605_20241115141956987.png"
-    },
-    {
       "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\MoTa\\Screenshot 2023-10-16 163202 - Copy_20241112233023137.png",
       "PackagePath": "staticwebassets\\img\\MoTa\\Screenshot 2023-10-16 163202 - Copy_20241112233023137.png"
     },
@@ -4529,6 +4513,10 @@
       "PackagePath": "staticwebassets\\img\\MoTa\\Screenshot 2023-11-13 003447_20241115141928690.png"
     },
     {
+      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\MoTa\\Screenshot 2023-11-13 003447_20241116044049639.png",
+      "PackagePath": "staticwebassets\\img\\MoTa\\Screenshot 2023-11-13 003447_20241116044049639.png"
+    },
+    {
       "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\MoTa\\Screenshot 2023-11-13 212905_20241114030624943.png",
       "PackagePath": "staticwebassets\\img\\MoTa\\Screenshot 2023-11-13 212905_20241114030624943.png"
     },
@@ -4541,8 +4529,16 @@
       "PackagePath": "staticwebassets\\img\\MoTa\\Screenshot 2023-11-13 212905_20241115135243489.png"
     },
     {
-      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\MoTa\\Screenshot 2023-11-19 191750_20241115215718859.png",
-      "PackagePath": "staticwebassets\\img\\MoTa\\Screenshot 2023-11-19 191750_20241115215718859.png"
+      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\MoTa\\Screenshot 2023-11-13 212905_20241116054045810.png",
+      "PackagePath": "staticwebassets\\img\\MoTa\\Screenshot 2023-11-13 212905_20241116054045810.png"
+    },
+    {
+      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\MoTa\\Screenshot 2023-11-27 213551_20241116054122335.png",
+      "PackagePath": "staticwebassets\\img\\MoTa\\Screenshot 2023-11-27 213551_20241116054122335.png"
+    },
+    {
+      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\MoTa\\Screenshot 2024-01-25 202510_20241116074046061.png",
+      "PackagePath": "staticwebassets\\img\\MoTa\\Screenshot 2024-01-25 202510_20241116074046061.png"
     },
     {
       "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\img\\testimonial-1.jpg",

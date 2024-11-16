@@ -1,4 +1,5 @@
-﻿using DashBoard_MotoManager.Datas;
+﻿using AutoMapper;
+using DashBoard_MotoManager.Datas;
 using DashBoard_MotoManager.Helpers;
 using DashBoard_MotoManager.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,12 @@ namespace DashBoard_MotoManager.Controllers
     {
         private readonly MotoWebsiteContext _db;
         private readonly ILogger<MotoController> _logger;
-
-        public MotoController(MotoWebsiteContext context, ILogger<MotoController> logger)
+        private readonly IMapper _mapper;
+        public MotoController(MotoWebsiteContext context, ILogger<MotoController> logger, IMapper mapper)
         {
             _db = context;
             _logger = logger;
+            _mapper = mapper;
         }
 
         public IActionResult ListMoto(int? page, string? maLoai)
@@ -46,8 +48,33 @@ namespace DashBoard_MotoManager.Controllers
             return View(result);
         }
 
+        public async Task<IActionResult> SeeDetail(string? maXe)
+        {
+            if (maXe == null)
+            {
+                return BadRequest("ID mismatch.");
+            }
+            var moto = await _db.MotoBikes.Include(p => p.MotoVersions)
+                    .ThenInclude(v => v.VersionColors)
+                        .ThenInclude(i => i.VersionImages)
+                    .Include(l => l.MaLibraryNavigation)
+                        .ThenInclude(i2 => i2.LibraryImages)
+                    .Include(b => b.MaHangSanXuatNavigation)
+                    .Include(t => t.MaLoaiNavigation)
+                        .FirstOrDefaultAsync(p => p.MaXe == maXe);
 
-        public IActionResult SeeDetail(string? maXe)
+            if (moto == null)
+            {
+                return NotFound("Moto not found.");
+            }
+            else
+            {
+                var motoVM = _mapper.Map<MotoDetailVM>(moto);
+                return View(motoVM);
+            }
+        }
+
+        /*public IActionResult SeeDetail(string? maXe)
         {
             if (!string.IsNullOrEmpty(maXe))
             {
@@ -134,7 +161,7 @@ namespace DashBoard_MotoManager.Controllers
                 }).ToList()
             };
             return View(result);
-        }
+        }*/
 
         [HttpGet]
         public IActionResult AddMoto()

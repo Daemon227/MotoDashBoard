@@ -1,1 +1,424 @@
-[]
+[
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.BrandAPIController",
+    "Method": "GetBrands",
+    "RelativePath": "api/BrandAPI/Brands",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.BrandAPIController",
+    "Method": "CreateBrand",
+    "RelativePath": "api/BrandAPI/Brands",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "brandVM",
+        "Type": "DashBoard_MotoManager.Models.BrandVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.BrandAPIController",
+    "Method": "GetBrand",
+    "RelativePath": "api/BrandAPI/Brands/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.BrandAPIController",
+    "Method": "UpdateBrand",
+    "RelativePath": "api/BrandAPI/Brands/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "brandVM",
+        "Type": "DashBoard_MotoManager.Models.BrandVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.BrandAPIController",
+    "Method": "UpdatePartialBrand",
+    "RelativePath": "api/BrandAPI/Brands/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "patchDoc",
+        "Type": "Microsoft.AspNetCore.JsonPatch.Operations.Operation[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.BrandAPIController",
+    "Method": "DeleteBrand",
+    "RelativePath": "api/BrandAPI/Brands/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.MotoAPIController",
+    "Method": "GetMotos",
+    "RelativePath": "api/MotoAPI/Moto",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.MotoAPIController",
+    "Method": "CreateMoto",
+    "RelativePath": "api/MotoAPI/Moto",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "motoVM",
+        "Type": "DashBoard_MotoManager.Models.MotoDetailVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.MotoAPIController",
+    "Method": "GetMoto",
+    "RelativePath": "api/MotoAPI/Moto/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.MotoAPIController",
+    "Method": "UpdateMoto",
+    "RelativePath": "api/MotoAPI/Moto/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "motoVM",
+        "Type": "DashBoard_MotoManager.Models.MotoDetailVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.MotoAPIController",
+    "Method": "UpdatePartialMoto",
+    "RelativePath": "api/MotoAPI/Moto/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "patchDoc",
+        "Type": "Microsoft.AspNetCore.JsonPatch.Operations.Operation[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.MotoAPIController",
+    "Method": "DeleteMoto",
+    "RelativePath": "api/MotoAPI/Moto/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.TypeAPIController",
+    "Method": "GetMotoTypes",
+    "RelativePath": "api/TypeAPI/Types",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.TypeAPIController",
+    "Method": "CreateMotoType",
+    "RelativePath": "api/TypeAPI/Types",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "typeVM",
+        "Type": "DashBoard_MotoManager.Models.MotoTypeVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.TypeAPIController",
+    "Method": "GetMotoType",
+    "RelativePath": "api/TypeAPI/Types/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.TypeAPIController",
+    "Method": "UpdateMotoType",
+    "RelativePath": "api/TypeAPI/Types/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "typeVM",
+        "Type": "DashBoard_MotoManager.Models.MotoTypeVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.TypeAPIController",
+    "Method": "UpdatePartialMotoType",
+    "RelativePath": "api/TypeAPI/Types/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "patchDoc",
+        "Type": "Microsoft.AspNetCore.JsonPatch.Operations.Operation[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.TypeAPIController",
+    "Method": "DeleteMotoType",
+    "RelativePath": "api/TypeAPI/Types/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.VersionAPIController",
+    "Method": "GetVersions",
+    "RelativePath": "api/VersionAPI/Version",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.VersionAPIController",
+    "Method": "CreateVersion",
+    "RelativePath": "api/VersionAPI/Version",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "versionVM",
+        "Type": "DashBoard_MotoManager.Models.MotoVersionVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.VersionAPIController",
+    "Method": "GetVersion",
+    "RelativePath": "api/VersionAPI/Version/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.VersionAPIController",
+    "Method": "UpdateVersion",
+    "RelativePath": "api/VersionAPI/Version/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "versionVM",
+        "Type": "DashBoard_MotoManager.Models.MotoVersionVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.VersionAPIController",
+    "Method": "UpdatePartialVersion",
+    "RelativePath": "api/VersionAPI/Version/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "patchDoc",
+        "Type": "Microsoft.AspNetCore.JsonPatch.Operations.Operation[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DashBoard_MotoManager.Controllers.API.VersionAPIController",
+    "Method": "DeleteVersion",
+    "RelativePath": "api/VersionAPI/Version/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

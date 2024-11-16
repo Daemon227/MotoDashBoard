@@ -5,9 +5,10 @@ using System.Text;
     {
         public class MyTool
         {
+
             public static string GenarateRandomKey(int length = 25)
             {
-                var partern = @"1234567890qwertyuiopasdfghjklzxcvbnm@!?QWERTYUIOPLKJHGFDAZXCVBNM";
+                var partern = @"1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPLKJHGFDAZXCVBNM";
                 var sb = new StringBuilder();
                 var rd = new Random();
                 for (int i = 0; i < length; i++)
@@ -16,31 +17,6 @@ using System.Text;
                 }
                 return sb.ToString();
             }
-
-        /*public static string UploadHinh(IFormFile file, string folder)
-        {
-            try
-            {
-                if(file != null)
-                {
-                    var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", folder, file.FileName);
-                    using (var myfile = new FileStream(fullPath, FileMode.CreateNew))
-                    {
-                        file.CopyTo(myfile);
-                    }
-                    return file.FileName;
-                }
-                else
-                {
-                    return "anhnull";
-                }
-            }
-            catch (Exception ex)
-            {
-                // Ghi log lỗi tại đây nếu cần
-                return string.Empty;
-            }
-        }*/
 
             public static string UploadHinh(IFormFile file, string folder)
         {
