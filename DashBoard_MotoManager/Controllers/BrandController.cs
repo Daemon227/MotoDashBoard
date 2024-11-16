@@ -1,6 +1,7 @@
 ﻿using DashBoard_MotoManager.Datas;
 using DashBoard_MotoManager.Helpers;
 using DashBoard_MotoManager.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList.Extensions;
 
@@ -53,8 +54,9 @@ namespace DashBoard_MotoManager.Controllers
             }
             else return NotFound();
         }
-        
 
+
+        [Authorize]
         [HttpGet]
         public IActionResult Addbrand()
         {
@@ -62,6 +64,7 @@ namespace DashBoard_MotoManager.Controllers
             return View(brand); 
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddBrand(BrandVM model)
         {
@@ -105,6 +108,7 @@ namespace DashBoard_MotoManager.Controllers
             return View(model);
         }
 
+        [Authorize]
         public IActionResult RemoveBrand(string brandId)
         {
             var brand = _db.Brands.FirstOrDefault(b => b.MaHangSanXuat == brandId);
@@ -136,6 +140,7 @@ namespace DashBoard_MotoManager.Controllers
             
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult UpdateBrand(string brandId)
         {
@@ -157,6 +162,8 @@ namespace DashBoard_MotoManager.Controllers
                 return View(model);
             }
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult UpdateBrand(BrandVM model, string brandId)
         {

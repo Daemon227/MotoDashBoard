@@ -1,8 +1,132 @@
-﻿
+﻿@using System.Text.Json
+@model DashBoard_MotoManager.Models.ChartVM
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
 
+<div class="bg-light rounded shadow p-4" style="margin:50px">
+    <div class="row g-4">
+        <div id="TypeChart" class="col-sm-12 col-xl-6" style="width: 600px; height: 600px; margin:auto; padding-top:50px"></div>
+        <div id="BrandChart" class="col-sm-12 col-xl-6" style="width: 600px; height: 600px; margin:auto; padding-top:50px"></div>
+    </div>
+</div>
+<div class="row g-4 d-flex justify-content-center" >
+    <div class="col-sm-6 col-xl-3">
+        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+            <i class="bi bi-grid-3x3-gap-fill fa-3x text-primary"></i>
+            <div class="ms-3">
+                <p class="mb-2">Tổng Số Xe</p>
+                <h6 class="mb-0">@Model.motoCount</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+            <i class="bi bi-ui-checks-grid fa-3x text-primary"></i>
+            <div class="ms-3">
+                <p class="mb-2">Số Loại Xe</p>
+                <h6 class="mb-0">@Model.typeChart.Count()</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+            <i class="bi bi-pie-chart fa-3x text-primary"></i>
+            <div class="ms-3">
+                <p class="mb-2">Số Hãng Xe</p>
+                <h6 class="mb-0">@Model.brandChart.Count()</h6>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/lib/chart/echarts.min.js"></script>
+    <script>
+        var typeChartData = @Html.Raw(JsonSerializer.Serialize(Model.typeChart)); 
+    var chartDom = document.getElementById('TypeChart');
+        var myChart = echarts.init(chartDom);
+        var option;
 
-<div id="PieChart" style="width: 600px; height: 400px;">Home</div>
+        option = {
+            title: {
+                text: 'Biểu Đồ Thể Hiện Xe Theo Loại',
+                subtext: 'Fake Data',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left'
+            },
+            series: [
+                {
+                    name: 'Loại Xe',
+                    type: 'pie',
+                    radius: '50%',
+                    data: typeChartData.map(function (item) 
+                    { 
+                        return { value: item.count, name: item.typeName }; 
+                    }),
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+    </script>
+
+    <script>
+        var brandChartData = @Html.Raw(JsonSerializer.Serialize(Model.brandChart));
+        var chartDom = document.getElementById('BrandChart');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+            title: {
+                text: 'Biểu Đồ Thể Hiện Xe Theo Hãng',
+                subtext: '',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left'
+            },
+            series: [
+                {
+                    name: 'Hãng Xe',
+                    type: 'pie',
+                    radius: '50%',
+                    data: brandChartData.map(function (item) 
+                    { 
+                        return { value: item.count, name: item.brandName }; 
+                    }),
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+    </script>
+}
+
+
+
+

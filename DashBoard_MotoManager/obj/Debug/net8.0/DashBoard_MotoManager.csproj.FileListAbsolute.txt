@@ -266,3 +266,12 @@ D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\
 D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
 D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\System.Web.Razor.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\Microsoft.Web.Helpers.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\System.Web.Helpers.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\System.Web.WebPages.Deployment.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\System.Web.WebPages.Razor.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\System.Web.WebPages.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\WebMatrix.Data.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\WebMatrix.WebData.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\Website\DashBoard_MotoManager\DashBoard_MotoManager\bin\Debug\net8.0\Microsoft.Web.Infrastructure.dll

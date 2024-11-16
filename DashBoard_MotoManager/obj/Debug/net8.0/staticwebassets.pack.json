@@ -4749,6 +4749,10 @@
       "PackagePath": "staticwebassets\\lib\\chart\\chart.min.js"
     },
     {
+      "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\lib\\chart\\echarts.min.js",
+      "PackagePath": "staticwebassets\\lib\\chart\\echarts.min.js"
+    },
+    {
       "Id": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\lib\\easing\\easing.js",
       "PackagePath": "staticwebassets\\lib\\easing\\easing.js"
     },

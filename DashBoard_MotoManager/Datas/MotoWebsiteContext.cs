@@ -148,8 +148,9 @@ public partial class MotoWebsiteContext : DbContext
 
             entity.HasIndex(e => e.Username, "UQ__Users__536C85E4AD0DFC75").IsUnique();
 
-            entity.Property(e => e.UserId).HasMaxLength(5);
+            entity.Property(e => e.UserId).HasMaxLength(25);
             entity.Property(e => e.Password).HasMaxLength(20);
+            entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.Role).HasMaxLength(20);
             entity.Property(e => e.Username).HasMaxLength(25);
         });

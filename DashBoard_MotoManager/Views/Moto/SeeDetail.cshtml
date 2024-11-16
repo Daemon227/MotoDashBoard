@@ -11,7 +11,7 @@
 </style>
 
 <div class="col-sm-12">
-    <div class="bg-light rounded h-100 p-4">
+    <div class="bg-light shadow rounded h-100 p-4" style="margin:25px">
         <h6 class="mb-4">Chi Tiết Xe</h6>
     
         <!-- navtab start -->
@@ -34,7 +34,7 @@
         <!-- navtab end -->
         <!-- content start-->
         <div class="tab-content" id="pills-tabContent">
-            <!-- Thông Tin Chung start-->
+            <!-- Thông Tin Chung start-->       
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <div> 
                     <div class="row g-4">
@@ -234,11 +234,11 @@
                                     @foreach (var version in Model.MotoVersions)
                                     {
                                         <div class="tab-pane fade show @(isFirstContent ? "active" : "")" id="v-pills-@versionIndex" role="tabpanel" aria-labelledby="v-pills-@versionIndex-tab">
-                                            <div class="bg-light rounded h-100 p-4">
-                                                <table class="table table-bordered">
+                                            <div class="bg-light rounded h-100 p-4 container">
+                                                <table class="table table-bordered mx-auto" >
                                                     <thead>
                                                         <tr>
-                                                            <td colspan="2" scope="col"><b>Thông Tin Phiên Bản</b></td>
+                                                            <td colspan="2" scope="col"><h4>Thông Tin Phiên Bản</h4></td>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -252,7 +252,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2">
-                                                                <h3>Màu Sắc</h3>
+                                                                <h4>Màu Sắc</h4>
                                                                 <!-- Set Màu Chi Tiết Start -->
                                                                 <div class="col-sm-12">
                                                                     <div class="bg-light rounded h-100 p-4">
@@ -289,8 +289,8 @@
                                                                                         <div class="row g-4">
                                                                                         @foreach(var img in color.VersionImages)
                                                                                         {
-                                                                                                <div class="col-sm-12 col-xl-6">
-                                                                                                <img width="400px" height="auto" src="~/img/AnhVersion/@img.ImageUrl" class="rounded" alt="anh">
+                                                                                            <div class="col-sm-12 col-xl-6">
+                                                                                                <img width="400px" height="auto" src="~/img/AnhVersion/@img.ImageUrl" class="text-center" alt="anh">
                                                                                                 <p class="text-center">@img.ImageUrl</p>
                                                                                             </div>
                                                                                            

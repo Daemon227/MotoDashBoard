@@ -2,6 +2,7 @@
 using DashBoard_MotoManager.Datas;
 using DashBoard_MotoManager.Helpers;
 using DashBoard_MotoManager.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.EntityFrameworkCore;
@@ -74,95 +75,7 @@ namespace DashBoard_MotoManager.Controllers
             }
         }
 
-        /*public IActionResult SeeDetail(string? maXe)
-        {
-            if (!string.IsNullOrEmpty(maXe))
-            {
-
-            }
-            //string id = "00";
-            var moto = _db.MotoBikes.Include(p => p.MotoVersions)
-                    .ThenInclude(v => v.VersionColors)
-                        .ThenInclude(i => i.VersionImages)
-                    .Include(l => l.MaLibraryNavigation)
-                        .ThenInclude(i2 => i2.LibraryImages)
-                    .Include(b => b.MaHangSanXuatNavigation)
-                    .Include(t => t.MaLoaiNavigation)
-                        .FirstOrDefault(p => p.MaXe == maXe);
-
-            var result = new MotoDetailVM
-            {
-                MaXe = moto.MaXe,
-                TenXe = moto.TenXe ?? "",
-                MaHangSanXuat = moto.MaHangSanXuat ?? "",
-                AnhMoTaUrl = moto.AnhMoTaUrl ?? "",
-                GiaBanMoTa = moto.GiaBanMoTa ?? "",
-
-                TrongLuong = moto.TrongLuong ?? "",
-                KichThuoc = moto.KichThuoc ?? "",
-                KhoangCachTrucBanhXe = moto.KhoangCachTrucBanhXe ?? "",
-                DoCaoYen = moto.DoCaoYen ?? "",
-                DoCaoGamXe = moto.DoCaoGamXe ?? "",
-                DungTichBinhXang = moto.DungTichBinhXang ?? "",
-                KichCoLop = moto.KichCoLop ?? "",
-                PhuocTruoc = moto.PhuocTruoc ?? "",
-                PhuocSau = moto.PhuocSau ?? "",
-                LoaiDongCo = moto.LoaiDongCo ?? "",
-                CongSuatToiDa = moto.CongSuatToiDa ?? "",
-                MucTieuThuNhienLieu = moto.MucTieuThuNhienLieu ?? "",
-                HeThongKhoiDong = moto.HeThongKhoiDong ?? "",
-                MomentCucDai = moto.MomentCucDai ?? "",
-                DungTichXyLanh = moto.DungTichXyLanh ?? "",
-                DuongKinhHanhTrinhPittong = moto.DuongKinhHanhTrinhPittong ?? "",
-                TySoNen = moto.TySoNen ?? "",
-                MaLibrary = moto.MaLibrary,
-
-                MaHangSanXuatNavigation = new Brand
-                {
-                    TenHangSanXuat = moto.MaHangSanXuatNavigation.TenHangSanXuat,
-                    MaHangSanXuat = moto.MaHangSanXuatNavigation.MaHangSanXuat
-                },
-
-                MaLibraryNavigation = new MotoLibrary
-                {
-                    MaLibrary = moto.MaLibraryNavigation.MaLibrary,
-                    LibraryImages = moto.MaLibraryNavigation.LibraryImages.Select(img => new LibraryImage
-                    {
-                        ImageId = img.ImageId,
-                        ImageUrl = img.ImageUrl,
-                    }).ToList()
-                },
-
-                MaLoaiNavigation = new MotoType
-                {
-                    MaLoai = moto.MaLoaiNavigation.MaLoai,
-                    TenLoai = moto.MaLoaiNavigation.TenLoai
-                },
-
-                TienIch = moto.TienIch,
-                TinhNangNoiBat = moto.TinhNangNoiBat,
-                ThietKe = moto.ThietKe,
-
-                MotoVersions = moto.MotoVersions.Select(v => new MotoVersion
-                {
-                    MaVersion = v.MaVersion,
-                    TenVersion = v.TenVersion ?? "",
-                    GiaBanVersion = v.GiaBanVersion ?? "",
-                    VersionColors = v.VersionColors.Select(c => new VersionColor
-                    {
-                        MaVersionColor = c.MaVersionColor,
-                        TenMau = c.TenMau,
-                        VersionImages = c.VersionImages.Select(i => new VersionImage
-                        {
-                            ImageId = i.ImageId,
-                            ImageUrl = i.ImageUrl,
-                        }).ToList()
-                    }).ToList()
-                }).ToList()
-            };
-            return View(result);
-        }*/
-
+        [Authorize]
         [HttpGet]
         public IActionResult AddMoto()
         {
@@ -173,6 +86,8 @@ namespace DashBoard_MotoManager.Controllers
             };
             return View(model);
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult AddMoto(AddMotoVM model)
         {
@@ -347,6 +262,7 @@ namespace DashBoard_MotoManager.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult RemoveMoto(string? maXe)
         {
@@ -486,6 +402,7 @@ namespace DashBoard_MotoManager.Controllers
             return RedirectToAction("ListMoto", "Moto");
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult EditMoto(string maXe)
         {
@@ -613,6 +530,7 @@ namespace DashBoard_MotoManager.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult EditMoto(EditMotoVM model, string maXe)
         {

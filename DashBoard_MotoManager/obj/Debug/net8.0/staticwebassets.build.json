@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cw5kX8oYrXS8Phu5EAQ8+et1wp0cp9KOxfnXbn7mPBU=",
+  "Hash": "wOxTMJip5d5LPYCX8Vy4Ggne/kK6+bMe8aQRunpgrFk=",
   "Source": "DashBoard_MotoManager",
   "BasePath": "_content/DashBoard_MotoManager",
   "Mode": "Default",
@@ -22587,6 +22587,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\chart\\chart.min.js"
+    },
+    {
+      "Identity": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\lib\\chart\\echarts.min.js",
+      "SourceId": "DashBoard_MotoManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\",
+      "BasePath": "_content/DashBoard_MotoManager",
+      "RelativePath": "lib/chart/echarts.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\chart\\echarts.min.js"
     },
     {
       "Identity": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\wwwroot\\lib\\easing\\easing.js",

@@ -26,32 +26,37 @@ namespace DashBoard_MotoManager.Controllers
         [HttpPost]
         public IActionResult SignUp(SignUpVM model)
         {
-            var user = new User
+            if (ModelState.IsValid)
             {
-                UserId = MyTool.GenarateRandomKey(),
-                Username = model.Username,
-                Password = model.Password,
-                Role = "admin"
-            };
-            _db.Add(user);
-            try
-            {
-                var result = _db.SaveChanges();
-                if (result > 0)
+                var user = new User
                 {
-                    return RedirectToAction("SignIn", "User");
-                }
-                else
+                    UserId = MyTool.GenarateRandomKey(),
+                    Username = model.Username,
+                    Password = model.Password,
+                    Email = model.Email,
+                    Role = "admin"
+                };
+                _db.Add(user);
+                try
                 {
-                    _logger.LogError("Không lưu được, không có hàng nào bị ảnh hưởng.");
+                    var result = _db.SaveChanges();
+                    if (result > 0)
+                    {
+                        return RedirectToAction("SignIn", "User");
+                    }
+                    else
+                    {
+                        _logger.LogError("Không lưu được, không có hàng nào bị ảnh hưởng.");
+                    }
                 }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Lỗi khi lưu dữ liệu vào cơ sở dữ liệu.");
+                    throw; // Ném lại lỗi để dễ dàng kiểm tra khi debug
+                }
+                return View();
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Lỗi khi lưu dữ liệu vào cơ sở dữ liệu.");
-                throw; // Ném lại lỗi để dễ dàng kiểm tra khi debug
-            }
-            return View();
+            else { return View(); }
         }
 
         [HttpGet]

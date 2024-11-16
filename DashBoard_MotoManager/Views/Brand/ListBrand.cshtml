@@ -44,20 +44,20 @@
                             <td>
                                 <div class="text-center">
                                     <a asp-controller="Brand" asp-action="SeeDetail" asp-route-brandId="@brand.MaHangSanXuat"
-                                       class="btn btn-outline-success m-2">
+                                       class="btn btn-outline-primary m-2">
                                         Xem
-                                        <i class="bi bi-eye-fill" style="color: green;"></i>
+                                        <i class="bi bi-eye-fill"></i>
                                     </a>
                                     <a asp-controller="Brand" asp-action="UpdateBrand" asp-route-brandId="@brand.MaHangSanXuat"
-                                       class="btn btn-outline-warning m-2">
+                                       class="btn btn-outline-primary m-2">
                                         Sửa
-                                        <i class="bi bi-wrench" style="color: #FFD43B;"></i>
+                                        <i class="bi bi-wrench"></i>
                                     </a>
 
                                     <a href="javascript:void(0);" onclick="confirmDelete('@brand.MaHangSanXuat', '@brand.TenHangSanXuat')"
-                                       class="btn btn-outline-danger m-2">
+                                       class="btn btn-outline-primary m-2">
                                         Xoá
-                                        <i class="bi bi-trash-fill" style="color: red;"></i>
+                                        <i class="bi bi-trash-fill" ></i>
                                     </a>
                                 </div>
                             </td>

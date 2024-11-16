@@ -1,6 +1,7 @@
 ﻿using DashBoard_MotoManager.Datas;
 using DashBoard_MotoManager.Helpers;
 using DashBoard_MotoManager.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList.Extensions;
 
@@ -35,13 +36,6 @@ namespace DashBoard_MotoManager.Controllers
             return View(result);
         }
 
-        [HttpGet]
-        public IActionResult AddType()
-        {
-            MotoTypeVM model = new MotoTypeVM();
-            return View(model);
-        }
-
         public IActionResult SeeDetail(string? typeID)
         {
             if (typeID != null)
@@ -63,6 +57,17 @@ namespace DashBoard_MotoManager.Controllers
             else return NotFound();
         }
 
+        [Authorize]
+        [HttpGet]
+        public IActionResult AddType()
+        {
+            MotoTypeVM model = new MotoTypeVM();
+            return View(model);
+        }
+
+        
+
+        [Authorize]
         [HttpPost]
         public IActionResult AddType(MotoTypeVM model)
         {
@@ -106,6 +111,7 @@ namespace DashBoard_MotoManager.Controllers
             return View(model);
         }
 
+        [Authorize]
         public IActionResult RemoveType(string typeId)
         {
             var type = _db.MotoTypes.FirstOrDefault(t => t.MaLoai == typeId);
@@ -137,6 +143,7 @@ namespace DashBoard_MotoManager.Controllers
 
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult UpdateType(string typeId)
         {
@@ -158,6 +165,8 @@ namespace DashBoard_MotoManager.Controllers
                 return View(model);
             }
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult UpdateType(MotoTypeVM model, string typeId)
         {

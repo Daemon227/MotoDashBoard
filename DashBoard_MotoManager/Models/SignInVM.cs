@@ -14,6 +14,8 @@ namespace DashBoard_MotoManager.Models
         [Required(ErrorMessage = "Mật Khẩu tối đa 25 ký tự")]
         [DataType(DataType.Password)]
         [MaxLength(20, ErrorMessage = "Password tối đa 25 ký tự")]
+
+
         public string Password { get; set; }
     }
 }
