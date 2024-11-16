@@ -7,7 +7,7 @@
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="bg-light rounded shadow p-4" style="max-width: 800px; width: 100%;">
         <h4 class="mb-4 text-center">Thông Tin Hãng Sản Xuất</h4>
-        <form method="post" asp-controller="Brand" asp-action="UpdateBrand" asp-route-brandId="@Model.MaHangSanXuat">
+        <form method="post" asp-controller="Brand" asp-action="SeeDetail" asp-route-brandId="@Model.MaHangSanXuat">
             <div class="mb-3">
                 <label for="brandName" class="form-label">Tên Hãng</label>
                 <input type="text" class="form-control" asp-for="@Model.TenHangSanXuat" placeholder="Nhập tên hãng sản xuất" required>

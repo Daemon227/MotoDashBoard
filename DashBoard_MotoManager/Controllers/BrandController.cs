@@ -39,20 +39,21 @@ namespace DashBoard_MotoManager.Controllers
 
         public IActionResult SeeDetail(string? brandID)
         {
-            if(brandID!= null)
+            if (brandID != null)
             {
-                var brand = _db.Brands.FirstOrDefault(b=>b.MaHangSanXuat==brandID);
+                var brand = _db.Brands.FirstOrDefault(b => b.MaHangSanXuat == brandID);
                 var model = new BrandVM
                 {
                     MaHangSanXuat = brand.MaHangSanXuat,
                     TenHangSanXuat = brand.TenHangSanXuat,
-                    QuocGia= brand.QuocGia,
-                    MoTaNgan= brand.MoTaNgan,
+                    QuocGia = brand.QuocGia,
+                    MoTaNgan = brand.MoTaNgan,
                 };
                 return View(model);
             }
             else return NotFound();
         }
+        
 
         [HttpGet]
         public IActionResult Addbrand()

@@ -28,6 +28,8 @@ namespace DashBoard_MotoManager.Controllers
             {
                 MaLoai = b.MaLoai,
                 TenLoai = b.TenLoai,
+                DoiTuongSuDung = b.DoiTuongSuDung,
+                MoTaNgan = b.MoTaNgan,
             }).ToPagedList(pageNumber, pageSize); // Dùng ToPagedList để phân trang
 
             return View(result);
@@ -40,6 +42,27 @@ namespace DashBoard_MotoManager.Controllers
             return View(model);
         }
 
+        public IActionResult SeeDetail(string? typeID)
+        {
+            if (typeID != null)
+            {
+                var type = _db.MotoTypes.FirstOrDefault(b => b.MaLoai == typeID);
+                if (type != null)
+                {
+                    var model = new MotoTypeVM
+                    {
+                        MaLoai = type.MaLoai,
+                        TenLoai = type.TenLoai,
+                        DoiTuongSuDung = type.DoiTuongSuDung,
+                        MoTaNgan = type.MoTaNgan,
+                    };
+                    return View(model);
+                }
+                else return View();
+            }
+            else return NotFound();
+        }
+
         [HttpPost]
         public IActionResult AddType(MotoTypeVM model)
         {
@@ -49,6 +72,8 @@ namespace DashBoard_MotoManager.Controllers
                 {
                     MaLoai = MyTool.GenarateRandomKey(),
                     TenLoai = model.TenLoai,
+                    DoiTuongSuDung = model.DoiTuongSuDung,
+                    MoTaNgan = model.MoTaNgan,
                 };
                 var typeCheck = _db.MotoTypes.FirstOrDefault(t=>t.MaLoai.Equals(type.MaLoai));
                 if (typeCheck != null)
@@ -127,6 +152,8 @@ namespace DashBoard_MotoManager.Controllers
                 {
                     MaLoai = typeId,
                     TenLoai = type.TenLoai,
+                    DoiTuongSuDung = type.DoiTuongSuDung,
+                    MoTaNgan = type.MoTaNgan,  
                 };
                 return View(model);
             }
@@ -140,6 +167,8 @@ namespace DashBoard_MotoManager.Controllers
                 if (type != null)
                 {
                     type.TenLoai = model.TenLoai;
+                    type.DoiTuongSuDung = model.DoiTuongSuDung;
+                    type.MoTaNgan = model.MoTaNgan;
                     try
                     {
                         var result = _db.SaveChanges();

@@ -64,11 +64,15 @@ namespace DashBoard_MotoManager.Configurations
             CreateMap<MotoTypeVM, MotoType>()
                 .ForMember(dest => dest.MaLoai, opt => opt.MapFrom(src => src.MaLoai))
                 .ForMember(dest => dest.TenLoai, opt => opt.MapFrom(src => src.TenLoai))
+                .ForMember(dest => dest.DoiTuongSuDung, opt => opt.MapFrom(src => src.DoiTuongSuDung))
+                .ForMember(dest => dest.MoTaNgan, opt => opt.MapFrom(src => src.MoTaNgan))
                 .ForMember(dest => dest.MotoBikes, opt => opt.Ignore()); // Ignore MotoBikes if not needed 
             // Cấu hình ánh xạ giữa MotoType và MotoTypeVM
             CreateMap<MotoType, MotoTypeVM>() 
                 .ForMember(dest => dest.MaLoai, opt => opt.MapFrom(src => src.MaLoai)) 
-                .ForMember(dest => dest.TenLoai, opt => opt.MapFrom(src => src.TenLoai)) 
+                .ForMember(dest => dest.TenLoai, opt => opt.MapFrom(src => src.TenLoai))
+                .ForMember(dest => dest.DoiTuongSuDung, opt => opt.MapFrom(src => src.DoiTuongSuDung))
+                .ForMember(dest => dest.MoTaNgan, opt => opt.MapFrom(src => src.MoTaNgan))
                 .ForMember(dest => dest.MotoBikes, opt => opt.MapFrom(src => src.MotoBikes));
         }
     }

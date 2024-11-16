@@ -122,6 +122,8 @@ public partial class MotoWebsiteContext : DbContext
 
             entity.Property(e => e.MaLoai).HasMaxLength(50);
             entity.Property(e => e.TenLoai).HasMaxLength(100);
+            entity.Property(e => e.DoiTuongSuDung).HasMaxLength(100);
+            entity.Property(e => e.MoTaNgan).HasColumnType("NVARCHAR(MAX)");
         });
 
         modelBuilder.Entity<MotoVersion>(entity =>

@@ -18,7 +18,7 @@
             <h6 class="mb-0">Danh Sách Loại Xe</h6>
             <a asp-controller="MotoType" asp-action="AddType"
                class="btn btn-outline-primary">
-                Thêm Hãng
+                Thêm Loại Xe
                 <i class="bi bi-plus-circle-fill" style="color: blue;"></i>
             </a>
         </div>
@@ -28,6 +28,7 @@
                     <tr class="text-dark">
                         <th scope="col">#</th>
                         <th scope="col">Tên Loại Xe</th>  
+                        <th scope="col">Đối Tượng Sử Dụng</th>
                         <th scope="col">Lựa Chọn</th>
                     </tr>
                 </thead>
@@ -40,8 +41,14 @@
                         <tr>
                             <td>@index</td>
                             <td>@type.TenLoai</td>
+                            <td>@type.DoiTuongSuDung</td> 
                             <td>
                                 <div class="text-center">
+                                    <a asp-controller="MotoType" asp-action="SeeDetail" asp-route-typeId="@type.MaLoai"
+                                       class="btn btn-outline-success m-2">
+                                        Xem
+                                        <i class="bi bi-eye-fill" style="color: green;"></i>
+                                    </a>
                                     <a asp-controller="MotoType" asp-action="UpdateType" asp-route-typeId="@type.MaLoai"
                                        class="btn btn-outline-warning m-2">
                                         Sửa

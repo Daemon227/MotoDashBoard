@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DashBoard_MotoManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+00cd73c63860adfaf61cef841c511976962f61ec")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5ce304aaa6f11430bbec1b4c618f431de658b108")]
 [assembly: System.Reflection.AssemblyProductAttribute("DashBoard_MotoManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DashBoard_MotoManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

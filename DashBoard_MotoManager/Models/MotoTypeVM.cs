@@ -10,6 +10,10 @@ namespace DashBoard_MotoManager.Models
         [Required(ErrorMessage = "Tên Loại Xe Không Được Để Trống")]
         public string? TenLoai { get; set; }
 
+        public string? DoiTuongSuDung { get; set; }
+
+        public string? MoTaNgan { get; set; }
+
         public virtual ICollection<MotoBike> MotoBikes { get; set; } = new List<MotoBike>();
     }
 }

@@ -7,10 +7,18 @@
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="bg-light rounded shadow p-4" style="max-width: 800px; width: 100%;">
         <h4 class="mb-4 text-center">Thông Tin Loại Xe</h4>
-        <form method="post" asp-controller="MotoType" asp-action="AddType" asp-route-typeId="@Model.MaLoai">
+        <form method="post" asp-controller="MotoType" asp-action="AddType">
             <div class="mb-3">
                 <label for="brandName" class="form-label">Tên Loại Xe</label>
                 <input type="text" class="form-control" asp-for="@Model.TenLoai" placeholder="Nhập tên loại xe" required>
+            </div>
+            <div class="mb-3">
+                <label for="country" class="form-label">Đối Tượng Sử Dụng Phù Hợp</label>
+                <input type="text" class="form-control" asp-for="@Model.DoiTuongSuDung" placeholder="Nhập người sử dụng phù hợp" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Mô Tả Ngắn</label>
+                <textarea class="form-control" asp-for="@Model.MoTaNgan" placeholder="Mô tả ngắn về loại xe" rows="4"></textarea>
             </div>
             <div class="text-center mt-4">
                 <div asp-validation-summary="All" class="text-danger"></div>
@@ -23,3 +31,4 @@
         </form>
     </div>
 </div>
+
