@@ -24,7 +24,7 @@ namespace DashBoard_MotoManager.Controllers.API
             _mapper = mapper;
         }
 
-        [HttpGet("Moto")]
+        [HttpGet("Motos")]
         public async Task<IActionResult> GetMotos([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var query = _db.MotoBikes
@@ -61,7 +61,7 @@ namespace DashBoard_MotoManager.Controllers.API
         }
 
 
-        [HttpGet("Moto/{id}")]
+        [HttpGet("Motos/{id}")]
         public async Task<IActionResult> GetMoto(string id)
         {
             var moto = await _db.MotoBikes
@@ -81,7 +81,7 @@ namespace DashBoard_MotoManager.Controllers.API
             return Ok(mappedResult);
         }
 
-        [HttpPut("Moto/{id}")]
+        [HttpPut("Motos/{id}")]
         public async Task<IActionResult> UpdateMoto(string id, [FromBody] MotoDetailVM motoVM)
         {
             if (id != motoVM.MaXe)
@@ -121,7 +121,7 @@ namespace DashBoard_MotoManager.Controllers.API
             return NoContent();
         }
 
-        [HttpPatch("Moto/{id}")]
+        [HttpPatch("Motos/{id}")]
         public async Task<IActionResult> UpdatePartialMoto(string id, [FromBody] JsonPatchDocument<MotoDetailVM> patchDoc)
         {
             if (patchDoc == null)
@@ -175,7 +175,7 @@ namespace DashBoard_MotoManager.Controllers.API
             return _db.MotoBikes.Any(e => e.MaXe == id);
         }
 
-        [HttpDelete("Moto/{id}")]
+        [HttpDelete("Motos/{id}")]
         public async Task<IActionResult> DeleteMoto(string id)
         {
             var moto = await _db.MotoBikes
@@ -197,7 +197,7 @@ namespace DashBoard_MotoManager.Controllers.API
             return NoContent();
         }
 
-        [HttpPost("Moto")]
+        [HttpPost("Motos")]
         public async Task<IActionResult> CreateMoto([FromBody] MotoDetailVM motoVM)
         {
             if (!ModelState.IsValid)

@@ -102,7 +102,7 @@
   {
     "ContainingType": "DashBoard_MotoManager.Controllers.API.MotoAPIController",
     "Method": "GetMotos",
-    "RelativePath": "api/MotoAPI/Moto",
+    "RelativePath": "api/MotoAPI/Motos",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -123,7 +123,7 @@
   {
     "ContainingType": "DashBoard_MotoManager.Controllers.API.MotoAPIController",
     "Method": "CreateMoto",
-    "RelativePath": "api/MotoAPI/Moto",
+    "RelativePath": "api/MotoAPI/Motos",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -139,7 +139,7 @@
   {
     "ContainingType": "DashBoard_MotoManager.Controllers.API.MotoAPIController",
     "Method": "GetMoto",
-    "RelativePath": "api/MotoAPI/Moto/{id}",
+    "RelativePath": "api/MotoAPI/Motos/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -155,7 +155,7 @@
   {
     "ContainingType": "DashBoard_MotoManager.Controllers.API.MotoAPIController",
     "Method": "UpdateMoto",
-    "RelativePath": "api/MotoAPI/Moto/{id}",
+    "RelativePath": "api/MotoAPI/Motos/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -176,7 +176,7 @@
   {
     "ContainingType": "DashBoard_MotoManager.Controllers.API.MotoAPIController",
     "Method": "UpdatePartialMoto",
-    "RelativePath": "api/MotoAPI/Moto/{id}",
+    "RelativePath": "api/MotoAPI/Motos/{id}",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -197,7 +197,7 @@
   {
     "ContainingType": "DashBoard_MotoManager.Controllers.API.MotoAPIController",
     "Method": "DeleteMoto",
-    "RelativePath": "api/MotoAPI/Moto/{id}",
+    "RelativePath": "api/MotoAPI/Motos/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

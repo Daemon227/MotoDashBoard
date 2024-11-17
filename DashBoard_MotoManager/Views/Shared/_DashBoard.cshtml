@@ -59,9 +59,9 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100"> <a asp-controller="Home" asp-action="Index" class="nav-item nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "")"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a> 
-                    <a asp-controller="Moto" asp-action="ListMoto" class="nav-item nav-link @(ViewContext.RouteData.Values["action"].ToString() == "ListMoto" ? "active" : "")"><i class="fa fa-th me-2"></i>Sản Phẩm</a>
-                    <a asp-controller="Brand" asp-action="ListBrand" class="nav-item nav-link @(ViewContext.RouteData.Values["action"].ToString() == "ListBrand" ? "active" : "")"><i class="bi bi-pie-chart me-2"></i>Hãng Sản Phẩm</a>
+                    <a asp-controller="Moto" asp-action="ListMoto" class="nav-item nav-link @(ViewContext.RouteData.Values["action"].ToString() == "ListMoto" ? "active" : "")"><i class="fa fa-th me-2"></i>Sản Phẩm</a>  
                     <a asp-controller="MotoType" asp-action="ListType" class="nav-item nav-link @(ViewContext.RouteData.Values["action"].ToString() == "ListType" ? "active" : "")"><i class="bi bi-ui-checks-grid me-2"></i>Loại Xe</a>
+                    <a asp-controller="Brand" asp-action="ListBrand" class="nav-item nav-link @(ViewContext.RouteData.Values["action"].ToString() == "ListBrand" ? "active" : "")"><i class="bi bi-pie-chart me-2"></i>Hãng Sản Xuất</a>
                 </div>
             </nav>
         </div>
