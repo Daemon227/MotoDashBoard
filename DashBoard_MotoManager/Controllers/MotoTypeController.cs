@@ -1,63 +1,64 @@
-﻿using DashBoard_MotoManager.Datas;
+﻿using AutoMapper;
+using DashBoard_MotoManager.Datas;
 using DashBoard_MotoManager.Helpers;
 using DashBoard_MotoManager.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Text;
 using X.PagedList.Extensions;
 
 namespace DashBoard_MotoManager.Controllers
 {
     public class MotoTypeController : Controller
     {
-        private readonly MotoWebsiteContext _db;
+      
+        private readonly HttpClient _httpClient;
         private readonly ILogger<MotoController> _logger;
-        public MotoTypeController(MotoWebsiteContext context, ILogger<MotoController> logger)
-        {
-            _db = context;
+        private readonly IMapper _mapper;
+        public MotoTypeController(HttpClient httpClient,ILogger<MotoController> logger, IMapper mapper)
+        {    
+            _httpClient = httpClient;
             _logger = logger;
+            _mapper = mapper;
         }
-        public IActionResult ListType(int? page)
+        
+        public async Task<IActionResult> ListType(int? page)
         {
             int pageSize = 6;  // Số lượng mục mỗi trang
             int pageNumber = (page ?? 1); // Nếu page là null, gán giá trị mặc định là 1
 
-            var types = _db.MotoTypes.AsQueryable();
-
-
-            // Phân trang dữ liệu
-            var result = types.Select(b => new MotoType
+            try
             {
-                MaLoai = b.MaLoai,
-                TenLoai = b.TenLoai,
-                DoiTuongSuDung = b.DoiTuongSuDung,
-                MoTaNgan = b.MoTaNgan,
-            }).ToPagedList(pageNumber, pageSize); // Dùng ToPagedList để phân trang
+                var response = await _httpClient.GetAsync("https://localhost:7252/api/Type/Types");
+                response.EnsureSuccessStatusCode();
+                var data = await response.Content.ReadAsStringAsync();
+                var types = JsonConvert.DeserializeObject<List<MotoTypeVM>>(data);
+                var pageResult = types.ToPagedList(pageNumber, pageSize);
+                return View(pageResult);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching types from API");
+                return StatusCode(500, "Internal server error");
+            }
 
-            return View(result);
         }
 
-        public IActionResult SeeDetail(string? typeID)
+        public async Task<IActionResult> SeeDetail(string? typeID)
         {
             if (typeID != null)
             {
-                var type = _db.MotoTypes.FirstOrDefault(b => b.MaLoai == typeID);
-                if (type != null)
-                {
-                    var model = new MotoTypeVM
-                    {
-                        MaLoai = type.MaLoai,
-                        TenLoai = type.TenLoai,
-                        DoiTuongSuDung = type.DoiTuongSuDung,
-                        MoTaNgan = type.MoTaNgan,
-                    };
-                    return View(model);
-                }
-                else return View();
+                var response = await _httpClient.GetAsync("https://localhost:7252/api/Type/Types/" + typeID);
+                response.EnsureSuccessStatusCode();
+                var data = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<MotoTypeVM>(data);
+                return View(model);
             }
             else return NotFound();
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IActionResult AddType()
         {
@@ -65,142 +66,99 @@ namespace DashBoard_MotoManager.Controllers
             return View(model);
         }
 
-        
-
-        [Authorize]
+        //[Authorize]
         [HttpPost]
-        public IActionResult AddType(MotoTypeVM model)
+        public async Task<IActionResult> AddType(MotoTypeVM model)
         {
             if (ModelState.IsValid)
             {
                 var type = new MotoType
                 {
-                    MaLoai = MyTool.GenarateRandomKey(),
-                    TenLoai = model.TenLoai,
-                    DoiTuongSuDung = model.DoiTuongSuDung,
-                    MoTaNgan = model.MoTaNgan,
+                   MaLoai = MyTool.GenarateRandomKey(),
+                   TenLoai = model.TenLoai,
+                   DoiTuongSuDung = model.DoiTuongSuDung,
+                   MoTaNgan = model.MoTaNgan,
                 };
-                var typeCheck = _db.MotoTypes.FirstOrDefault(t=>t.MaLoai.Equals(type.MaLoai));
-                if (typeCheck != null)
+                var content = new StringContent(JsonConvert.SerializeObject(type), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("https://localhost:7252/api/Type/Types", content);
+                if (response.IsSuccessStatusCode)
                 {
+                    _logger.LogInformation("Luu loai Thanh Cong");
+                    return RedirectToAction("ListType", "MotoType");
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    ModelState.AddModelError(string.Empty, errorMessage);
                     return View(model);
                 }
                 else
                 {
-                    _db.MotoTypes.Add(type);
-                    try
-                    {
-                        var result = _db.SaveChanges();
-                        if (result > 0)
-                        {
-                            _logger.LogError("Luu Loai Xe Thanh Cong");
-                            return RedirectToAction("ListType", "MotoType");
-                        }
-                        else
-                        {
-                            _logger.LogError("Không lưu được type, không có hàng nào bị ảnh hưởng.");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Lỗi khi lưu type vào cơ sở dữ liệu.");
-                        throw; // Ném lại lỗi để dễ dàng kiểm tra khi debug
-                    }
+                    _logger.LogError("Error creating type");
+                    ModelState.AddModelError(string.Empty, "Error creating type");
+                    return View(model);
                 }
             }
             return View(model);
         }
 
-        [Authorize]
-        public IActionResult RemoveType(string typeId)
+        //[Authorize]
+        public async Task<IActionResult> RemoveType(string typeId)
         {
-            var type = _db.MotoTypes.FirstOrDefault(t => t.MaLoai == typeId);
-            if (type == null)
+            if (typeId != null)
             {
-                return NotFound();
-            }
-
-            _db.MotoTypes.Remove(type);
-            try
-            {
-                var result = _db.SaveChanges();
-                if (result > 0)
+                var response = await _httpClient.DeleteAsync("https://localhost:7252/api/Type/Types/" + typeId);
+                if (response.IsSuccessStatusCode)
                 {
-                    _logger.LogError("Xóa Loai Xe Thanh Cong");
-                    return RedirectToAction("ListType", "MotoType");
+                    return RedirectToAction("ListType");
                 }
-                else
-                {
-                    _logger.LogError("Không xóa được type, không có hàng nào bị ảnh hưởng.");
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Lỗi khi xóa type vào cơ sở dữ liệu.");
-                throw; // Ném lại lỗi để dễ dàng kiểm tra khi debug
-            }
-            return RedirectToAction("ListType");
-
-        }
-
-        [Authorize]
-        [HttpGet]
-        public IActionResult UpdateType(string typeId)
-        {
-            var type = _db.MotoTypes.FirstOrDefault(t => t.MaLoai == typeId);
-
-            if (type == null)
-            {
-                return NotFound();
+                else return View();
             }
             else
             {
-                var model = new MotoTypeVM
-                {
-                    MaLoai = typeId,
-                    TenLoai = type.TenLoai,
-                    DoiTuongSuDung = type.DoiTuongSuDung,
-                    MoTaNgan = type.MoTaNgan,  
-                };
-                return View(model);
+                _logger.LogError("Ma Type ID Null");
+                return View();
             }
+
         }
 
-        [Authorize]
+        //[Authorize]
+        [HttpGet]
+        public async Task<IActionResult> UpdateType(string typeId)
+        {
+            var response = await _httpClient.GetAsync("https://localhost:7252/api/Type/Types/" + typeId);
+            response.EnsureSuccessStatusCode();
+            var data = await response.Content.ReadAsStringAsync();
+            var model = JsonConvert.DeserializeObject<MotoTypeVM>(data);
+            return View(model);
+        }
+
+        //[Authorize]
         [HttpPost]
-        public IActionResult UpdateType(MotoTypeVM model, string typeId)
+        public async Task<IActionResult> UpdateType(MotoTypeVM model, string typeId)
         {
             if (ModelState.IsValid)
             {
-                var type = _db.MotoTypes.FirstOrDefault(t => t.MaLoai == typeId);
-                if (type != null)
+                var type = _mapper.Map<MotoTypeVM>(model);
+                type.MaLoai = typeId;
+                var content = new StringContent(JsonConvert.SerializeObject(type), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PutAsync("https://localhost:7252/api/Type/Types/" + typeId, content);
+                if (response.IsSuccessStatusCode)
                 {
-                    type.TenLoai = model.TenLoai;
-                    type.DoiTuongSuDung = model.DoiTuongSuDung;
-                    type.MoTaNgan = model.MoTaNgan;
-                    try
-                    {
-                        var result = _db.SaveChanges();
-                        if (result > 0)
-                        {
-                            _logger.LogError("Xóa Loai Xe Thanh Cong");
-                            return RedirectToAction("ListType", "MotoType");
-                        }
-                        else
-                        {
-                            _logger.LogError("Không xóa được type, không có hàng nào bị ảnh hưởng.");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Lỗi khi xóa type vào cơ sở dữ liệu.");
-                        throw; // Ném lại lỗi để dễ dàng kiểm tra khi debug
-                    }
-                    return RedirectToAction("ListType");
+                    _logger.LogInformation("Luu Type Thanh Cong");
+                    return RedirectToAction("ListType", "MotoType");
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    ModelState.AddModelError(string.Empty, errorMessage);
+                    return View(model);
                 }
                 else
                 {
-                    return NotFound();
+                    _logger.LogError("Error updating type");
+                    ModelState.AddModelError(string.Empty, "Error updating type");
+                    return View(model);
                 }
             }
             else return View(model);

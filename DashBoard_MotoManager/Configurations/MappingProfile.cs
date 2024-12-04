@@ -9,16 +9,14 @@ namespace DashBoard_MotoManager.Configurations
         public MappingProfile()
         {
             CreateMap<MotoBike, MotoDetailVM>()
-                .ForMember(dest => dest.MotoVersions, opt => opt.MapFrom(src => src.MotoVersions))
-                .ForMember(dest => dest.MaLibraryNavigation, opt => opt.MapFrom(src => src.MaLibraryNavigation))
-                .ForMember(dest => dest.MaHangSanXuatNavigation, opt => opt.MapFrom(src => src.MaHangSanXuatNavigation))
-                .ForMember(dest => dest.MaLoaiNavigation, opt => opt.MapFrom(src => src.MaLoaiNavigation));
+                //.ForMember(dest => dest.MotoVersions, opt => opt.MapFrom(src => src.MotoVersions))
+                .ForMember(dest => dest.MaLibraryNavigation, opt => opt.MapFrom(src => src.MaLibraryNavigation));
+                //.ForMember(dest => dest.MaHangSanXuatNavigation, opt => opt.MapFrom(src => src.MaHangSanXuatNavigation))
+                //.ForMember(dest => dest.MaLoaiNavigation, opt => opt.MapFrom(src => src.MaLoaiNavigation));
 
             CreateMap<MotoDetailVM, MotoBike>()
-                .ForMember(dest => dest.MotoVersions, opt => opt.MapFrom(src => src.MotoVersions))
-                .ForMember(dest => dest.MaLibraryNavigation, opt => opt.MapFrom(src => src.MaLibraryNavigation))
-                .ForMember(dest => dest.MaHangSanXuatNavigation, opt => opt.MapFrom(src => src.MaHangSanXuatNavigation))
-                .ForMember(dest => dest.MaLoaiNavigation, opt => opt.MapFrom(src => src.MaLoaiNavigation));
+                .ForMember(dest => dest.MaLibraryNavigation, opt => opt.MapFrom(src => src.MaLibraryNavigation));
+                
             
             CreateMap<MotoVersion, MotoVersionVM>()
                 .ForMember(dest => dest.VersionColorsVM, opt => opt.MapFrom(src => src.VersionColors)); 
@@ -45,35 +43,32 @@ namespace DashBoard_MotoManager.Configurations
                 .ForMember(dest => dest.LibraryImages, opt => opt.MapFrom(src => src.LibraryImages)); 
             
             CreateMap<LibraryImageVM, LibraryImage>();
-    
+
             CreateMap<BrandVM, Brand>()
                 .ForMember(dest => dest.MaHangSanXuat, opt => opt.MapFrom(src => src.MaHangSanXuat))
                 .ForMember(dest => dest.TenHangSanXuat, opt => opt.MapFrom(src => src.TenHangSanXuat))
                 .ForMember(dest => dest.QuocGia, opt => opt.MapFrom(src => src.QuocGia))
-                .ForMember(dest => dest.MoTaNgan, opt => opt.MapFrom(src => src.MoTaNgan))
-                .ForMember(dest => dest.MotoBikes, opt => opt.Ignore()); // Ignore MotoBikes if not needed 
-            
+                .ForMember(dest => dest.MoTaNgan, opt => opt.MapFrom(src => src.MoTaNgan));
+
             // Cấu hình ánh xạ giữa Brand và BrandVM
-            CreateMap<Brand, BrandVM>() 
-                .ForMember(dest => dest.MaHangSanXuat, opt => opt.MapFrom(src => src.MaHangSanXuat)) 
-                .ForMember(dest => dest.TenHangSanXuat, opt => opt.MapFrom(src => src.TenHangSanXuat)) 
-                .ForMember(dest => dest.QuocGia, opt => opt.MapFrom(src => src.QuocGia)) 
-                .ForMember(dest => dest.MoTaNgan, opt => opt.MapFrom(src => src.MoTaNgan)) 
-                .ForMember(dest => dest.MotoBikes, opt => opt.MapFrom(src => src.MotoBikes));
+            CreateMap<Brand, BrandVM>()
+                .ForMember(dest => dest.MaHangSanXuat, opt => opt.MapFrom(src => src.MaHangSanXuat))
+                .ForMember(dest => dest.TenHangSanXuat, opt => opt.MapFrom(src => src.TenHangSanXuat))
+                .ForMember(dest => dest.QuocGia, opt => opt.MapFrom(src => src.QuocGia))
+                .ForMember(dest => dest.MoTaNgan, opt => opt.MapFrom(src => src.MoTaNgan));
 
             CreateMap<MotoTypeVM, MotoType>()
                 .ForMember(dest => dest.MaLoai, opt => opt.MapFrom(src => src.MaLoai))
                 .ForMember(dest => dest.TenLoai, opt => opt.MapFrom(src => src.TenLoai))
                 .ForMember(dest => dest.DoiTuongSuDung, opt => opt.MapFrom(src => src.DoiTuongSuDung))
-                .ForMember(dest => dest.MoTaNgan, opt => opt.MapFrom(src => src.MoTaNgan))
-                .ForMember(dest => dest.MotoBikes, opt => opt.Ignore()); // Ignore MotoBikes if not needed 
+                .ForMember(dest => dest.MoTaNgan, opt => opt.MapFrom(src => src.MoTaNgan));
+
             // Cấu hình ánh xạ giữa MotoType và MotoTypeVM
-            CreateMap<MotoType, MotoTypeVM>() 
-                .ForMember(dest => dest.MaLoai, opt => opt.MapFrom(src => src.MaLoai)) 
+            CreateMap<MotoType, MotoTypeVM>()
+                .ForMember(dest => dest.MaLoai, opt => opt.MapFrom(src => src.MaLoai))
                 .ForMember(dest => dest.TenLoai, opt => opt.MapFrom(src => src.TenLoai))
                 .ForMember(dest => dest.DoiTuongSuDung, opt => opt.MapFrom(src => src.DoiTuongSuDung))
-                .ForMember(dest => dest.MoTaNgan, opt => opt.MapFrom(src => src.MoTaNgan))
-                .ForMember(dest => dest.MotoBikes, opt => opt.MapFrom(src => src.MotoBikes));
+                .ForMember(dest => dest.MoTaNgan, opt => opt.MapFrom(src => src.MoTaNgan));
         }
     }
 }

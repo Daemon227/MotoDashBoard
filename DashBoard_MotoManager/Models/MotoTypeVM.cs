@@ -14,6 +14,6 @@ namespace DashBoard_MotoManager.Models
 
         public string? MoTaNgan { get; set; }
 
-        public virtual ICollection<MotoBike> MotoBikes { get; set; } = new List<MotoBike>();
+        //public virtual ICollection<MotoBike> MotoBikes { get; set; } = new List<MotoBike>();
     }
 }

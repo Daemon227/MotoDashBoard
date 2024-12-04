@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Newtonsoft.Json;
 using System.Diagnostics.Contracts;
+using System.Net.Http;
 using System.Runtime.ConstrainedExecution;
 using X.PagedList.Extensions;
 
@@ -16,37 +18,36 @@ namespace DashBoard_MotoManager.Controllers
     public class MotoController : Controller
     {
         private readonly MotoWebsiteContext _db;
+        private readonly HttpClient _httpClient;
         private readonly ILogger<MotoController> _logger;
         private readonly IMapper _mapper;
-        public MotoController(MotoWebsiteContext context, ILogger<MotoController> logger, IMapper mapper)
+        public MotoController(MotoWebsiteContext context,HttpClient httpClient, ILogger<MotoController> logger, IMapper mapper)
         {
             _db = context;
+            _httpClient = httpClient;
             _logger = logger;
             _mapper = mapper;
         }
 
-        public IActionResult ListMoto(int? page, string? maLoai)
+        public async Task<IActionResult> ListMoto(int? page, string? maLoai)
         {
             int pageSize = 6;  // Số lượng mục mỗi trang
             int pageNumber = (page ?? 1); // Nếu page là null, gán giá trị mặc định là 1
 
-            var motos = _db.MotoBikes.AsQueryable();
-
-            if (!string.IsNullOrEmpty(maLoai))
+            try
             {
-                motos = motos.Where(m => m.MaLoai.Equals(maLoai));
+                var response = await _httpClient.GetAsync("https://localhost:7252/api/Brand/Brands");
+                response.EnsureSuccessStatusCode();
+                var data = await response.Content.ReadAsStringAsync();
+                var brands = JsonConvert.DeserializeObject<List<BrandVM>>(data);
+                var pageResult = brands.ToPagedList(pageNumber, pageSize);
+                return View(pageResult);
             }
-
-            // Phân trang dữ liệu
-            var result = motos.Select(p => new MotoListVM
+            catch (Exception ex)
             {
-                MaXe = p.MaXe,
-                TenXe = p.TenXe,
-                GiaBanMoTa = p.GiaBanMoTa,
-                AnhMoTaUrl = p.AnhMoTaUrl,
-            }).ToPagedList(pageNumber, pageSize); // Dùng ToPagedList để phân trang
-
-            return View(result);
+                _logger.LogError(ex, "Error fetching brands from API");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         public async Task<IActionResult> SeeDetail(string? maXe)

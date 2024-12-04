@@ -18,6 +18,7 @@ namespace DashBoard_MotoManager
             {
                 option.UseSqlServer(builder.Configuration.GetConnectionString("DashboardWeb"));
             });
+            builder.Services.AddHttpClient();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
                 option =>
                 {
