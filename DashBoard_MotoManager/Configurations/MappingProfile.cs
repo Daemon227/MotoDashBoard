@@ -8,41 +8,49 @@ namespace DashBoard_MotoManager.Configurations
     {
         public MappingProfile()
         {
-            CreateMap<MotoBike, MotoDetailVM>()
-                //.ForMember(dest => dest.MotoVersions, opt => opt.MapFrom(src => src.MotoVersions))
-                .ForMember(dest => dest.MaLibraryNavigation, opt => opt.MapFrom(src => src.MaLibraryNavigation));
-                //.ForMember(dest => dest.MaHangSanXuatNavigation, opt => opt.MapFrom(src => src.MaHangSanXuatNavigation))
-                //.ForMember(dest => dest.MaLoaiNavigation, opt => opt.MapFrom(src => src.MaLoaiNavigation));
+            CreateMap<MotoBike, MotoVM>()
+                .ForMember(dest => dest.MotoVersions, opt => opt.MapFrom(src => src.MotoVersions))
+                .ForMember(dest => dest.MaLibraryNavigation, opt => opt.MapFrom(src => src.MaLibraryNavigation))
+                .ForMember(dest => dest.MaHangSanXuatNavigation, opt => opt.MapFrom(src => src.MaHangSanXuatNavigation))
+                .ForMember(dest => dest.MaLoaiNavigation, opt => opt.MapFrom(src => src.MaLoaiNavigation));
 
-            CreateMap<MotoDetailVM, MotoBike>()
-                .ForMember(dest => dest.MaLibraryNavigation, opt => opt.MapFrom(src => src.MaLibraryNavigation));
-                
-            
+            CreateMap<MotoVM, MotoBike>()
+                .ForMember(dest => dest.MaLibraryNavigation, opt => opt.MapFrom(src => src.MaLibraryNavigation))
+                .ForMember(dest => dest.MotoVersions, opt => opt.MapFrom(src => src.MotoVersions))  
+                .ForMember(dest => dest.MaHangSanXuatNavigation, opt => opt.MapFrom(src => src.MaHangSanXuatNavigation))
+                .ForMember(dest => dest.MaLoaiNavigation, opt => opt.MapFrom(src => src.MaLoaiNavigation));
+
             CreateMap<MotoVersion, MotoVersionVM>()
-                .ForMember(dest => dest.VersionColorsVM, opt => opt.MapFrom(src => src.VersionColors)); 
+                .ForMember(dest => dest.VersionColorVM, opt => opt.MapFrom(src => src.VersionColors)); 
             
             CreateMap<VersionColor, VersionColorVM>()
-                .ForMember(dest => dest.versionImageVM, opt => opt.MapFrom(src => src.VersionImages)); 
+                .ForMember(dest => dest.VersionImageVM, opt => opt.MapFrom(src => src.VersionImages)); 
             
             CreateMap<VersionImage, VersionImageVM>(); 
             
             CreateMap<MotoLibrary, MotoLibraryVM>()
-                .ForMember(dest => dest.LibraryImages, opt => opt.MapFrom(src => src.LibraryImages)); 
+                .ForMember(dest => dest.LibraryImages, opt => opt.MapFrom(src => src.LibraryImages));
 
-            CreateMap<LibraryImage, LibraryImageVM>();
+            CreateMap<MotoLibraryVM, MotoLibrary>()
+                .ForMember(dest => dest.LibraryImages, opt => opt.MapFrom(src => src.LibraryImages));
 
+            CreateMap<LibraryImage, LibraryImageVM>()
+                .ForMember(dest => dest.ImageId, opt => opt.MapFrom(src => src.ImageId))
+                .ForMember(dest => dest.MaLibrary, opt => opt.MapFrom(src => src.MaLibrary))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
+
+            CreateMap<LibraryImageVM, LibraryImage>()
+                .ForMember(dest => dest.ImageId, opt => opt.MapFrom(src => src.ImageId))
+                .ForMember(dest => dest.MaLibrary, opt => opt.MapFrom(src => src.MaLibrary))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
+             
             CreateMap<MotoVersionVM, MotoVersion>()
-                .ForMember(dest => dest.VersionColors, opt => opt.MapFrom(src => src.VersionColorsVM));
+                .ForMember(dest => dest.VersionColors, opt => opt.MapFrom(src => src.VersionColorVM));
             
             CreateMap<VersionColorVM, VersionColor>()
-                .ForMember(dest => dest.VersionImages, opt => opt.MapFrom(src => src.versionImageVM)); 
+                .ForMember(dest => dest.VersionImages, opt => opt.MapFrom(src => src.VersionImageVM)); 
             
-            CreateMap<VersionImageVM, VersionImage>(); 
-            
-            CreateMap<MotoLibraryVM, MotoLibrary>()
-                .ForMember(dest => dest.LibraryImages, opt => opt.MapFrom(src => src.LibraryImages)); 
-            
-            CreateMap<LibraryImageVM, LibraryImage>();
+            CreateMap<VersionImageVM, VersionImage>();            
 
             CreateMap<BrandVM, Brand>()
                 .ForMember(dest => dest.MaHangSanXuat, opt => opt.MapFrom(src => src.MaHangSanXuat))

@@ -18,7 +18,7 @@ using System.Text;
                 return sb.ToString();
             }
 
-            public static string UploadHinh(IFormFile file, string folder)
+            public static string UploadImage(IFormFile file, string folder)
         {
             try
             {
@@ -37,13 +37,11 @@ using System.Text;
                     {
                         Directory.CreateDirectory(directory);
                     }
-
                     // Lưu file
                     using (var myfile = new FileStream(fullPath, FileMode.Create))
                     {
                         file.CopyTo(myfile);
                     }
-
                     return uniqueFileName;
                 }
                 else
@@ -78,34 +76,6 @@ using System.Text;
             }
         }
 
-            public static IFormFile ConvertFileToIFormFile(string fileName, string folder)
-        {
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", folder, fileName);
-            // Kiểm tra nếu file tồn tại
-            if (!File.Exists(filePath))
-            {
-                return null;
-            }
-
-            // Đọc dữ liệu từ file và tạo IFormFile
-            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            var memoryStream = new MemoryStream();
-
-            fileStream.CopyTo(memoryStream);
-            fileStream.Close();
-
-            memoryStream.Position = 0; // Đặt vị trí về đầu stream
-
-            // Lấy tên file từ đường dẫn
-            var contentType = "application/octet-stream"; // Hoặc định dạng chính xác như "image/jpeg" nếu là ảnh
-
-            // Tạo đối tượng IFormFile từ MemoryStream
-            IFormFile formFile = new FormFile(memoryStream, 0, memoryStream.Length, null, fileName)
-            {
-                Headers = new HeaderDictionary(),
-                ContentType = contentType
-            };
-            return formFile;
-        }
+            
         }
     }

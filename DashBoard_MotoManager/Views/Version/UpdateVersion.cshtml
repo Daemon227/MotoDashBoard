@@ -1,0 +1,31 @@
+﻿@model DashBoard_MotoManager.Models.MotoVersionVM
+@{
+    ViewData["Title"] = "UpdateVersion";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="bg-light rounded shadow p-4" style="max-width: 800px; width: 100%;">
+        <h4 class="mb-4 text-center">Sửa Phiên Bản</h4>
+        <form method="post" asp-controller="Version" asp-action="UpdateVersion" asp-route-versionID="@Model.MaVersion">
+            <input type="hidden" asp-for="MaVersion"/>
+            <div class="mb-3">
+                <label for="versionName" class="form-label">Tên Phiên Bản</label>
+                <input type="text" class="form-control" asp-for="@Model.TenVersion" placeholder="Nhập tên phiên bản" required>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Giá Bán Phiên Bản</label>
+                <input type="text" class="form-control" asp-for="@Model.GiaBanVersion" placeholder="Nhập giá bán của phiên bản" required>
+            </div>
+            <div class="text-center mt-4">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <button type="submit" class="btn btn-primary px-4">Lưu</button>
+                <a asp-controller="Version" asp-action="ListVersion" asp-route-motoID="@Model.MaXe"
+                   class="btn btn-primary px-4">
+                    Quay Lại
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+

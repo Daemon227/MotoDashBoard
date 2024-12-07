@@ -6,8 +6,8 @@ namespace DashBoard_MotoManager.Models
     {
         public string MaLibrary { get; set; } = null!;
 
-        public virtual ICollection<LibraryImage> LibraryImages { get; set; } = new List<LibraryImage>();
+        public virtual ICollection<LibraryImageVM> LibraryImages { get; set; } = new List<LibraryImageVM>();
 
-        public virtual ICollection<MotoDetailVM> MotoBikes { get; set; } = new List<MotoDetailVM>();
+        //public virtual ICollection<MotoVM> MotoBikes { get; set; } = new List<MotoVM>();
     }
 }

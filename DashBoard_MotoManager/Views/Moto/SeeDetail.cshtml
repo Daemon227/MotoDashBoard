@@ -1,4 +1,4 @@
-﻿@model DashBoard_MotoManager.Models.MotoDetailVM
+﻿@model DashBoard_MotoManager.Models.MotoVM
 @{
     ViewData["Title"] = "SeeDetail";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
@@ -21,13 +21,6 @@
                         data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
                         aria-selected="true">
                     Thông tin chung
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-profile" type="button" role="tab"
-                        aria-controls="pills-profile" aria-selected="false">
-                    Các Phiên Bản Xe
                 </button>
             </li>
         </ul>
@@ -182,13 +175,14 @@
                         <div class="col-sm-12">
                             <h3>Thư Viện Ảnh</h3>
                             <div class="row g-4">
-                                @if (Model.MaLibraryNavigation != null && Model.MaLibraryNavigation.LibraryImages.Any())
-                                {
-                                    @foreach (var libraryImg in Model.MaLibraryNavigation.LibraryImages)
-                                    {
+                                @if (Model.MaLibraryNavigation != null)
+                                {  
+                                    <h3>Có bằng này ảnh trong library @Model.MaLibraryNavigation.LibraryImages.Count()</h3>
+                                    @foreach (var img in Model.MaLibraryNavigation.LibraryImages)
+                                    {   
                                         <div class="col-sm-12 col-xl-6">
-                                            <img width="700px" height="auto" src="~/img/LibraryImgs/@libraryImg.ImageUrl" class="rounded" alt="anh">
-                                            <p class="text-center">@libraryImg.ImageUrl</p>
+                                            <img width="700px" height="auto" src="~/img/LibraryImgs/@img.ImageUrl" class="rounded" alt="anh">
+                                            <p class="text-center">@img.ImageUrl</p>
                                         </div>
                                     }
                                 }
@@ -199,130 +193,7 @@
                     
                 </div>
             </div>
-            <!-- Thông Tin Chung End-->
-            <!-- Version Start-->
-            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                <div class="col-sm-12">
-                    <div class="bg-light rounded h-100 p-4">
-                        <h6 class="mb-4">Phiên Bản Xe</h6>
-                        <div class="d-flex align-items-start">
-                            <!-- Các Version Start -->
-                            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                @{
-                                    var isFirstVersion = true;
-                                    int i = 0;
-                                }
-                                @foreach (var version in Model.MotoVersions)
-                                {
-                                    <button class="nav-link @(isFirstVersion ? "active" : "")" id="v-pills-@i-tab" data-bs-toggle="pill"
-                                            data-bs-target="#v-pills-@i" type="button" role="tab"
-                                            aria-controls="v-pills-@i" aria-selected="@(isFirstVersion ? "true" : "false")">
-                                        Phiên Bản @(i+1)
-                                    </button>
-                                    i++;
-                                    isFirstVersion = false;
-                                }
-                            </div>
-                            <!-- Version End -->
-                            <!-- Chi Tiết Về Version Start -->
-                            <div class="col-sm-12">
-                                <div class="tab-content" id="v-pills-tabContent">
-                                    @{
-                                        int versionIndex = 0;
-                                        bool isFirstContent = true;
-                                    }
-                                    @foreach (var version in Model.MotoVersions)
-                                    {
-                                        <div class="tab-pane fade show @(isFirstContent ? "active" : "")" id="v-pills-@versionIndex" role="tabpanel" aria-labelledby="v-pills-@versionIndex-tab">
-                                            <div class="bg-light rounded h-100 p-4 container">
-                                                <table class="table table-bordered mx-auto" >
-                                                    <thead>
-                                                        <tr>
-                                                            <td colspan="2" scope="col"><h4>Thông Tin Phiên Bản</h4></td>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Tên Phiên Bản</td>
-                                                            <td>@version.TenVersion</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Giá Bán Phiên Bản</td>
-                                                            <td>@version.GiaBanVersion</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="2">
-                                                                <h4>Màu Sắc</h4>
-                                                                <!-- Set Màu Chi Tiết Start -->
-                                                                <div class="col-sm-12">
-                                                                    <div class="bg-light rounded h-100 p-4">
-                                                                        <div class="accordion accordion-flush" id="accordionFlushExample">
-                                                                            <nav>
-                                                                                @{
-                                                                                    int colorIndex = 0;
-                                                                                    bool isFirstColor = true;
-                                                                                }
-                                                                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                                                                    @foreach (var color in version.VersionColors)
-                                                                                    {
-                                                                                        string fId = "version"+versionIndex+"_"+ colorIndex; 
-                                                                                        <button class="nav-link @(isFirstColor?"active":"")" id="nav-home-@fId-tab" data-bs-toggle="tab"
-                                                                                                data-bs-target="#nav-home-@fId" type="button" role="tab" aria-controls="nav-home-@fId"
-                                                                                                aria-selected="@(isFirstColor?"true":"false")">
-                                                                                            @color.TenMau
-                                                                                        </button>
-                                                                                        isFirstColor = false;
-                                                                                        colorIndex++;
-                                                                                    }
-                                                                                </div>
-                                                                            </nav>
-                                                                            <div class="tab-content pt-3" id="nav-tabContent">
-                                                                                @{
-                                                                                    int colorIndex2 = 0;
-                                                                                    bool isFirstColor2 = true;
-                                                                                }
-                                                                                @foreach (var color in version.VersionColors)
-                                                                                {
-                                                                                    string fId2 = "version" + versionIndex + "_" + colorIndex2;
-                                                                                    <div class="tab-pane fade @(isFirstColor2?"show active":"")" id="nav-home-@fId2" role="tabpanel" aria-labelledby="nav-home-@fId2-tab">
-                                                                                       <h4 class="text-center">Hình ảnh</h4>
-                                                                                        <div class="row g-4">
-                                                                                        @foreach(var img in color.VersionImages)
-                                                                                        {
-                                                                                            <div class="col-sm-12 col-xl-6">
-                                                                                                <img width="400px" height="auto" src="~/img/AnhVersion/@img.ImageUrl" class="text-center" alt="anh">
-                                                                                                <p class="text-center">@img.ImageUrl</p>
-                                                                                            </div>
-                                                                                           
-                                                                                        }
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    isFirstColor2 = false;
-                                                                                    colorIndex2++;
-                                                                                }
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- Set Màu Chi Tiết End -->
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        isFirstContent = false;
-                                        versionIndex++;
-                                    }
-                                </div>
-                            </div>
-                            <!-- Chi Tiết Về Version End -->
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Version End-->
+            <!-- Thông Tin Chung End--> 
 
         </div>
         <!-- Content end-->

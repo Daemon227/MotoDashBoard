@@ -62,7 +62,6 @@ namespace DashBoard_MotoManager.Controllers
             else return NotFound();
         }
 
-
         //[Authorize]
         [HttpGet]
         public IActionResult Addbrand()

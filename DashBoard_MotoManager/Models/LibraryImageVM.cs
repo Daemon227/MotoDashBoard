@@ -10,6 +10,6 @@ namespace DashBoard_MotoManager.Models
 
         public string? ImageUrl { get; set; }
 
-        public virtual MotoLibrary? MaLibraryNavigation { get; set; }
+        //public virtual MotoLibrary? MaLibraryNavigation { get; set; }
     }
 }

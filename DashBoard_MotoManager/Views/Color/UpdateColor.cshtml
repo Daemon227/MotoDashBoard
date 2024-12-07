@@ -1,0 +1,63 @@
+﻿@model DashBoard_MotoManager.Models.VersionColorVM
+@{
+    ViewData["Title"] = "Update Color";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <h2>Cập Nhật Màu</h2>
+        <form asp-action="UpdateColor" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <table border="1" width="1535">
+                    <tr>
+                        <td width="250" class="text-black"><label class="form-label" >Tên Màu</label></td>
+                        <td width="*"><input type="text" class="form-control" id="TenMau" asp-for="TenMau" style="margin10"/></td>
+                    </tr>
+                </table>
+   
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>Danh Sách Ảnh</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @foreach (var image in Model.VersionImageVM)
+                        {
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="~/img/AnhVersion/@image.ImageUrl" class="card-img-top" alt="Image" id="image-@image.ImageUrl">
+                                    <div class="card-body">
+                                        <p class="card-text"><strong>URL:</strong> @image.ImageUrl</p>
+                                        <input class="form-control singleImageInput" type="file" data-img-id="image-@image.ImageUrl" name="newImages" data-flag="false">
+                                        <input type="checkbox" name="removedImageUrls" value="@image.ImageUrl" /> Xóa ảnh này
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.singleImageInput').forEach(input => {
+        input.addEventListener('change', event => {
+            const file = event.target.files[0];
+            const imgId = event.target.getAttribute('data-img-id');
+            const imgElement = document.getElementById(imgId);
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imgElement.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>

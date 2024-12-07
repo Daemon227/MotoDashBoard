@@ -4,6 +4,7 @@ using DashBoard_MotoManager.Helpers;
 using DashBoard_MotoManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Text;
 using X.PagedList.Extensions;
 
@@ -37,20 +38,20 @@ namespace DashBoard_MotoManager.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error fetching brands from API");
+                _logger.LogError(ex, "Error fetching version from API");
                 return StatusCode(500, "Internal server error");
             }
 
         }
 
-        public async Task<IActionResult> SeeDetail(string? brandID)
+        public async Task<IActionResult> SeeDetail(string? versionID)
         {
-            if (brandID != null)
+            if (versionID != null)
             {
-                var response = await _httpClient.GetAsync("https://localhost:7252/api/Brand/Brands/" + brandID);
+                var response = await _httpClient.GetAsync("https://localhost:7252/api/Version/Versions/" + versionID);
                 response.EnsureSuccessStatusCode();
                 var data = await response.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<BrandVM>(data);
+                var model = JsonConvert.DeserializeObject<MotoVersionVM>(data);
                 return View(model);
             }
             else return NotFound();
@@ -59,31 +60,35 @@ namespace DashBoard_MotoManager.Controllers
 
         //[Authorize]
         [HttpGet]
-        public IActionResult Addbrand()
+        public IActionResult AddVersion(string motoID)
         {
-            BrandVM brand = new BrandVM();
-            return View(brand);
+            MotoVersionVM version = new MotoVersionVM
+            {
+                MaXe = motoID,
+            };
+            return View(version);
         }
 
         //[Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddBrand(BrandVM model)
+        public async Task<IActionResult> AddVersion(MotoVersionVM model)
         {
             if (ModelState.IsValid)
             {
-                var brand = new Brand
+                var version = new MotoVersionVM
                 {
-                    MaHangSanXuat = MyTool.GenarateRandomKey(),
-                    TenHangSanXuat = model.TenHangSanXuat,
-                    QuocGia = model.QuocGia,
-                    MoTaNgan = model.MoTaNgan,
+                    MaVersion = MyTool.GenarateRandomKey(),
+                    MaXe = model.MaXe,
+                    TenVersion = model.TenVersion,
+                    GiaBanVersion = model.GiaBanVersion,
                 };
-                var content = new StringContent(JsonConvert.SerializeObject(brand), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("https://localhost:7252/api/Brand/Brands", content);
+                _logger.LogError("Mã Xe" + version.MaXe);
+                var content = new StringContent(JsonConvert.SerializeObject(version), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("https://localhost:7252/api/Version/Versions", content);
                 if (response.IsSuccessStatusCode)
                 {
-                    _logger.LogInformation("Luu Brand Thanh Cong");
-                    return RedirectToAction("ListBrand", "Brand");
+                    _logger.LogInformation("Luu Version Thanh Cong");
+                    return RedirectToAction("ListVersion", "Version", new {motoID = version.MaXe});
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
@@ -93,29 +98,36 @@ namespace DashBoard_MotoManager.Controllers
                 }
                 else
                 {
-                    _logger.LogError("Error creating brand");
-                    ModelState.AddModelError(string.Empty, "Error creating brand");
+                    _logger.LogError("Error creating version");
+                    ModelState.AddModelError(string.Empty, "Error creating version");
+
                     return View(model);
                 }
             }
+
             return View(model);
         }
 
         //[Authorize]
-        public async Task<IActionResult> RemoveBrand(string brandId)
+        public async Task<IActionResult> RemoveVersion(string versionId, string motoID)
         {
-            if (brandId != null)
+            if (versionId != null)
             {
-                var response = await _httpClient.DeleteAsync("https://localhost:7252/api/Brand/Brands/" + brandId);
+                var response = await _httpClient.DeleteAsync("https://localhost:7252/api/Version/Versions/" + versionId);
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("ListBrand");
+                    return RedirectToAction("ListVersion", "Version", new { motoID = motoID });
+                    //return View();
                 }
-                else return View();
+                else
+                {
+                    _logger.LogError("Xoa không nổi");
+                    return View();
+                } 
             }
             else
             {
-                _logger.LogError("Ma Brand ID Null");
+                _logger.LogError("Version ID is Null");
                 return View();
             }
 
@@ -123,29 +135,36 @@ namespace DashBoard_MotoManager.Controllers
 
         //[Authorize]
         [HttpGet]
-        public async Task<IActionResult> UpdateBrand(string brandId)
+        public async Task<IActionResult> UpdateVersion(string versionID)
         {
-            var response = await _httpClient.GetAsync("https://localhost:7252/api/Brand/Brands/" + brandId);
+            var response = await _httpClient.GetAsync("https://localhost:7252/api/Version/Versions/" + versionID);
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
-            var model = JsonConvert.DeserializeObject<BrandVM>(data);
+            var model = JsonConvert.DeserializeObject<MotoVersionVM>(data);
             return View(model);
         }
 
         //[Authorize]
         [HttpPost]
-        public async Task<IActionResult> UpdateBrand(BrandVM model, string brandId)
+        public async Task<IActionResult> UpdateVersion(MotoVersionVM model, string versionID)
         {
             if (ModelState.IsValid)
             {
-                var brand = _mapper.Map<BrandVM>(model);
-                brand.MaHangSanXuat = brandId;
-                var content = new StringContent(JsonConvert.SerializeObject(brand), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PutAsync("https://localhost:7252/api/Brand/Brands/" + brandId, content);
+                //lay lai version goc
+                var response1 = await _httpClient.GetAsync("https://localhost:7252/api/Version/Versions/" + versionID);
+                response1.EnsureSuccessStatusCode();
+                var data = await response1.Content.ReadAsStringAsync();
+                var version = JsonConvert.DeserializeObject<MotoVersionVM>(data);
+
+                // set lai gia tri
+                version.TenVersion = model.TenVersion;
+                version.GiaBanVersion = model.GiaBanVersion;
+                var content = new StringContent(JsonConvert.SerializeObject(version), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PutAsync("https://localhost:7252/api/Version/Versions/" + versionID, content);
                 if (response.IsSuccessStatusCode)
                 {
-                    _logger.LogInformation("Luu Brand Thanh Cong");
-                    return RedirectToAction("ListBrand", "Brand");
+                    _logger.LogInformation("Luu Version Thanh Cong");
+                    return RedirectToAction("ListVersion", "Version", new { motoID = version.MaXe });
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
@@ -155,8 +174,8 @@ namespace DashBoard_MotoManager.Controllers
                 }
                 else
                 {
-                    _logger.LogError("Error updating brand");
-                    ModelState.AddModelError(string.Empty, "Error updating brand");
+                    _logger.LogError("Error updating version");
+                    ModelState.AddModelError(string.Empty, "Error updating version");
                     return View(model);
                 }
             }
@@ -164,4 +183,4 @@ namespace DashBoard_MotoManager.Controllers
         }
     }
 }
-}
+

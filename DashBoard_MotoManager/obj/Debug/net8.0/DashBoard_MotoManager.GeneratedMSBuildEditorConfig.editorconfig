@@ -46,6 +46,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcVXBkYXRlQnJhbmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/HOC TAP/HOC KY 5/PTPM DV/Website/DashBoard_MotoManager/DashBoard_MotoManager/Views/Color/AddColor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29sb3JcQWRkQ29sb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HOC TAP/HOC KY 5/PTPM DV/Website/DashBoard_MotoManager/DashBoard_MotoManager/Views/Color/UpdateColor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29sb3JcVXBkYXRlQ29sb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/HOC TAP/HOC KY 5/PTPM DV/Website/DashBoard_MotoManager/DashBoard_MotoManager/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -108,6 +116,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/HOC TAP/HOC KY 5/PTPM DV/Website/DashBoard_MotoManager/DashBoard_MotoManager/Views/User/SignUp.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxTaWduVXAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HOC TAP/HOC KY 5/PTPM DV/Website/DashBoard_MotoManager/DashBoard_MotoManager/Views/Version/AddVersion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVyc2lvblxBZGRWZXJzaW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HOC TAP/HOC KY 5/PTPM DV/Website/DashBoard_MotoManager/DashBoard_MotoManager/Views/Version/ListVersion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVyc2lvblxMaXN0VmVyc2lvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HOC TAP/HOC KY 5/PTPM DV/Website/DashBoard_MotoManager/DashBoard_MotoManager/Views/Version/SeeDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVyc2lvblxTZWVEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HOC TAP/HOC KY 5/PTPM DV/Website/DashBoard_MotoManager/DashBoard_MotoManager/Views/Version/UpdateVersion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVyc2lvblxVcGRhdGVWZXJzaW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/HOC TAP/HOC KY 5/PTPM DV/Website/DashBoard_MotoManager/DashBoard_MotoManager/Views/_ViewImports.cshtml]

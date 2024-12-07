@@ -1,6 +1,6 @@
-﻿@model X.PagedList.IPagedList<DashBoard_MotoManager.Models.BrandVM>
+﻿@model X.PagedList.IPagedList<DashBoard_MotoManager.Models.MotoVersionVM>
 @{
-    ViewData["Title"] = "ListBrand";
+    ViewData["Title"] = "ListVersion";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
 
@@ -11,14 +11,13 @@
     }
 </style>
 <!-- Recent Sales Start -->
-
 <div class="container-fluid pt-4 px-4">
     <div class="bg-light text-center rounded p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h6 class="mb-0">Danh Hãng Sản Xuất</h6>
-            <a asp-controller="Brand" asp-action="AddBrand"
+            <a asp-controller="Version" asp-action="AddVersion" asp-route-motoID="@Model.FirstOrDefault().MaXe"
                class="btn btn-outline-primary">
-                Thêm Hãng
+                Thêm Phiên Bản
                 <i class="bi bi-plus-circle-fill" style="color: blue;"></i>
             </a>
         </div>
@@ -27,8 +26,8 @@
                 <thead>
                     <tr class="text-dark">
                         <th scope="col">#</th>
-                        <th scope="col">Tên Hãng</th>
-                        <th scope="col">Quốc Gia</th>
+                        <th scope="col">Tên Phiên Bản</th>
+                        <th scope="col">Giá Phiên Bản</th>
                         <th scope="col">Lựa Chọn</th>
                     </tr>
                 </thead>
@@ -36,30 +35,33 @@
                     @{
                         int index = 1;
                     }
-                    @foreach (var brand in Model)
+                    @foreach (var version in Model)
                     {
                         <tr>
-                            <td>@index</td>                        
-                            <td>@brand.TenHangSanXuat</td>
-                            <td>@brand.QuocGia</td>
+                            <td>@index</td>
+                            <td>@version.TenVersion</td>
+                            <td>@version.GiaBanVersion</td>
                             <td>
                                 <div class="text-center">
-                                    <a asp-controller="Brand" asp-action="SeeDetail" asp-route-brandId="@brand.MaHangSanXuat"
+                                    <a asp-controller="Version" asp-action="SeeDetail" asp-route-versionId="@version.MaVersion"
                                        class="btn btn-outline-primary m-2">
                                         Xem
                                         <i class="bi bi-eye-fill"></i>
                                     </a>
-                                    <a asp-controller="Brand" asp-action="UpdateBrand" asp-route-brandId="@brand.MaHangSanXuat"
+                                    <a asp-controller="Version" asp-action="UpdateVersion" asp-route-versionId="@version.MaVersion"
                                        class="btn btn-outline-primary m-2">
                                         Sửa
                                         <i class="bi bi-wrench"></i>
                                     </a>
 
-                                    <a href="javascript:void(0);" onclick="confirmDelete('@brand.MaHangSanXuat', '@brand.TenHangSanXuat')"
-                                       class="btn btn-outline-primary m-2">
-                                        Xoá
-                                        <i class="bi bi-trash-fill" ></i>
-                                    </a>
+                                    <form method="post" asp-controller="Version" asp-action="RemoveVersion" style="display:inline;"> 
+                                        <input type="hidden" name="versionId" value="@version.MaVersion" /> 
+                                        <input type="hidden" name="motoID" value="@Model.FirstOrDefault().MaXe" /> 
+                                        <button type="submit" class="btn btn-outline-danger m-2" 
+                                            onclick="return confirm('Bạn có chắc muốn xóa phiên bản @version.TenVersion này không?');">
+                                            Xoá <i class="bi bi-trash-fill"></i> 
+                                        </button> 
+                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -73,32 +75,24 @@
             <div class="btn-group me-2" role="group" aria-label="First group">
                 @if (Model.HasPreviousPage)
                 {
-                    <a href="@Url.Action("ListBrand", new { page = Model.PageNumber - 1 })" class="btn btn-primary">Trước</a>
+                    <a href="@Url.Action("ListVersion", new { motoID = Model.FirstOrDefault().MaXe,page = Model.PageNumber - 1 })" class="btn btn-primary">Trước</a>
                 }
 
                 @for (int i = 1; i <= Model.PageCount; i++)
                 {
-                    <a href="@Url.Action("ListBrand", new { page = i})" class="@(i == Model.PageNumber ? "btn btn-primary active" : "btn btn-primary")">
+                    <a href="@Url.Action("ListVersion", new { motoID = Model.FirstOrDefault().MaXe,page = i})" class="@(i == Model.PageNumber ? "btn btn-primary active" : "btn btn-primary")">
                         @i
                     </a>
                 }
 
                 @if (Model.HasNextPage)
                 {
-                    <a href="@Url.Action("ListBrand", new { page = Model.PageNumber + 1})" class="btn btn-primary">Sau</a>
+                    <a href="@Url.Action("ListVersion", new { motoID = Model.FirstOrDefault().MaXe,page = Model.PageNumber + 1})" class="btn btn-primary">Sau</a>
                 }
             </div>
         </div>
     </div>
     <!-- Javascript -->
-    <script>
-        function confirmDelete(brandId, brandName) {
-            if (confirm("Bạn có chắc muốn xóa hãng " + brandName + " này không?")) {
-                window.location.href = '@Url.Action("RemoveBrand", "Brand")' + '?brandId=' + brandId;
-            }
-        }
-    </script>
+    
 </div>
-
-
 

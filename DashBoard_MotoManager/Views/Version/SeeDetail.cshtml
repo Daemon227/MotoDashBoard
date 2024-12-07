@@ -1,0 +1,106 @@
+﻿@model DashBoard_MotoManager.Models.MotoVersionVM
+@{
+    ViewData["Title"] = "SeeDetail";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <h2>Thông Tin Phiên Bản</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <td colspan="2" class="fw-bold bg-primary text-white text-center align-middle">Thông Tin Phiên Bản</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold align-middle" width="250">Tên Phiên Bản</td>
+                    <td class="align-middle">@Model.TenVersion</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold align-middle">Giá Bán Của Phiên Bản</td>
+                    <td class="align-middle">@Model.GiaBanVersion</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="fw-bold bg-primary text-white text-center align-middle">Danh Sách Các Màu Của Phiên Bản</td>
+                </tr>
+                <tr>
+                    <td class="align-middle">Số Màu của Phiên Bản</td>
+                    <td class="align-middle">@Model.VersionColorVM.Count()</td>
+                </tr>
+                @{
+                    int i = 1;
+                }
+                @foreach (var color in Model.VersionColorVM)
+                {
+                    string collapseId = "collapse" + i.ToString();
+                    string headingId = "heading" + i.ToString();
+                    <tr>
+                        <td class="fw-bold align-middle">Tên Màu: @color.TenMau</td>
+                        <td class="align-middle">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="@headingId">
+                                    <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#@collapseId" aria-expanded="false"
+                                            aria-controls="@collapseId">
+                                        Danh Sách Hình Ảnh Của Màu @color.TenMau
+                                    </button>
+                                </h2>
+                                <div id="@collapseId" class="accordion-collapse collapse" aria-labelledby="@headingId"
+                                     data-bs-parent="#accordionExample">
+                                    <div class="accordion-body" style="max-height: 300px; overflow-y: auto;">
+                                        @foreach (var img in color.VersionImageVM)
+                                        {
+                                            <img src="~/img/AnhVersion/@img.ImageUrl" width="100" height="100" class="m-2" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-end">
+                            <a asp-controller="Color" asp-action="UpdateColor" asp-route-colorID="@color.MaVersionColor"
+                               class="btn btn-outline-primary m-2">
+                                Sửa Màu <i class="bi bi-wrench"></i>
+                            </a>
+                            <form method="post" asp-controller="Color" asp-action="RemoveColor" style="display:inline;">
+                                <input type="hidden" name="colorID" value="@color.MaVersionColor" />
+                                <input type="hidden" name="versionID" value="@Model.MaVersion" />
+                                <button type="submit" class="btn btn-outline-danger m-2"
+                                        onclick="return confirm('Bạn có chắc muốn xóa màu @color.TenMau này không?');">
+                                    Xoá <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </table>
+
+            <!-- Nút thêm màu -->
+            <div class="text-end" style="padding-right: 50px;">
+                <a asp-controller="Color" asp-action="AddColor" asp-route-versionId="@Model.MaVersion"
+                   class="btn btn-success m-2">
+                    Thêm Màu <i class="bi bi-plus-circle"></i>
+                </a>
+            </div>
+
+            <!-- Nút phiên bản -->
+            <div class="text-end mt-4" style="padding-right: 50px;">              
+                <a asp-controller="Version" asp-action="UpdateVersion" asp-route-versionId="@Model.MaVersion"
+                   class="btn btn-outline-primary m-2">
+                    Sửa Phiên Bản <i class="bi bi-wrench"></i>
+                </a>
+                <form method="post" asp-controller="Version" asp-action="RemoveVersion" style="display:inline;">
+                    <input type="hidden" name="versionId" value="@Model.MaVersion" />
+                    <input type="hidden" name="motoID" value="@Model.MaXe" />
+                    <button type="submit" class="btn btn-outline-danger m-2"
+                            onclick="return confirm('Bạn có chắc muốn xóa phiên bản @Model.TenVersion này không?');">
+                        Xoá <i class="bi bi-trash-fill"></i>
+                    </button>
+                </form>
+            </div>
+  
+        </div>
+    </div>
+</div>

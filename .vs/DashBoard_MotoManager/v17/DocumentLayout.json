@@ -3,28 +3,48 @@
   "WorkspaceRootPath": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\controllers\\motocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\controllers\\motocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\controllers\\brandcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\controllers\\brandcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\controllers\\versioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\controllers\\versioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\datas\\motolibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\datas\\motolibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\models\\motolibraryvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\models\\motolibraryvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\controllers\\motocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\controllers\\motocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\configurations\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\configurations\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\views\\shared\\_dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\views\\shared\\_dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\models\\motovm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\models\\motovm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\views\\mototype\\seedetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\views\\mototype\\seedetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\views\\version\\listversion.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\views\\version\\listversion.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\views\\moto\\listmoto.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\views\\moto\\listmoto.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\views\\moto\\addmoto.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\views\\moto\\addmoto.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\views\\moto\\seedetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\views\\moto\\seedetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\website\\dashboard_motomanager\\dashboard_motomanager\\controllers\\versioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE1439A7-BC6A-4461-9718-625766EC822A}|DashBoard_MotoManager\\DashBoard_MotoManager.csproj|solutionrelative:dashboard_motomanager\\controllers\\versioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,83 +54,140 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "BrandController.cs",
               "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Controllers\\BrandController.cs",
               "RelativeDocumentMoniker": "DashBoard_MotoManager\\Controllers\\BrandController.cs",
               "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Controllers\\BrandController.cs",
               "RelativeToolTip": "DashBoard_MotoManager\\Controllers\\BrandController.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB0AAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-03T14:40:58.14Z",
+              "WhenOpened": "2024-12-06T15:56:01.062Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MotoController.cs",
-              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Controllers\\MotoController.cs",
-              "RelativeDocumentMoniker": "DashBoard_MotoManager\\Controllers\\MotoController.cs",
-              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Controllers\\MotoController.cs",
-              "RelativeToolTip": "DashBoard_MotoManager\\Controllers\\MotoController.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAACUAAAANAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "MotoLibrary.cs",
+              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Datas\\MotoLibrary.cs",
+              "RelativeDocumentMoniker": "DashBoard_MotoManager\\Datas\\MotoLibrary.cs",
+              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Datas\\MotoLibrary.cs",
+              "RelativeToolTip": "DashBoard_MotoManager\\Datas\\MotoLibrary.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-03T14:15:37.476Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-06T09:56:25.681Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "VersionController.cs",
-              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Controllers\\VersionController.cs",
-              "RelativeDocumentMoniker": "DashBoard_MotoManager\\Controllers\\VersionController.cs",
-              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Controllers\\VersionController.cs",
-              "RelativeToolTip": "DashBoard_MotoManager\\Controllers\\VersionController.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAAACIAAABMAAAAAAAAAA==",
+              "Title": "MotoLibraryVM.cs",
+              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Models\\MotoLibraryVM.cs",
+              "RelativeDocumentMoniker": "DashBoard_MotoManager\\Models\\MotoLibraryVM.cs",
+              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Models\\MotoLibraryVM.cs",
+              "RelativeToolTip": "DashBoard_MotoManager\\Models\\MotoLibraryVM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAswAgAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-03T14:15:31.401Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-06T09:55:45.396Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SeeDetail.cshtml",
-              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Views\\MotoType\\SeeDetail.cshtml",
-              "RelativeDocumentMoniker": "DashBoard_MotoManager\\Views\\MotoType\\SeeDetail.cshtml",
-              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Views\\MotoType\\SeeDetail.cshtml",
-              "RelativeToolTip": "DashBoard_MotoManager\\Views\\MotoType\\SeeDetail.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-29T14:35:07.737Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "MappingProfile.cs",
               "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Configurations\\MappingProfile.cs",
               "RelativeDocumentMoniker": "DashBoard_MotoManager\\Configurations\\MappingProfile.cs",
               "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Configurations\\MappingProfile.cs",
               "RelativeToolTip": "DashBoard_MotoManager\\Configurations\\MappingProfile.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAABxAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAwwCsAAABcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T14:26:18.931Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-06T09:22:55.583Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "_DashBoard.cshtml",
-              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Views\\Shared\\_DashBoard.cshtml",
-              "RelativeDocumentMoniker": "DashBoard_MotoManager\\Views\\Shared\\_DashBoard.cshtml",
-              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Views\\Shared\\_DashBoard.cshtml",
-              "RelativeToolTip": "DashBoard_MotoManager\\Views\\Shared\\_DashBoard.cshtml",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAAD8AAABDAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "MotoVM.cs",
+              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Models\\MotoVM.cs",
+              "RelativeDocumentMoniker": "DashBoard_MotoManager\\Models\\MotoVM.cs",
+              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Models\\MotoVM.cs",
+              "RelativeToolTip": "DashBoard_MotoManager\\Models\\MotoVM.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAADwvz4AAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-06T09:05:26.004Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ListMoto.cshtml",
+              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Views\\Moto\\ListMoto.cshtml",
+              "RelativeDocumentMoniker": "DashBoard_MotoManager\\Views\\Moto\\ListMoto.cshtml",
+              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Views\\Moto\\ListMoto.cshtml",
+              "RelativeToolTip": "DashBoard_MotoManager\\Views\\Moto\\ListMoto.cshtml",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAADAAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-17T03:27:26.275Z"
+              "WhenOpened": "2024-12-06T06:45:17.132Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MotoController.cs",
+              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Controllers\\MotoController.cs",
+              "RelativeDocumentMoniker": "DashBoard_MotoManager\\Controllers\\MotoController.cs",
+              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Controllers\\MotoController.cs",
+              "RelativeToolTip": "DashBoard_MotoManager\\Controllers\\MotoController.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAEEAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-06T04:01:53.665Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SeeDetail.cshtml",
+              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Views\\Moto\\SeeDetail.cshtml",
+              "RelativeDocumentMoniker": "DashBoard_MotoManager\\Views\\Moto\\SeeDetail.cshtml",
+              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Views\\Moto\\SeeDetail.cshtml",
+              "RelativeToolTip": "DashBoard_MotoManager\\Views\\Moto\\SeeDetail.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAALwAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-06T04:03:39.644Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AddMoto.cshtml",
+              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Views\\Moto\\AddMoto.cshtml",
+              "RelativeDocumentMoniker": "DashBoard_MotoManager\\Views\\Moto\\AddMoto.cshtml",
+              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Views\\Moto\\AddMoto.cshtml",
+              "RelativeToolTip": "DashBoard_MotoManager\\Views\\Moto\\AddMoto.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-05T18:06:33.519Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ListVersion.cshtml",
+              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Views\\Version\\ListVersion.cshtml",
+              "RelativeDocumentMoniker": "DashBoard_MotoManager\\Views\\Version\\ListVersion.cshtml",
+              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Views\\Version\\ListVersion.cshtml",
+              "RelativeToolTip": "DashBoard_MotoManager\\Views\\Version\\ListVersion.cshtml",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAAADIAAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-05T06:39:07.04Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "VersionController.cs",
+              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Controllers\\VersionController.cs",
+              "RelativeDocumentMoniker": "DashBoard_MotoManager\\Controllers\\VersionController.cs",
+              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\Website\\DashBoard_MotoManager\\DashBoard_MotoManager\\Controllers\\VersionController.cs",
+              "RelativeToolTip": "DashBoard_MotoManager\\Controllers\\VersionController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T14:23:33.02Z"
             }
           ]
         }

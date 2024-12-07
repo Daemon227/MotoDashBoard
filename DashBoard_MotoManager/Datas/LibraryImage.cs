@@ -9,6 +9,7 @@ public partial class LibraryImage
 
     public string? MaLibrary { get; set; }
 
+
     public string? ImageUrl { get; set; }
 
     public virtual MotoLibrary? MaLibraryNavigation { get; set; }

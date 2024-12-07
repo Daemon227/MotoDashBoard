@@ -36,11 +36,11 @@ namespace DashBoard_MotoManager.Controllers
 
             try
             {
-                var response = await _httpClient.GetAsync("https://localhost:7252/api/Brand/Brands");
+                var response = await _httpClient.GetAsync("https://localhost:7252/api/Moto/Motos");
                 response.EnsureSuccessStatusCode();
                 var data = await response.Content.ReadAsStringAsync();
-                var brands = JsonConvert.DeserializeObject<List<BrandVM>>(data);
-                var pageResult = brands.ToPagedList(pageNumber, pageSize);
+                var motos = JsonConvert.DeserializeObject<List<MotoVM>>(data);
+                var pageResult = motos.ToPagedList(pageNumber, pageSize);
                 return View(pageResult);
             }
             catch (Exception ex)
@@ -52,28 +52,27 @@ namespace DashBoard_MotoManager.Controllers
 
         public async Task<IActionResult> SeeDetail(string? maXe)
         {
-            if (maXe == null)
+            if (maXe != null)
             {
-                return BadRequest("ID mismatch.");
+                //lay ra xe
+                var response = await _httpClient.GetAsync("https://localhost:7252/api/Moto/Motos/" + maXe);
+                response.EnsureSuccessStatusCode();
+                var data = await response.Content.ReadAsStringAsync();    
+                var moto = JsonConvert.DeserializeObject<MotoVM>(data);
+                //lay hinh anh
+                var response1 = await _httpClient.GetAsync("https://localhost:7252/api/Library/Libraries/" + "01_library");
+                response1.EnsureSuccessStatusCode();
+                var librarydata = await response1.Content.ReadAsStringAsync();
+                var library = JsonConvert.DeserializeObject<MotoLibraryVM>(librarydata);
+                _logger.LogError("Số 01 " + library.LibraryImages.Count());
+                _logger.LogError("Số 01 " + library.MaLibrary);
+                //moto.MaLibraryNavigation = library;
+                var result = _mapper.Map<MotoVM>(moto);
+                _logger.LogError("Số pt " + moto.MaLibraryNavigation.LibraryImages.Count());
+                //result.MaLibraryNavigation = library;
+                return View(result);
             }
-            var moto = await _db.MotoBikes.Include(p => p.MotoVersions)
-                    .ThenInclude(v => v.VersionColors)
-                        .ThenInclude(i => i.VersionImages)
-                    .Include(l => l.MaLibraryNavigation)
-                        .ThenInclude(i2 => i2.LibraryImages)
-                    .Include(b => b.MaHangSanXuatNavigation)
-                    .Include(t => t.MaLoaiNavigation)
-                        .FirstOrDefaultAsync(p => p.MaXe == maXe);
-
-            if (moto == null)
-            {
-                return NotFound("Moto not found.");
-            }
-            else
-            {
-                var motoVM = _mapper.Map<MotoDetailVM>(moto);
-                return View(motoVM);
-            }
+            else return NotFound();         
         }
 
         [Authorize]
@@ -111,8 +110,8 @@ namespace DashBoard_MotoManager.Controllers
                         {
                             _logger.LogError("Ten Pb: " + m.TenVersion);
                             _logger.LogError("Gia Ban: " + m.GiaBanVersion);
-                            _logger.LogError("Phien ban Nay có so mau la: " + m.VersionColorsVM.Count);
-                            foreach (var c in m.VersionColorsVM)
+                            _logger.LogError("Phien ban Nay có so mau la: " + m.VersionColorVM.Count);
+                            foreach (var c in m.VersionColorVM)
                             {
                                 _logger.LogError("Ten mau: " + c.TenMau);
                                 _logger.LogError(c.TenMau + "có bằng này hình" + c.versionImageIF.Count);
@@ -153,7 +152,7 @@ namespace DashBoard_MotoManager.Controllers
                         //
                         MaHangSanXuat = model.MotoBike.MaHangSanXuat,
                         //
-                        AnhMoTaUrl = MyTool.UploadHinh(model.AnhMoTaIF, "MoTa"),
+                        AnhMoTaUrl = MyTool.UploadImage(model.AnhMoTaIF, "MoTa"),
                         //AnhMoTaUrl = "anhmota",
                         GiaBanMoTa = model.MotoBike.GiaBanMoTa,
                         TrongLuong = model.MotoBike.TrongLuong,
@@ -188,7 +187,7 @@ namespace DashBoard_MotoManager.Controllers
                     // them anh vao thu vien
                     foreach (var imgF in model.LibraryImageIF)
                     {
-                        string imgUrl = MyTool.UploadHinh(imgF, "LibraryImgs");
+                        string imgUrl = MyTool.UploadImage(imgF, "LibraryImgs");
                         var libraryImg = new LibraryImage
                         {
                             MaLibrary = moto.MaLibrary,
@@ -211,7 +210,7 @@ namespace DashBoard_MotoManager.Controllers
                         };
                         _db.MotoVersions.Add(v);
 
-                        foreach (var color in version.VersionColorsVM)
+                        foreach (var color in version.VersionColorVM)
                         {
                             var c = new VersionColor
                             {
@@ -222,7 +221,7 @@ namespace DashBoard_MotoManager.Controllers
                             _db.VersionColors.Add(c);
                             foreach (var file in color.versionImageIF)
                             {
-                                string imgUrl = MyTool.UploadHinh(file, "AnhVersion");
+                                string imgUrl = MyTool.UploadImage(file, "AnhVersion");
                                 var i = new VersionImage
                                 {
                                     MaVersionColor = c.MaVersionColor,
@@ -273,7 +272,7 @@ namespace DashBoard_MotoManager.Controllers
             }
             //string id = "00";
             var moto = _db.MotoBikes.FirstOrDefault(p => p.MaXe == maXe);
-            var result = new MotoDetailVM
+            var result = new MotoVM
             {
                 MaXe = moto.MaXe,
                 TenXe = moto.TenXe ?? "",
@@ -522,9 +521,9 @@ namespace DashBoard_MotoManager.Controllers
                             ImageId = i.ImageId,
                             ImageUrl = i.ImageUrl,
                         };
-                        colorVM.versionImageVM.Add(imgUrl);
+                        colorVM.VersionImageVM.Add(imgUrl);
                     }
-                    versionVM.VersionColorsVM.Add(colorVM);
+                    versionVM.VersionColorVM.Add(colorVM);
                 }
                 model.MotoVersionsVM.Add(versionVM);
             }
@@ -564,7 +563,7 @@ namespace DashBoard_MotoManager.Controllers
                         {
                             var imageName = model.AnhMoTaIF?.Name;
                             MyTool.DeleteImg(imageName, "MoTa");
-                            moto.AnhMoTaUrl = MyTool.UploadHinh(model.AnhMoTaIF, "MoTa");
+                            moto.AnhMoTaUrl = MyTool.UploadImage(model.AnhMoTaIF, "MoTa");
                         }
                         moto.GiaBanMoTa = model.MotoBike.GiaBanMoTa;
                         moto.TrongLuong = model.MotoBike.TrongLuong;
@@ -609,7 +608,7 @@ namespace DashBoard_MotoManager.Controllers
                                     _logger.LogError("imageLibraryToDelete is null");
                                 }
                             }
-                            string imgUrl = MyTool.UploadHinh(imgF, "LibraryImgs");
+                            string imgUrl = MyTool.UploadImage(imgF, "LibraryImgs");
                             var libraryImg = new LibraryImage
                             {
                                 MaLibrary = moto.MaLibrary,
@@ -641,7 +640,7 @@ namespace DashBoard_MotoManager.Controllers
                             };
                             _db.MotoVersions.Add(v);
 
-                            foreach (var color in version.VersionColorsVM)
+                            foreach (var color in version.VersionColorVM)
                             {
                                 var c = new VersionColor
                                 {
@@ -656,7 +655,7 @@ namespace DashBoard_MotoManager.Controllers
                                 {
                                     // Giữ nguyên các ảnh cũ
                                    // _logger.LogError("Có bằng này ảnh cũ: " + color.versionImageVM.Count);
-                                    foreach (var img in color.versionImageVM)
+                                    foreach (var img in color.VersionImageVM)
                                     {  
                                         var i = _db.VersionImages.FirstOrDefault(i1 =>i1.ImageId == img.ImageId);
                                         if (i != null)
@@ -676,7 +675,7 @@ namespace DashBoard_MotoManager.Controllers
                                     // Thêm ảnh mới
                                     foreach (var file in color.versionImageIF)
                                     {
-                                        string imgUrl = MyTool.UploadHinh(file, "AnhVersion");
+                                        string imgUrl = MyTool.UploadImage(file, "AnhVersion");
                                         var i = new VersionImage
                                         {
                                             MaVersionColor = c.MaVersionColor,

@@ -2,7 +2,7 @@
 
 namespace DashBoard_MotoManager.Models
 {
-    public class MotoDetailVM
+    public class MotoVM
     {
         public string MaXe { get; set; } = null!;
 
@@ -58,12 +58,12 @@ namespace DashBoard_MotoManager.Models
 
         public string? MaLibrary { get; set; }
 
-        public virtual Brand? MaHangSanXuatNavigation { get; set; }
+        public virtual BrandVM? MaHangSanXuatNavigation { get; set; }
 
-        public virtual MotoLibrary? MaLibraryNavigation { get; set; }
+        public virtual MotoLibraryVM? MaLibraryNavigation { get; set; }
 
-        public virtual MotoType? MaLoaiNavigation { get; set; }
+        public virtual MotoTypeVM? MaLoaiNavigation { get; set; }
 
-        public virtual ICollection<MotoVersion> MotoVersions { get; set; } = new List<MotoVersion>();
+        public virtual ICollection<MotoVersionVM>? MotoVersions { get; set; } = new List<MotoVersionVM>();
     }
 }

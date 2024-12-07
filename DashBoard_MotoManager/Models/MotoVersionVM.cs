@@ -19,6 +19,6 @@ namespace DashBoard_MotoManager.Models
 
         //public virtual MotoBike? MaXeNavigation { get; set; }
 
-        public virtual List<VersionColorVM> VersionColorsVM { get; set; } = new List<VersionColorVM>();
+        public virtual List<VersionColorVM>? VersionColorVM { get; set; }
     }
 }

@@ -244,17 +244,17 @@
                                                                                 <h6>Danh Sách Màu</h6>
                                                                                 <button type="button" id="add-color-button-@i" class="btn btn-secondary" onclick="addColor(@i)">Thêm Màu</button>
                                                                                 <div id="color-container-@i" class="color-container mb-3">
-                                                                                    @for (int j = 0; j < Model.MotoVersionsVM[i].VersionColorsVM.Count; j++)
+                                                                                    @for (int j = 0; j < Model.MotoVersionsVM[i].VersionColorVM.Count; j++)
                                                                                     {
                                                                                         <div class="color-section mb-3">
                                                                                             <div class="mb-3">
                                                                                                 <label class="form-label">Tên Màu</label>
-                                                                                                <input type="text" asp-for="@Model.MotoVersionsVM[i].VersionColorsVM[j].TenMau" class="form-control">
-                                                                                                <span asp-validation-for="@Model.MotoVersionsVM[i].VersionColorsVM[j].TenMau" class="text-danger"></span>
+                                                                                                <input type="text" asp-for="@Model.MotoVersionsVM[i].VersionColorVM[j].TenMau" class="form-control">
+                                                                                                <span asp-validation-for="@Model.MotoVersionsVM[i].VersionColorVM[j].TenMau" class="text-danger"></span>
                                                                                             </div>
                                                                                             <div class="mb-3">
                                                                                                 <label class="form-label">Ảnh Theo Phiên Bản + Màu</label>
-                                                                                                <input class="form-control" type="file" asp-for="@Model.MotoVersionsVM[i].VersionColorsVM[j].versionImageIF" id="colorImageInput-@i-@j" multiple>
+                                                                                                <input class="form-control" type="file" asp-for="@Model.MotoVersionsVM[i].VersionColorVM[j].versionImageIF" id="colorImageInput-@i-@j" multiple>
                                                                                             </div>
                                                                                             <div id="colorImagePreviewContainer-@i-@j" class="text-center">
                                                                                             </div>
