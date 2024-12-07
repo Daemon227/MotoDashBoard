@@ -1,6 +1,7 @@
 using DashBoard_MotoManager.Datas;
 using DashBoard_MotoManager.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace DashBoard_MotoManager.Controllers
@@ -8,39 +9,56 @@ namespace DashBoard_MotoManager.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly MotoWebsiteContext _db;
-        public HomeController(ILogger<HomeController> logger, MotoWebsiteContext db)
+        private readonly HttpClient _httpClient;
+        public HomeController(ILogger<HomeController> logger,HttpClient httpClient)
         {
             _logger = logger;
-            _db = db;
+            _httpClient = httpClient;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var brands = _db.Brands.ToList();
-            var types = _db.MotoTypes.ToList();
+            var response = await _httpClient.GetAsync("https://localhost:7252/api/Brand/Brands");
+            response.EnsureSuccessStatusCode();
+            var data = await response.Content.ReadAsStringAsync();
+            var brands = JsonConvert.DeserializeObject<List<BrandVM>>(data);
+            _logger.LogError("S? brands = "+brands.Count());
+
+            var response1 = await _httpClient.GetAsync("https://localhost:7252/api/Type/Types");
+            response1.EnsureSuccessStatusCode();
+            var data1 = await response1.Content.ReadAsStringAsync();
+            var types = JsonConvert.DeserializeObject<List<MotoTypeVM>>(data1);
+            _logger.LogError("S? types = " + types.Count());
+
+
+            var response2 = await _httpClient.GetAsync("https://localhost:7252/api/Moto/Motos");
+            response2.EnsureSuccessStatusCode();
+            var data2 = await response2.Content.ReadAsStringAsync();
+            var motos = JsonConvert.DeserializeObject<List<MotoVM>>(data2);
+            _logger.LogError("S? môtss = " + motos.Count());
+
             var model = new ChartVM();
             foreach (var brand in brands)
-            {
-                var motos = _db.MotoBikes.Where(m => m.MaHangSanXuat == brand.MaHangSanXuat).ToList();
+            {   
                 var brandCountVM = new BrandCountVM
                 {
                     brandName = brand.TenHangSanXuat,
-                    count = motos.Count,
+                    count = motos.Where(m => m.MaHangSanXuat == brand.MaHangSanXuat).ToList().Count()
                 };
                 model.brandChart.Add(brandCountVM);
             }
             foreach (var type in types)
             {
-                var motos = _db.MotoBikes.Where(m => m.MaLoai == type.MaLoai).ToList();
                 var typeCountVM = new TypeCountVM
                 {
                     typeName = type.TenLoai,
-                    count = motos.Count,
+                    count = motos.Where(m => m.MaLoai == type.MaLoai).ToList().Count()
                 };
                 model.typeChart.Add(typeCountVM);
             }
-            model.motoCount = _db.MotoBikes.Count();
+
+
+            model.motoCount = motos.Count();
             return View(model);
         }
 
