@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using DashBoard_MotoManager.Datas;
 using DashBoard_MotoManager.Helpers;
 using DashBoard_MotoManager.Models;
@@ -9,9 +10,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Newtonsoft.Json;
 using System.Diagnostics.Contracts;
+using System.Drawing.Drawing2D;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.ConstrainedExecution;
+using System.Text;
+using System.Web;
 using X.PagedList.Extensions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DashBoard_MotoManager.Controllers
 {
@@ -60,711 +66,479 @@ namespace DashBoard_MotoManager.Controllers
                 var data = await response.Content.ReadAsStringAsync();    
                 var moto = JsonConvert.DeserializeObject<MotoVM>(data);
                 //lay hinh anh
-                var response1 = await _httpClient.GetAsync("https://localhost:7252/api/Library/Libraries/" + "01_library");
+                
+                var response1 = await _httpClient.GetAsync("https://localhost:7252/api/Library/Libraries/" + moto.MaLibrary);
                 response1.EnsureSuccessStatusCode();
                 var librarydata = await response1.Content.ReadAsStringAsync();
-                var library = JsonConvert.DeserializeObject<MotoLibraryVM>(librarydata);
-                _logger.LogError("Số 01 " + library.LibraryImages.Count());
-                _logger.LogError("Số 01 " + library.MaLibrary);
-                //moto.MaLibraryNavigation = library;
-                var result = _mapper.Map<MotoVM>(moto);
-                _logger.LogError("Số pt " + moto.MaLibraryNavigation.LibraryImages.Count());
-                //result.MaLibraryNavigation = library;
-                return View(result);
+				//_logger.LogError($"Library response data: {librarydata}");
+				var library = JsonConvert.DeserializeObject<LibraryVM>(librarydata);   
+                moto.MaLibraryNavigation = library;
+                return View(moto);
             }
             else return NotFound();         
         }
 
         [Authorize]
         [HttpGet]
-        public IActionResult AddMoto()
+        public async Task<IActionResult> AddMoto()
         {
-            var model = new AddMotoVM
+            // lay brand
+			var response = await _httpClient.GetAsync("https://localhost:7252/api/Brand/Brands");
+			response.EnsureSuccessStatusCode();
+			var data = await response.Content.ReadAsStringAsync();
+			var brands = JsonConvert.DeserializeObject<List<BrandVM>>(data);
+
+			//lay Type
+			var response1 = await _httpClient.GetAsync("https://localhost:7252/api/Type/Types");
+			response1.EnsureSuccessStatusCode();
+			var data1 = await response1.Content.ReadAsStringAsync();
+			var types = JsonConvert.DeserializeObject<List<MotoTypeVM>>(data1);
+
+			var model = new AddMotoVM
             {
-                Brands = _db.Brands.ToList(),
-                MotoTypes = _db.MotoTypes.ToList(),
+                Brands = brands,
+                MotoTypes = types,
             };
+
             return View(model);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult AddMoto(AddMotoVM model)
+        public async Task<IActionResult> AddMoto(AddMotoVM model)
         {
             if (ModelState.IsValid)
             {
                 if (model == null)
                 {
-                    _logger.LogError("NULLLL CMNR");
+                    _logger.LogError("Model xe truyen ve bi null");
                     return View();
                 }
                 else
-                {
-                    #region LOGGER
-                    _logger.LogError("Play roi ------");
-                    if (model.MotoVersionsVM != null)
+                {                 
+                    var moto = _mapper.Map<MotoBike>(model.MotoBike);
+                    moto.MaXe = MyTool.GenarateRandomKey();
+                    moto.MaLibrary = MyTool.GenarateRandomKey();
+
+					// xu ly anh mota:
+					if (model.AnhMoTaIF != null)
+					{
+						// truyen file sang backend.
+						var formDataContent = new MultipartFormDataContent();
+						var streamContent = new StreamContent(model.AnhMoTaIF.OpenReadStream());
+						streamContent.Headers.ContentType = new MediaTypeHeaderValue(model.AnhMoTaIF.ContentType);
+						formDataContent.Add(streamContent, "files", model.AnhMoTaIF.FileName);
+						var responseLibrary = await _httpClient.PostAsync("https://localhost:7252/api/Upload/MotoImages", formDataContent);
+						// neu thanh cong thi lay file string
+						if (responseLibrary.IsSuccessStatusCode)
+						{
+							var responseData = await responseLibrary.Content.ReadAsStringAsync();
+							var fileNames = JsonConvert.DeserializeObject<List<string>>(responseData);
+
+							foreach (var fileName in fileNames)
+							{
+								moto.AnhMoTaUrl = fileName;
+							}
+						}
+						else
+						{
+                            moto.AnhMoTaUrl = "anh";
+							_logger.LogError("Error creating Moto Image");
+							ModelState.AddModelError(string.Empty, "Error creating Moto Image");
+						}
+					}
+					#region LIBRARY
+					//them library
+					var motoLibray = new LibraryVM
                     {
-                        _logger.LogError("-------MotoVersionVM k null ------");
-                        _logger.LogError("Co bang nay version" + model.MotoVersionsVM.Count);
-                        foreach (var m in model.MotoVersionsVM)
-                        {
-                            _logger.LogError("Ten Pb: " + m.TenVersion);
-                            _logger.LogError("Gia Ban: " + m.GiaBanVersion);
-                            _logger.LogError("Phien ban Nay có so mau la: " + m.VersionColorVM.Count);
-                            foreach (var c in m.VersionColorVM)
-                            {
-                                _logger.LogError("Ten mau: " + c.TenMau);
-                                _logger.LogError(c.TenMau + "có bằng này hình" + c.versionImageIF.Count);
-                                foreach (var f in c.versionImageIF)
-                                {
-                                    _logger.LogError("Ten file Anh: " + f.FileName);
-                                }
-                            }
-                        }
+                        MaLibrary = moto.MaLibrary,
+                        LibraryImageVM = new List<LibraryImageVM>()
+                    };
+					// Them anh vao thu vien
+					if (model.LibraryImageIF != null)
+					{
+						// truyen file sang backend.
+						var formDataContent = new MultipartFormDataContent();
+						foreach (var item in model.LibraryImageIF)
+						{
+							var streamContent = new StreamContent(item.OpenReadStream());
+							streamContent.Headers.ContentType = new MediaTypeHeaderValue(item.ContentType);
+							formDataContent.Add(streamContent, "files", item.FileName);
+						}
+						var responseLibrary = await _httpClient.PostAsync("https://localhost:7252/api/Upload/LibraryImages", formDataContent);
+						// neu thanh cong thi lay file string
+						if (responseLibrary.IsSuccessStatusCode)
+						{
+							var responseData = await responseLibrary.Content.ReadAsStringAsync();
+							var fileNames = JsonConvert.DeserializeObject<List<string>>(responseData);
+
+							foreach (var fileName in fileNames)
+							{
+								// set ten va them vao MotoLibrary
+								var image = new LibraryImageVM();
+								image.MaLibrary = motoLibray.MaLibrary;
+                                image.ImageUrl = fileName;
+								motoLibray.LibraryImageVM.Add(image);
+							}
+						}
+						else
+						{
+							_logger.LogError("Error creating library Image");
+							ModelState.AddModelError(string.Empty, "Error creating library Image");
+						}
+					}
+
+					var libraryCreate = new StringContent(JsonConvert.SerializeObject(motoLibray), Encoding.UTF8, "application/json");
+					var libraryCreateResult = await _httpClient.PostAsync("https://localhost:7252/api/Library/Libraries", libraryCreate);
+
+                    // kiem tra trang thai tao library
+                    if (libraryCreateResult.IsSuccessStatusCode)
+                    {
+                        _logger.LogWarning("Create Library Thanh Cong___"+motoLibray.MaLibrary);
+
                     }
                     else
                     {
-                        _logger.LogError("--------MotoversionVm null");
-                    }
-                    if (model.AnhMoTaIF != null)
-                    {
-                        //_logger.LogError("Anh nay leeeeeeuueueueueue"+MyTool.UploadHinh(model.AnhMoTaIF, "MoTa"));
-                        _logger.LogError("Anh mota nay: " + model.AnhMoTaIF.FileName);
-                    }
-                    else { _logger.LogError("File Anh MOTA NULL"); };
+						_logger.LogInformation("Loi Create Library Khong Thanh Cong");
+						ModelState.AddModelError(string.Empty, "Error creating Library");
+					}
+					#endregion
 
-                    if (model.LibraryImageIF != null)
+					var content = new StringContent(JsonConvert.SerializeObject(moto), Encoding.UTF8, "application/json");
+					var response = await _httpClient.PostAsync("https://localhost:7252/api/Moto/Motos", content);
+					if (response.IsSuccessStatusCode)
+					{
+						_logger.LogInformation("Luu Xe Thanh Cong");
+						return RedirectToAction("ListMoto", "Moto");
+					}
+                    else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
-                        foreach (var img in model.LibraryImageIF)
-                        {
-                            _logger.LogError("Anh Library" + img.FileName);
-                        }
+                        var errorMessage = await response.Content.ReadAsStringAsync();
+                        ModelState.AddModelError(string.Empty, errorMessage);
+                        return View(model);
                     }
-                    else _logger.LogError("Anh Library is NULL");
-                    #endregion
+                    else
+					{
+						_logger.LogError("Error creating Moto");
+						var errorMessage = await response.Content.ReadAsStringAsync();
+						ModelState.AddModelError(string.Empty, "Error creating Moto ___ "+errorMessage);
 
-                    string libraryId = MyTool.GenarateRandomKey();
-                    var moto = new MotoBike
-                    {
-                        MaXe = MyTool.GenarateRandomKey(),
-                        TenXe = model.MotoBike.TenXe,
-                        MaLoai = model.MotoBike.MaLoai,
-                        //
-                        MaHangSanXuat = model.MotoBike.MaHangSanXuat,
-                        //
-                        AnhMoTaUrl = MyTool.UploadImage(model.AnhMoTaIF, "MoTa"),
-                        //AnhMoTaUrl = "anhmota",
-                        GiaBanMoTa = model.MotoBike.GiaBanMoTa,
-                        TrongLuong = model.MotoBike.TrongLuong,
-                        KichThuoc = model.MotoBike.KichThuoc,
-                        KhoangCachTrucBanhXe = model.MotoBike.KhoangCachTrucBanhXe,
-                        DoCaoYen = model.MotoBike.DoCaoYen,
-                        DoCaoGamXe = model.MotoBike.DoCaoGamXe,
-                        DungTichBinhXang = model.MotoBike.DungTichBinhXang,
-                        KichCoLop = model.MotoBike.KichCoLop,
-                        PhuocTruoc = model.MotoBike.PhuocTruoc,
-                        PhuocSau = model.MotoBike.PhuocSau,
-                        LoaiDongCo = model.MotoBike.LoaiDongCo,
-                        CongSuatToiDa = model.MotoBike.CongSuatToiDa,
-                        MucTieuThuNhienLieu = model.MotoBike.MucTieuThuNhienLieu,
-                        HeThongKhoiDong = model.MotoBike.HeThongKhoiDong,
-                        MomentCucDai = model.MotoBike.MomentCucDai,
-                        DungTichXyLanh = model.MotoBike.DungTichXyLanh,
-                        DuongKinhHanhTrinhPittong = model.MotoBike.DuongKinhHanhTrinhPittong,
-                        TySoNen = model.MotoBike.TySoNen,
-                        TinhNangNoiBat = model.MotoBike.TinhNangNoiBat,
-                        ThietKe = model.MotoBike.ThietKe,
-                        TienIch = model.MotoBike.TienIch,
-                        MaLibrary = libraryId,
+						var responseBrand = await _httpClient.GetAsync("https://localhost:7252/api/Brand/Brands");
+						responseBrand.EnsureSuccessStatusCode();
+						var data = await responseBrand.Content.ReadAsStringAsync();
+						var brands = JsonConvert.DeserializeObject<List<BrandVM>>(data);
 
-                    };
-                    //them library
-                    var motoLibray = new MotoLibrary
-                    {
-                        MaLibrary = moto.MaLibrary
-                    };
-                    _db.MotoLibraries.Add(motoLibray);
-                    // them anh vao thu vien
-                    foreach (var imgF in model.LibraryImageIF)
-                    {
-                        string imgUrl = MyTool.UploadImage(imgF, "LibraryImgs");
-                        var libraryImg = new LibraryImage
-                        {
-                            MaLibrary = moto.MaLibrary,
-                            ImageUrl = imgUrl,
-                        };
-                        _db.LibraryImages.Add(libraryImg);
-                    }
-                    //them xe
-                    _db.Add(moto);
+						//lay Type
+						var response1 = await _httpClient.GetAsync("https://localhost:7252/api/Type/Types");
+						response1.EnsureSuccessStatusCode();
+						var data1 = await response1.Content.ReadAsStringAsync();
+						var types = JsonConvert.DeserializeObject<List<MotoTypeVM>>(data1);
 
-                    // them version
-                    foreach (var version in model.MotoVersionsVM)
-                    {
-                        var v = new MotoVersion
-                        {
-                            MaXe = moto.MaXe,
-                            MaVersion = MyTool.GenarateRandomKey(),
-                            TenVersion = version.TenVersion,
-                            GiaBanVersion = version.GiaBanVersion,
-                        };
-                        _db.MotoVersions.Add(v);
-
-                        foreach (var color in version.VersionColorVM)
-                        {
-                            var c = new VersionColor
-                            {
-                                MaVersion = v.MaVersion,
-                                MaVersionColor = MyTool.GenarateRandomKey(),
-                                TenMau = color.TenMau,
-                            };
-                            _db.VersionColors.Add(c);
-                            foreach (var file in color.versionImageIF)
-                            {
-                                string imgUrl = MyTool.UploadImage(file, "AnhVersion");
-                                var i = new VersionImage
-                                {
-                                    MaVersionColor = c.MaVersionColor,
-                                    ImageUrl = imgUrl
-                                };
-                                _db.VersionImages.Add(i);
-
-                            }
-                        }
-                    }
-
-                    try
-                    {
-                        var result = _db.SaveChanges();
-                        if (result > 0)
-                        {
-                            _logger.LogError("Luu Xe Thanh Cong");
-                            return RedirectToAction("ListMoto", "Moto");
-                        }
-                        else
-                        {
-                            _logger.LogError("Không lưu được XE, không có hàng nào bị ảnh hưởng.");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Lỗi khi lưu XE vào cơ sở dữ liệu.");
-                        throw; // Ném lại lỗi để dễ dàng kiểm tra khi debug
-                    }
-                    return View();
+						model.Brands = brands;
+						model.MotoTypes = types;
+						return View(model);
+					}
                 }
             }
             else
             {
-                model.Brands = _db.Brands.ToList();
-                model.MotoTypes = _db.MotoTypes.ToList();
+				// lay brand
+				var response = await _httpClient.GetAsync("https://localhost:7252/api/Brand/Brands");
+				response.EnsureSuccessStatusCode();
+				var data = await response.Content.ReadAsStringAsync();
+				var brands = JsonConvert.DeserializeObject<List<BrandVM>>(data);
+
+				//lay Type
+				var response1 = await _httpClient.GetAsync("https://localhost:7252/api/Type/Types");
+				response1.EnsureSuccessStatusCode();
+				var data1 = await response1.Content.ReadAsStringAsync();
+				var types = JsonConvert.DeserializeObject<List<MotoTypeVM>>(data1);
+
+                model.Brands = brands;
+                model.MotoTypes = types;
                 return View(model);
             }
         }
 
         [Authorize]
         [HttpGet]
-        public IActionResult RemoveMoto(string? maXe)
+        public async Task<IActionResult> RemoveMoto(string? maXe)
         {
             if (maXe == null)
             {
-
+                return RedirectToAction("NotFound","Home");
             }
-            //string id = "00";
-            var moto = _db.MotoBikes.FirstOrDefault(p => p.MaXe == maXe);
-            var result = new MotoVM
+            else
             {
-                MaXe = moto.MaXe,
-                TenXe = moto.TenXe ?? "",
-                MaHangSanXuat = moto.MaHangSanXuat ?? "",
-                AnhMoTaUrl = moto.AnhMoTaUrl ?? "",
-                GiaBanMoTa = moto.GiaBanMoTa ?? "",
-            };
-            return View(result);
+				var response = await _httpClient.GetAsync("https://localhost:7252/api/Moto/Motos/" + maXe);
+				response.EnsureSuccessStatusCode();
+				var data = await response.Content.ReadAsStringAsync();
+				var moto = JsonConvert.DeserializeObject<MotoVM>(data);
+				return View(moto);
+			}
+			//string id = "00";
+	
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ConfirmRemoveMoto(string maXe)
+        public async Task<IActionResult> ConfirmRemoveMoto(string maXe)
         {
-            if (!string.IsNullOrEmpty(maXe))
-            {
-
-            }
-            //string id = "00";
-            var moto = _db.MotoBikes.Include(p => p.MotoVersions)
-                    .ThenInclude(v => v.VersionColors)
-                        .ThenInclude(i => i.VersionImages)
-                    .Include(l => l.MaLibraryNavigation)
-                        .ThenInclude(i2 => i2.LibraryImages)
-                    .Include(b => b.MaHangSanXuatNavigation)
-                    .Include(t => t.MaLoaiNavigation)
-                        .FirstOrDefault(p => p.MaXe == maXe);
-
-            if (moto == null)
-            {
-                _logger.LogError("Khong tim thay xe co ma " +maXe);
-            }
-            else
-            {
-                // xoa version truoc nay
-                foreach (var v in moto.MotoVersions)
-                {
-                    foreach (var c in v.VersionColors)
-                    {
-                        foreach (var i in c.VersionImages)
-                        {
-                            
-                            var imageToDelete = _db.VersionImages.FirstOrDefault(img => img.ImageId == i.ImageId);
-                            if (imageToDelete != null)
-                            {
-                                _db.VersionImages.Remove(imageToDelete); // Xóa ảnh khỏi cơ sở dữ liệu
-                                MyTool.DeleteImg(i.ImageUrl, "AnhVersion");
-                            }
-                            else
-                            {
-                                _logger.LogError("imageVersionToDelete is null");
-                            }
-                        }
-                        var colorToDelete = _db.VersionColors.FirstOrDefault(color => color.MaVersionColor == c.MaVersionColor);
-                        if (colorToDelete != null)
-                        {
-                            _db.VersionColors.Remove(colorToDelete); // Xóa màu khỏi cơ sở dữ liệu
-                        }
-                        else
-                        {
-                            _logger.LogError("colorVersionToDelete is null");
-                        }
-                    }
-                    var versionToDelete = _db.MotoVersions.FirstOrDefault(Version => Version.MaVersion == v.MaVersion);
-                    if (versionToDelete != null)
-                    {
-                        _db.MotoVersions.Remove(versionToDelete);
-                    }
-                    else
-                    {
-                        _logger.LogError("motoVersionToDelete is null");
-                    }
-                }
-
-                // xoa moto
-                var motoToRemove = _db.MotoBikes.FirstOrDefault(m=> m.MaXe == moto.MaXe);
-                MyTool.DeleteImg(motoToRemove.AnhMoTaUrl, "MoTa");
-                _db.MotoBikes.Remove(motoToRemove);
-
-                // xóa anh trong thư viện
-                foreach (var i in moto.MaLibraryNavigation.LibraryImages)
-                { 
-                    var imgToDelete = _db.LibraryImages.FirstOrDefault(img => img.ImageId == i.ImageId);
-                    if (imgToDelete != null) 
-                    {
-                        MyTool.DeleteImg(i.ImageUrl, "LibraryImgs");
-                        _db.LibraryImages.Remove(imgToDelete);
-                    }
-                    else
-                    {
-                        _logger.LogError("imageLibraryToDelete is null");
-                    }
-                }
-                
-                // xoa thu vien
-
-                var libraryToRemove = _db.MotoLibraries.FirstOrDefault(l=>l.MaLibrary == moto.MaLibrary);
-                if (libraryToRemove != null)
-                {
-                    _db.MotoLibraries.Remove(libraryToRemove);
-                }
-                else
-                {
-                    _logger.LogError("library is null");
-                }
-
-                try
-                {
-                    var result = _db.SaveChanges();
-                    if (result > 0)
-                    {
-                        _logger.LogError("Xoa Xe Thanh Cong");
-                        return RedirectToAction("ListMoto", "Moto");
-                    }
-                    else
-                    {
-                        _logger.LogError("Không xoa được XE,khong có hàng nào bị ảnh hưởng.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Lỗi khi XOA XE vào cơ sở dữ liệu.");
-                    throw; // Ném lại lỗi để dễ dàng kiểm tra khi debug
-                }
-            }
-
-            return RedirectToAction("ListMoto", "Moto");
+			if (maXe != null)
+			{
+				var response = await _httpClient.DeleteAsync("https://localhost:7252/api/Moto/Motos/" + maXe);
+				if (response.IsSuccessStatusCode)
+				{
+					return RedirectToAction("ListMoto","Moto");
+				}
+				else return View();
+			}
+			else
+			{
+				_logger.LogError("Ma Brand ID Null");
+				return View();
+			}
+			
         }
 
         [Authorize]
         [HttpGet]
-        public IActionResult EditMoto(string maXe)
+        public async Task<IActionResult> EditMoto(string maXe)
         {
-            if (!string.IsNullOrEmpty(maXe))
-            {
+			if (maXe != null)
+			{
+				//lay ra xe
+				var responseMoto = await _httpClient.GetAsync("https://localhost:7252/api/Moto/Motos/" + maXe);
+				responseMoto.EnsureSuccessStatusCode();
+				var dataMoto = await responseMoto.Content.ReadAsStringAsync();
+				var moto = JsonConvert.DeserializeObject<MotoVM>(dataMoto);
 
-            }
-            //string id = "00";
-            var moto = _db.MotoBikes.Include(p => p.MotoVersions)
-                    .ThenInclude(v => v.VersionColors)
-                        .ThenInclude(i => i.VersionImages)
-                    .Include(l => l.MaLibraryNavigation)
-                        .ThenInclude(i2 => i2.LibraryImages)
-                    .Include(b => b.MaHangSanXuatNavigation)
-                    .Include(t => t.MaLoaiNavigation)
-                        .FirstOrDefault(p => p.MaXe == maXe);
+				//lay hinh anh
+				var responseLibrary = await _httpClient.GetAsync("https://localhost:7252/api/Library/Libraries/" + moto.MaLibrary);
+				responseLibrary.EnsureSuccessStatusCode();
+				var librarydata = await responseLibrary.Content.ReadAsStringAsync();				
+				var library = JsonConvert.DeserializeObject<LibraryVM>(librarydata);		
+				moto.MaLibraryNavigation = library;
 
-            var motoBike = new MotoBike
-            {
-                MaXe = moto.MaXe,
-                TenXe = moto.TenXe ?? "",
-                MaHangSanXuat = moto.MaHangSanXuat ?? "",
-                MaLoai = moto.MaLoai ?? "",
-                AnhMoTaUrl = moto.AnhMoTaUrl ?? "",
-                GiaBanMoTa = moto.GiaBanMoTa ?? "",
+				// lay brand
+				var response = await _httpClient.GetAsync("https://localhost:7252/api/Brand/Brands");
+				response.EnsureSuccessStatusCode();
+				var data = await response.Content.ReadAsStringAsync();
+				var brands = JsonConvert.DeserializeObject<List<BrandVM>>(data);
 
-                TrongLuong = moto.TrongLuong ?? "",
-                KichThuoc = moto.KichThuoc ?? "",
-                KhoangCachTrucBanhXe = moto.KhoangCachTrucBanhXe ?? "",
-                DoCaoYen = moto.DoCaoYen ?? "",
-                DoCaoGamXe = moto.DoCaoGamXe ?? "",
-                DungTichBinhXang = moto.DungTichBinhXang ?? "",
-                KichCoLop = moto.KichCoLop ?? "",
-                PhuocTruoc = moto.PhuocTruoc ?? "",
-                PhuocSau = moto.PhuocSau ?? "",
-                LoaiDongCo = moto.LoaiDongCo ?? "",
-                CongSuatToiDa = moto.CongSuatToiDa ?? "",
-                MucTieuThuNhienLieu = moto.MucTieuThuNhienLieu ?? "",
-                HeThongKhoiDong = moto.HeThongKhoiDong ?? "",
-                MomentCucDai = moto.MomentCucDai ?? "",
-                DungTichXyLanh = moto.DungTichXyLanh ?? "",
-                DuongKinhHanhTrinhPittong = moto.DuongKinhHanhTrinhPittong ?? "",
-                TySoNen = moto.TySoNen ?? "",
-                MaLibrary = moto.MaLibrary,
+				//lay Type
+				var response1 = await _httpClient.GetAsync("https://localhost:7252/api/Type/Types");
+				response1.EnsureSuccessStatusCode();
+				var data1 = await response1.Content.ReadAsStringAsync();
+				var types = JsonConvert.DeserializeObject<List<MotoTypeVM>>(data1);
 
-                MaHangSanXuatNavigation = new Brand
-                {
-                    TenHangSanXuat = moto.MaHangSanXuatNavigation.MaHangSanXuat,
-                    MaHangSanXuat = moto.MaHangSanXuatNavigation.TenHangSanXuat
-                },
-
-                MaLibraryNavigation = new MotoLibrary
-                {
-                    MaLibrary = moto.MaLibraryNavigation.MaLibrary,
-                    LibraryImages = moto.MaLibraryNavigation.LibraryImages.Select(img => new LibraryImage
-                    {
-                        ImageId = img.ImageId,
-                        ImageUrl = img.ImageUrl,
-                    }).ToList()
-                },
-
-                MaLoaiNavigation = new MotoType
-                {
-                    MaLoai = moto.MaLoaiNavigation.MaLoai,
-                    TenLoai = moto.MaLoaiNavigation.TenLoai
-                },
-
-                TienIch = moto.TienIch,
-                TinhNangNoiBat = moto.TinhNangNoiBat,
-                ThietKe = moto.ThietKe,
-
-                MotoVersions = moto.MotoVersions.Select(v => new MotoVersion
-                {
-                    MaVersion = v.MaVersion,
-                    TenVersion = v.TenVersion ?? "",
-                    GiaBanVersion = v.GiaBanVersion ?? "",
-                    VersionColors = v.VersionColors.Select(c => new VersionColor
-                    {
-                        MaVersionColor = c.MaVersionColor,
-                        TenMau = c.TenMau,
-                        VersionImages = c.VersionImages.Select(i => new VersionImage
-                        {
-                            ImageId = i.ImageId,
-                            ImageUrl = i.ImageUrl,
-                        }).ToList()
-                    }).ToList()
-                }).ToList()
-            };
-            var brand = _db.Brands.ToList();
-
-            var model = new EditMotoVM
-            {
-                MotoBike = motoBike,
-                Brands = _db.Brands.ToList(),
-                MotoTypes = _db.MotoTypes.ToList(),
-            };
-            foreach (var v in motoBike.MotoVersions)
-            {
-                var versionVM = new MotoVersionVM
-                {
-                    MaVersion = v.MaVersion,
-                    TenVersion = v.TenVersion,
-                    GiaBanVersion = v.GiaBanVersion,
-                };
-                foreach (var c in v.VersionColors)
-                {
-                    var colorVM = new VersionColorVM
-                    {
-                        MaVersionColor = c.MaVersionColor,
-                        TenMau = c.TenMau,
-                    };
-                    foreach(var i in c.VersionImages)
-                    {
-                        var imgUrl = new VersionImageVM
-                        {
-                            ImageId = i.ImageId,
-                            ImageUrl = i.ImageUrl,
-                        };
-                        colorVM.VersionImageVM.Add(imgUrl);
-                    }
-                    versionVM.VersionColorVM.Add(colorVM);
-                }
-                model.MotoVersionsVM.Add(versionVM);
-            }
-            return View(model);
-        }
+				var model = new EditMotoVM
+				{
+                    MotoBike = moto,
+					Brands = brands,
+					MotoTypes = types,
+				};
+				return View(model);
+			}
+			else return NotFound();
+			
+			
+		}
 
         [Authorize]
         [HttpPost]
-        public IActionResult EditMoto(EditMotoVM model, string maXe)
+        public async Task<IActionResult> EditMoto(EditMotoVM model, string maXe)
         {
-            if (ModelState.IsValid)
+            if (model != null && maXe!= null)
             {
-                if (model == null)
-                {
-                    _logger.LogError(" Model Editmoto NULLLL");
-                    return View(maXe);
-                }
+                var response = await _httpClient.GetAsync("https://localhost:7252/api/Moto/Motos/" + maXe);
+                response.EnsureSuccessStatusCode();
+                var data = await response.Content.ReadAsStringAsync();
+                var oldMoto = JsonConvert.DeserializeObject<MotoBike>(data);
+				var newMoto = _mapper.Map<MotoBike>(model.MotoBike);
+				newMoto.MaXe = oldMoto.MaXe;
+                newMoto.MaLibrary = oldMoto.MaLibrary;
+
+                if (model.AnhMoTaIF == null || model.AnhMoTaIF.Length == 0)
+				{
+					newMoto.AnhMoTaUrl = oldMoto.AnhMoTaUrl;
+				}
                 else
-                {
-                    _logger.LogError("Ma cua model :" + model.MotoBike.MaXe);
-                    _logger.LogError("Ma tu model la "+ maXe);
-                    var moto = _db.MotoBikes.Include(p => p.MotoVersions)
-                   .ThenInclude(v => v.VersionColors)
-                       .ThenInclude(i => i.VersionImages)
-                       .FirstOrDefault(p => p.MaXe == maXe);
-                    if (moto == null)
+                {  
+                    // truyen file sang backend.
+                    var formDataContent = new MultipartFormDataContent();
+                    var streamContent = new StreamContent(model.AnhMoTaIF.OpenReadStream());
+                    streamContent.Headers.ContentType = new MediaTypeHeaderValue(model.AnhMoTaIF.ContentType);
+                    formDataContent.Add(streamContent, "files", model.AnhMoTaIF.FileName);
+                    var responseLibrary = await _httpClient.PostAsync("https://localhost:7252/api/Upload/MotoImages", formDataContent);
+                    // neu thanh cong thi lay file string
+                    if (responseLibrary.IsSuccessStatusCode)
                     {
-                        _logger.LogError("Khong tim thay moto trong database");
+                        var responseData = await responseLibrary.Content.ReadAsStringAsync();
+                        var fileNames = JsonConvert.DeserializeObject<List<string>>(responseData);
+
+                        foreach (var fileName in fileNames)
+                        {
+                            newMoto.AnhMoTaUrl = fileName;
+                        }
+                    }
+                }
+				if (model.LibraryImageIF != null && model.LibraryImageIF.Count()>0)
+				{
+                    _logger.LogError("ma library: " + newMoto.MaLibrary);
+                    var responseLibraryDelete = await _httpClient.DeleteAsync("https://localhost:7252/api/Library/ResetLibraries/" + oldMoto.MaLibrary);
+					if (responseLibraryDelete.IsSuccessStatusCode)
+					{
+                        #region LIBRARY 
+                        // Them anh vao thu vien
+                        var motoLibrary = new LibraryVM
+                        {
+                            MaLibrary = newMoto.MaLibrary,
+                            LibraryImageVM = new List<LibraryImageVM>()
+                        };
+                        // truyen file sang backend.
+                        var formDataContent = new MultipartFormDataContent();
+                        foreach (var item in model.LibraryImageIF)
+                        {
+                            var streamContent = new StreamContent(item.OpenReadStream());
+                            streamContent.Headers.ContentType = new MediaTypeHeaderValue(item.ContentType);
+                            formDataContent.Add(streamContent, "files", item.FileName);
+                        }
+                        
+                        var responseLibrary = await _httpClient.PostAsync("https://localhost:7252/api/Upload/LibraryImages", formDataContent);
+                        // neu thanh cong thi lay file string
+                        if (responseLibrary.IsSuccessStatusCode)
+                        {
+
+                            var responseData = await responseLibrary.Content.ReadAsStringAsync();
+                            var fileNames = JsonConvert.DeserializeObject<List<string>>(responseData);
+
+                            foreach (var fileName in fileNames)
+                            {
+                                // set ten va them vao MotoLibrary
+                                var image = new LibraryImageVM();
+                                image.MaLibrary = newMoto.MaLibrary;
+                                image.ImageUrl = fileName;
+                                motoLibrary.LibraryImageVM.Add(image);
+                            }
+                        }
+                        else
+                        {
+                            _logger.LogError("Error creating library Image");
+                            ModelState.AddModelError(string.Empty, "Error creating library Image");
+                        }
+
+                        var libraryCreate = new StringContent(JsonConvert.SerializeObject(motoLibrary), Encoding.UTF8, "application/json");
+                        var libraryCreateResult = await _httpClient.PutAsync("https://localhost:7252/api/Library/Libraries/" + newMoto.MaLibrary, libraryCreate);
+
+                        // kiem tra trang thai tao library
+                        if (libraryCreateResult.IsSuccessStatusCode)
+                        {
+                            _logger.LogWarning("Create Library Thanh Cong___" + motoLibrary.MaLibrary);
+
+                        }
+                        else
+                        {
+                            _logger.LogError("Loi Create Library Khong Thanh Cong");
+                            ModelState.AddModelError(string.Empty, "Error creating Library");
+                        }
+                        #endregion
                     }
                     else
                     {
-                        #region Set XE
-                        moto.TenXe = model.MotoBike.TenXe;
-                        moto.MaLoai = model.MotoBike.MaLoai ?? "";
-                        moto.MaHangSanXuat = model.MotoBike.MaHangSanXuat ?? "";
-                        if (model.AnhMoTaIF !=null)
-                        {
-                            var imageName = model.AnhMoTaIF?.Name;
-                            MyTool.DeleteImg(imageName, "MoTa");
-                            moto.AnhMoTaUrl = MyTool.UploadImage(model.AnhMoTaIF, "MoTa");
-                        }
-                        moto.GiaBanMoTa = model.MotoBike.GiaBanMoTa;
-                        moto.TrongLuong = model.MotoBike.TrongLuong;
-                        moto.KhoangCachTrucBanhXe = model.MotoBike.KhoangCachTrucBanhXe;
-                        moto.DoCaoYen = model.MotoBike.DoCaoYen;
-                        moto.DoCaoGamXe = model.MotoBike.DoCaoGamXe;
-                        moto.DungTichBinhXang = model.MotoBike.DungTichBinhXang;
-                        moto.KichCoLop = model.MotoBike.KichCoLop;
-                        moto.PhuocTruoc = model.MotoBike.PhuocTruoc;
-                        moto.PhuocSau = model.MotoBike.PhuocSau;
-                        moto.LoaiDongCo = model.MotoBike.LoaiDongCo;
-                        moto.CongSuatToiDa = model.MotoBike.CongSuatToiDa;
-                        moto.MucTieuThuNhienLieu = model.MotoBike.MucTieuThuNhienLieu;
-                        moto.HeThongKhoiDong = model.MotoBike.HeThongKhoiDong;
-                        moto.MomentCucDai = model.MotoBike.MomentCucDai;
-                        moto.DungTichXyLanh = model.MotoBike.DungTichXyLanh;
-                        moto.DuongKinhHanhTrinhPittong = model.MotoBike.DuongKinhHanhTrinhPittong;
-                        moto.TySoNen = model.MotoBike.TySoNen;
-                        moto.TinhNangNoiBat = model.MotoBike.TinhNangNoiBat;
-                        moto.ThietKe = model.MotoBike.ThietKe;
-                        moto.TienIch = model.MotoBike.TienIch;
-                        #endregion
-
-                        #region Set Library
-                        //_logger.LogError("ma library ==" + moto.MaLibrary);
-                        var library = _db.MotoLibraries.Include(ib => ib.LibraryImages)
-                            .FirstOrDefault(l => l.MaLibrary == moto.MaLibrary);
-                        //_logger.LogError("Ma cua library trong database "+ library.MaLibrary);
-                        foreach (var imgF in model.LibraryImageIF)
-                        {
-                            foreach (var i in library.LibraryImages)
-                            {
-                                var imgToDelete = _db.LibraryImages.FirstOrDefault(img => img.ImageId == i.ImageId);
-                                //_logger.LogError("Ma anh de xoa "+ i.ImageId);
-                                if (imgToDelete != null)
-                                { 
-                                    MyTool.DeleteImg(i.ImageUrl, "LibraryImgs");
-                                    _db.LibraryImages.Remove(imgToDelete);
-                                }
-                                else
-                                {
-                                    _logger.LogError("imageLibraryToDelete is null");
-                                }
-                            }
-                            string imgUrl = MyTool.UploadImage(imgF, "LibraryImgs");
-                            var libraryImg = new LibraryImage
-                            {
-                                MaLibrary = moto.MaLibrary,
-                                ImageUrl = imgUrl,
-                            };
-                            _db.LibraryImages.Add(libraryImg);
-                        }
-                        #endregion
-
-                        #region Set Version
-
-                        var listVersionToRemove = new List<MotoVersion>();
-                        var listImageToSave = new List<int>(); 
-                        // đánh dấu các version cần xóa
-                        foreach (var v in moto.MotoVersions)
-                        {
-                            listVersionToRemove.Add(v);
-                        }
-                        
-                        // Thêm version mới vào
-                        foreach (var version in model.MotoVersionsVM)
-                        {
-                            var v = new MotoVersion
-                            {
-                                MaXe = moto.MaXe,
-                                MaVersion = MyTool.GenarateRandomKey(),
-                                TenVersion = version.TenVersion,
-                                GiaBanVersion = version.GiaBanVersion,
-                            };
-                            _db.MotoVersions.Add(v);
-
-                            foreach (var color in version.VersionColorVM)
-                            {
-                                var c = new VersionColor
-                                {
-                                    MaVersion = v.MaVersion,
-                                    MaVersionColor = MyTool.GenarateRandomKey(),
-                                    TenMau = color.TenMau,
-                                };
-                                _db.VersionColors.Add(c);
-
-                                // Kiểm tra nếu không có ảnh mới được chọn
-                                if (color.versionImageIF == null || color.versionImageIF.Count == 0)
-                                {
-                                    // Giữ nguyên các ảnh cũ
-                                   // _logger.LogError("Có bằng này ảnh cũ: " + color.versionImageVM.Count);
-                                    foreach (var img in color.VersionImageVM)
-                                    {  
-                                        var i = _db.VersionImages.FirstOrDefault(i1 =>i1.ImageId == img.ImageId);
-                                        if (i != null)
-                                        {
-                                           // _logger.LogError("ten anh: " + i.ImageUrl);
-                                            i.MaVersionColor = c.MaVersionColor; 
-                                            listImageToSave.Add(i.ImageId);     
-                                        }
-                                        else
-                                        {
-                                            _logger.LogError("Khong tim thay anh de thay ma color");
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    // Thêm ảnh mới
-                                    foreach (var file in color.versionImageIF)
-                                    {
-                                        string imgUrl = MyTool.UploadImage(file, "AnhVersion");
-                                        var i = new VersionImage
-                                        {
-                                            MaVersionColor = c.MaVersionColor,
-                                            ImageUrl = imgUrl
-                                        };
-                                        _db.VersionImages.Add(i);
-                                    }
-                                }
-                            }
-                        }
-
-                        // sau khi thêm xong thì xóa các cái đã đánh dấu
-                        foreach (var v in moto.MotoVersions)
-                        {
-                            var versionChecker = listVersionToRemove.FirstOrDefault(v1=>v1.MaVersion == v.MaVersion);
-                            if (versionChecker !=null)
-                            {
-                                foreach (var c in v.VersionColors)
-                                {
-                                    foreach (var i in c.VersionImages)
-                                    {
-
-                                        var imageToDelete = _db.VersionImages.FirstOrDefault(img => img.ImageId == i.ImageId);
-                                        if (imageToDelete != null)
-                                        {
-                                            var imageCheck = listImageToSave.FirstOrDefault(img2 => img2 == imageToDelete.ImageId);
-                                            if (imageCheck == 0)
-                                            {
-                                                _db.VersionImages.Remove(imageToDelete); // Xóa ảnh khỏi cơ sở dữ liệu
-                                                MyTool.DeleteImg(i.ImageUrl, "AnhVersion");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            _logger.LogError("imageVersionToDelete is null");
-                                        }
-                                    }
-                                    var colorToDelete = _db.VersionColors.FirstOrDefault(color => color.MaVersionColor == c.MaVersionColor);
-                                    if (colorToDelete != null)
-                                    {
-                                        _db.VersionColors.Remove(colorToDelete); // Xóa màu khỏi cơ sở dữ liệu
-                                    }
-                                    else
-                                    {
-                                        _logger.LogError("colorVersionToDelete is null");
-                                    }
-                                }
-                                var versionToDelete = _db.MotoVersions.FirstOrDefault(Version => Version.MaVersion == v.MaVersion);
-                                if (versionToDelete != null)
-                                {
-                                    _db.MotoVersions.Remove(versionToDelete);
-                                }
-                                else
-                                {
-                                    _logger.LogError("motoVersionToDelete is null");
-                                }
-                            }
-                        }
-                        #endregion
-
-                        try
-                        {
-                            var result = _db.SaveChanges();
-                            if (result > 0)
-                            {
-                                _logger.LogError("Sua Xe Thanh Cong");
-                                return RedirectToAction("ListMoto", "Moto");
-                            }
-                            else
-                            {
-                                _logger.LogError("Không sua được XE, không có hàng nào bị ảnh hưởng.");
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.LogError(ex, "Lỗi khi sua XE vào cơ sở dữ liệu.");
-                            throw; // Ném lại lỗi để dễ dàng kiểm tra khi debug
-                        }
+                        _logger.LogError("Khong xoa duoc library");
                     }
                 }
-                return View(model);
+
+                var content = new StringContent(JsonConvert.SerializeObject(newMoto), Encoding.UTF8, "application/json");
+                var responseMoto = await _httpClient.PutAsync("https://localhost:7252/api/Moto/Motos/"+newMoto.MaXe, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    _logger.LogInformation("Luu Xe Thanh Cong");
+                    return RedirectToAction("ListMoto", "Moto");
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    ModelState.AddModelError(string.Empty, errorMessage);
+                    return View(model);
+                }
+                else
+                {
+                    _logger.LogError("Error creating Moto");
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    ModelState.AddModelError(string.Empty, "Error creating Moto ___ " + errorMessage);
+
+                    //lay ra xe
+                    var responseMoto1 = await _httpClient.GetAsync("https://localhost:7252/api/Moto/Motos/" + maXe);
+                    responseMoto1.EnsureSuccessStatusCode();
+                    var dataMoto = await responseMoto1.Content.ReadAsStringAsync();
+                    var moto = JsonConvert.DeserializeObject<MotoVM>(dataMoto);
+
+                    //lay hinh anh
+                    var responseLibrary = await _httpClient.GetAsync("https://localhost:7252/api/Library/Libraries/" + moto.MaLibrary);
+                    responseLibrary.EnsureSuccessStatusCode();
+                    var librarydata = await responseLibrary.Content.ReadAsStringAsync();
+                    var library = JsonConvert.DeserializeObject<LibraryVM>(librarydata);
+                    moto.MaLibraryNavigation = library;
+
+                    // lay brand
+                    var responseBrand = await _httpClient.GetAsync("https://localhost:7252/api/Brand/Brands");
+                    responseBrand.EnsureSuccessStatusCode();
+                    var dataBrand = await responseBrand.Content.ReadAsStringAsync();
+                    var brands = JsonConvert.DeserializeObject<List<BrandVM>>(dataBrand);
+
+                    //lay Type
+                    var response1 = await _httpClient.GetAsync("https://localhost:7252/api/Type/Types");
+                    response1.EnsureSuccessStatusCode();
+                    var data1 = await response1.Content.ReadAsStringAsync();
+                    var types = JsonConvert.DeserializeObject<List<MotoTypeVM>>(data1);
+
+                    var model1 = new EditMotoVM
+                    {
+                        MotoBike = moto,
+                        Brands = brands,
+                        MotoTypes = types,
+                    };
+                    return View(model1);
+                }              
             }
             else
             {
-                model.Brands = _db.Brands.ToList();
-                model.MotoTypes = _db.MotoTypes.ToList();
-                return View(model);
+                //lay ra xe
+                var responseMoto1 = await _httpClient.GetAsync("https://localhost:7252/api/Moto/Motos/" + maXe);
+                responseMoto1.EnsureSuccessStatusCode();
+                var dataMoto = await responseMoto1.Content.ReadAsStringAsync();
+                var moto = JsonConvert.DeserializeObject<MotoVM>(dataMoto);
+
+                //lay hinh anh
+                var responseLibrary = await _httpClient.GetAsync("https://localhost:7252/api/Library/Libraries/" + moto.MaLibrary);
+                responseLibrary.EnsureSuccessStatusCode();
+                var librarydata = await responseLibrary.Content.ReadAsStringAsync();
+                var library = JsonConvert.DeserializeObject<LibraryVM>(librarydata);
+                moto.MaLibraryNavigation = library;
+
+                // lay brand
+                var responseBrand = await _httpClient.GetAsync("https://localhost:7252/api/Brand/Brands");
+                responseBrand.EnsureSuccessStatusCode();
+                var dataBrand = await responseBrand.Content.ReadAsStringAsync();
+                var brands = JsonConvert.DeserializeObject<List<BrandVM>>(dataBrand);
+
+                //lay Type
+                var response1 = await _httpClient.GetAsync("https://localhost:7252/api/Type/Types");
+                response1.EnsureSuccessStatusCode();
+                var data1 = await response1.Content.ReadAsStringAsync();
+                var types = JsonConvert.DeserializeObject<List<MotoTypeVM>>(data1);
+
+                var model1 = new EditMotoVM
+                {
+                    MotoBike = moto,
+                    Brands = brands,
+                    MotoTypes = types,
+                };
+                return View(model1);
             }
-            
+
         }
     }
 }

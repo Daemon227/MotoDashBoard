@@ -26,13 +26,17 @@ namespace DashBoard_MotoManager.Controllers
         {
             int pageSize = 6;  // Số lượng mục mỗi trang
             int pageNumber = (page ?? 1); // Nếu page là null, gán giá trị mặc định là 1
-
+            ViewBag.MotoID = motoID;
             try
             {
-                var response = await _httpClient.GetAsync("https://localhost:7252/api/Version/"+motoID+"/Versions");
-                response.EnsureSuccessStatusCode();
+                var response = await _httpClient.GetAsync("https://localhost:7252/api/Version/" + motoID + "/Versions");
+                response.EnsureSuccessStatusCode();     
                 var data = await response.Content.ReadAsStringAsync();
                 var versions = JsonConvert.DeserializeObject<List<MotoVersionVM>>(data);
+                if (versions == null || !versions.Any())
+                {
+                    return View("ListVersion");
+                }
                 var pageResult = versions.ToPagedList(pageNumber, pageSize);
                 return View(pageResult);
             }

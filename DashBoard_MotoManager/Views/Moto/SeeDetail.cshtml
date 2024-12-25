@@ -176,9 +176,8 @@
                             <h3>Thư Viện Ảnh</h3>
                             <div class="row g-4">
                                 @if (Model.MaLibraryNavigation != null)
-                                {  
-                                    <h3>Có bằng này ảnh trong library @Model.MaLibraryNavigation.LibraryImages.Count()</h3>
-                                    @foreach (var img in Model.MaLibraryNavigation.LibraryImages)
+                                {       
+                                    @foreach (var img in Model.MaLibraryNavigation.LibraryImageVM)
                                     {   
                                         <div class="col-sm-12 col-xl-6">
                                             <img width="700px" height="auto" src="~/img/LibraryImgs/@img.ImageUrl" class="rounded" alt="anh">

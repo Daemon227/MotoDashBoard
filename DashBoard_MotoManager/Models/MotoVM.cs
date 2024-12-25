@@ -60,7 +60,7 @@ namespace DashBoard_MotoManager.Models
 
         public virtual BrandVM? MaHangSanXuatNavigation { get; set; }
 
-        public virtual MotoLibraryVM? MaLibraryNavigation { get; set; }
+        public virtual LibraryVM? MaLibraryNavigation { get; set; }
 
         public virtual MotoTypeVM? MaLoaiNavigation { get; set; }
 

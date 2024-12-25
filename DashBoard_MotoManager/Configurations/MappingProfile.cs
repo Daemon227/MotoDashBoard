@@ -28,11 +28,11 @@ namespace DashBoard_MotoManager.Configurations
             
             CreateMap<VersionImage, VersionImageVM>(); 
             
-            CreateMap<MotoLibrary, MotoLibraryVM>()
-                .ForMember(dest => dest.LibraryImages, opt => opt.MapFrom(src => src.LibraryImages));
+            CreateMap<MotoLibrary, LibraryVM>()
+                .ForMember(dest => dest.LibraryImageVM, opt => opt.MapFrom(src => src.LibraryImages));
 
-            CreateMap<MotoLibraryVM, MotoLibrary>()
-                .ForMember(dest => dest.LibraryImages, opt => opt.MapFrom(src => src.LibraryImages));
+            CreateMap<LibraryVM, MotoLibrary>()
+                .ForMember(dest => dest.LibraryImages, opt => opt.MapFrom(src => src.LibraryImageVM));
 
             CreateMap<LibraryImage, LibraryImageVM>()
                 .ForMember(dest => dest.ImageId, opt => opt.MapFrom(src => src.ImageId))
