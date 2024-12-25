@@ -2,6 +2,7 @@
 using DashBoard_MotoManager.Datas;
 using DashBoard_MotoManager.Helpers;
 using DashBoard_MotoManager.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -62,7 +63,7 @@ namespace DashBoard_MotoManager.Controllers
         }
 
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public IActionResult AddVersion(string motoID)
         {
@@ -73,7 +74,7 @@ namespace DashBoard_MotoManager.Controllers
             return View(version);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddVersion(MotoVersionVM model)
         {
@@ -112,7 +113,7 @@ namespace DashBoard_MotoManager.Controllers
             return View(model);
         }
 
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> RemoveVersion(string versionId, string motoID)
         {
             if (versionId != null)
@@ -137,7 +138,7 @@ namespace DashBoard_MotoManager.Controllers
 
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> UpdateVersion(string versionID)
         {

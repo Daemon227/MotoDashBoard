@@ -62,7 +62,7 @@ namespace DashBoard_MotoManager.Controllers
             else return NotFound();
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public IActionResult Addbrand()
         {
@@ -70,7 +70,7 @@ namespace DashBoard_MotoManager.Controllers
             return View(brand); 
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddBrand(BrandVM model)
         {
@@ -106,7 +106,7 @@ namespace DashBoard_MotoManager.Controllers
             return View(model);
         }
 
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> RemoveBrand(string brandId)
         {        
             if (brandId != null)
@@ -126,7 +126,7 @@ namespace DashBoard_MotoManager.Controllers
 
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> UpdateBrand(string brandId)
         {
@@ -137,7 +137,7 @@ namespace DashBoard_MotoManager.Controllers
             return View(model);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> UpdateBrand(BrandVM model, string brandId)
         {

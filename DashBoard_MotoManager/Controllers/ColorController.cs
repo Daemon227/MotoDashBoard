@@ -2,6 +2,7 @@
 using DashBoard_MotoManager.Datas;
 using DashBoard_MotoManager.Helpers;
 using DashBoard_MotoManager.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -24,6 +25,7 @@ namespace DashBoard_MotoManager.Controllers
             _httpClient = httpClient;
             _mapper = mapper;
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> UpdateColor(string? colorID)
         {
@@ -38,12 +40,14 @@ namespace DashBoard_MotoManager.Controllers
             else return NotFound();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> UpdateColor(VersionColorVM model)
         {
             return View(model);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult AddColor(string versionID)
         {
@@ -54,7 +58,7 @@ namespace DashBoard_MotoManager.Controllers
             return View(color);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddColor(VersionColorVM model)
         {
@@ -127,6 +131,7 @@ namespace DashBoard_MotoManager.Controllers
             }
         }
 
+        [Authorize]
         public async Task<IActionResult> RemoveColor(string colorID, string versionID)
         {
             if (colorID != null)

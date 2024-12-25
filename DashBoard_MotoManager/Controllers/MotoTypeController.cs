@@ -58,7 +58,7 @@ namespace DashBoard_MotoManager.Controllers
             else return NotFound();
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public IActionResult AddType()
         {
@@ -66,7 +66,7 @@ namespace DashBoard_MotoManager.Controllers
             return View(model);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddType(MotoTypeVM model)
         {
@@ -102,7 +102,7 @@ namespace DashBoard_MotoManager.Controllers
             return View(model);
         }
 
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> RemoveType(string typeId)
         {
             if (typeId != null)
@@ -122,7 +122,7 @@ namespace DashBoard_MotoManager.Controllers
 
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> UpdateType(string typeId)
         {
