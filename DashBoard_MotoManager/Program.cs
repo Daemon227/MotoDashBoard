@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using DashBoard_MotoManager.Configurations;
+using Microsoft.Extensions.FileProviders;
 
 namespace DashBoard_MotoManager
 {
@@ -97,7 +98,17 @@ namespace DashBoard_MotoManager
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+           
+            app.UseRouting();
+            app.UseAuthorization();
 
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.Run();
+
+            //
             app.UseRouting();
 
             app.UseAuthorization();

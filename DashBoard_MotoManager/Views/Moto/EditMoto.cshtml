@@ -41,7 +41,7 @@
                                                 <input class="form-control" type="file" id="singleImageInput" asp-for="@Model.AnhMoTaIF">
                                             </div>
                                             <div class="mb-3" style="text-align: center;">
-                                                <img id="singleImagePreview" src="~/img/MoTa/@Model.MotoBike.AnhMoTaUrl" alt="Image Preview" style="width: 200px; height: auto; margin: auto;" />
+                                                <img id="singleImagePreview" src="@($"https://localhost:7252/images/{Model.MotoBike.AnhMoTaUrl}")" alt="Image Preview" style="width: 200px; height: auto; margin: auto;" />
                                             </div>
                                             <div class="form-floating mb-3">
                                                 @{
@@ -106,7 +106,7 @@
                                                     {
                                                         @foreach (var libraryImg in Model.MotoBike.MaLibraryNavigation.LibraryImageVM)
                                                         {
-                                                            <img src="~/img/LibraryImgs/@libraryImg.ImageUrl" style="width:200px;height:auto;margin:10px">
+                                                            <img src="@($"https://localhost:7252/library/{libraryImg.ImageUrl}")" style="width:200px;height:auto;margin:10px">  
                                                         }
                                                     }
                                                 </div>

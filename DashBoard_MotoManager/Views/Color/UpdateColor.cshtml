@@ -27,7 +27,7 @@
                         {
                             <div class="col-md-4 mb-3">
                                 <div class="card">
-                                    <img src="~/img/AnhVersion/@image.ImageUrl" class="card-img-top" alt="Image" id="image-@image.ImageUrl">
+                                    <img src="@($"https://localhost:7252/version/{image.ImageUrl}")" class="card-img-top" alt="Image" id="image-@image.ImageUrl">
                                     <div class="card-body">
                                         <p class="card-text"><strong>URL:</strong> @image.ImageUrl</p>
                                         <input class="form-control singleImageInput" type="file" data-img-id="image-@image.ImageUrl" name="newImages" data-flag="false">

@@ -51,7 +51,7 @@
                                         <tr> 
                                             <td colspan="2">
                                                 <div class="text-center">
-                                                    <img width="200px" height="auto" src=~/img/Mota/@Model.AnhMoTaUrl class="rounded" alt="anh">
+                                                    <img width="200px" height="auto" src="@($"https://localhost:7252/images/{Model.AnhMoTaUrl}")" class="rounded" alt="anh">
                                                     <p>@Model.AnhMoTaUrl</p>
                                                 </div>
                                             </td>
@@ -180,7 +180,7 @@
                                     @foreach (var img in Model.MaLibraryNavigation.LibraryImageVM)
                                     {   
                                         <div class="col-sm-12 col-xl-6">
-                                            <img width="700px" height="auto" src="~/img/LibraryImgs/@img.ImageUrl" class="rounded" alt="anh">
+                                            <img width="500px" height="auto" style="margin:10px;margin-left:85px ;align-content:center" src="@($"https://localhost:7252/library/{img.ImageUrl}")" class="rounded" alt="anh">
                                             <p class="text-center">@img.ImageUrl</p>
                                         </div>
                                     }
