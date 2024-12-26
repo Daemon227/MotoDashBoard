@@ -4,18 +4,24 @@ using DashBoard_MotoManager.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Drawing.Drawing2D;
+using System.Net;
+using System.Net.Http;
 using System.Security.Claims;
+using System.Text;
 
 namespace DashBoard_MotoManager.Controllers
 {
     public class UserController : Controller
-    {
-        private readonly MotoWebsiteContext _db;
+    { 
         private readonly ILogger<UserController> _logger;
+        private readonly HttpClient _httpClient;
 
-        public UserController(MotoWebsiteContext db, ILogger<UserController> logger) 
+        public UserController(ILogger<UserController> logger, HttpClient httpClient) 
         {
-            _db = db; 
+           
+            _httpClient = httpClient;
             _logger = logger;
         }
         [HttpGet]
@@ -24,7 +30,7 @@ namespace DashBoard_MotoManager.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult SignUp(SignUpVM model)
+        public async Task<IActionResult> SignUp(SignUpVM model)
         {
             if (ModelState.IsValid)
             {
@@ -36,25 +42,25 @@ namespace DashBoard_MotoManager.Controllers
                     Email = model.Email,
                     Role = "admin"
                 };
-                _db.Add(user);
-                try
+                var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("https://localhost:7252/api/User/Users", content);
+                if (response.IsSuccessStatusCode)
                 {
-                    var result = _db.SaveChanges();
-                    if (result > 0)
-                    {
-                        return RedirectToAction("SignIn", "User");
-                    }
-                    else
-                    {
-                        _logger.LogError("Không lưu được, không có hàng nào bị ảnh hưởng.");
-                    }
+                    _logger.LogInformation("Tao Tk Thanh Cong");
+                    return RedirectToAction("SignIn", "User");
                 }
-                catch (Exception ex)
+                else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
-                    _logger.LogError(ex, "Lỗi khi lưu dữ liệu vào cơ sở dữ liệu.");
-                    throw; // Ném lại lỗi để dễ dàng kiểm tra khi debug
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    ModelState.AddModelError(string.Empty, errorMessage);
+                    return View(model);
                 }
-                return View();
+                else
+                {
+                    _logger.LogError("Error creating tk");
+                    ModelState.AddModelError(string.Empty, "Error creating tk");
+                    return View(model);
+                }
             }
             else { return View(); }
         }
@@ -71,11 +77,24 @@ namespace DashBoard_MotoManager.Controllers
             ViewBag.ReturnUrl = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = _db.Users.SingleOrDefault(u =>
-                u.Username == model.Username);
+                var response = await _httpClient.GetAsync("https://localhost:7252/api/User/Users/" + model.Username);                
+                if (!response.IsSuccessStatusCode)
+                {
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        ModelState.AddModelError("Loi", "Tài khoản không tồn tại");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Loi", "Lỗi hệ thống. Vui lòng thử lại sau.");
+                    }
+                    return View(model);
+                }
+                var data = await response.Content.ReadAsStringAsync();
+                var user = JsonConvert.DeserializeObject<User>(data);
                 if (user == null)
                 {
-                    ModelState.AddModelError("Loi", "Sai Tai khoan");
+                    ModelState.AddModelError("Loi", "Tài Khoản không tồn tại");
                 }
                 else 
                 {

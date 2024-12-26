@@ -92,6 +92,7 @@ namespace DashBoard_MotoManager.Controllers
                 } 
                 else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest) 
                 {
+                    
                     var errorMessage = await response.Content.ReadAsStringAsync(); 
                     ModelState.AddModelError(string.Empty, errorMessage); 
                     return View(model); 

@@ -35,7 +35,38 @@ namespace DashBoard_MotoManager.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> ListMoto(int? page, string? maLoai)
+        public async Task<IActionResult> ListMoto(int? page, string? maLoai, string? searchKey)
+        {
+            int pageSize = 6;  // Số lượng mục mỗi trang
+            int pageNumber = (page ?? 1); // Nếu page là null, gán giá trị mặc định là 1
+            TempData["SearchKey"] = searchKey;
+            try
+            {
+                var response = await _httpClient.GetAsync("https://localhost:7252/api/Moto/Motos");
+                response.EnsureSuccessStatusCode();
+                var data = await response.Content.ReadAsStringAsync();
+                var motos = JsonConvert.DeserializeObject<List<MotoVM>>(data);
+                if(searchKey != null)
+                {
+                    var searchList = motos.Where(m => m.TenXe.ToLower().Contains(searchKey.ToLower())).ToList() ;
+                    var pageResult = searchList.ToPagedList(pageNumber, pageSize);
+                    return View(pageResult);
+                }
+                else
+                {
+                    var pageResult = motos.ToPagedList(pageNumber, pageSize);
+                    return View(pageResult);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching brands from API");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        /*public async Task<IActionResult> FindMoto(int?page, string key)
         {
             int pageSize = 6;  // Số lượng mục mỗi trang
             int pageNumber = (page ?? 1); // Nếu page là null, gán giá trị mặc định là 1
@@ -46,7 +77,8 @@ namespace DashBoard_MotoManager.Controllers
                 response.EnsureSuccessStatusCode();
                 var data = await response.Content.ReadAsStringAsync();
                 var motos = JsonConvert.DeserializeObject<List<MotoVM>>(data);
-                var pageResult = motos.ToPagedList(pageNumber, pageSize);
+                
+                var pageResult = motos.Where(m=>m.TenXe.Contains(key)).ToPagedList(pageNumber, pageSize);
                 return View(pageResult);
             }
             catch (Exception ex)
@@ -54,8 +86,8 @@ namespace DashBoard_MotoManager.Controllers
                 _logger.LogError(ex, "Error fetching brands from API");
                 return StatusCode(500, "Internal server error");
             }
-        }
-
+            *//*return RedirectToAction("ListMoto", "Moto");*//*
+        }*/
         public async Task<IActionResult> SeeDetail(string? maXe)
         {
             if (maXe != null)
